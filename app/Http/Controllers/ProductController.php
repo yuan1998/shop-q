@@ -24,7 +24,11 @@ class ProductController extends Controller
     public function detail(Request $request)
     {
         $id = $request->get('id');
-        if (!$id || !($product = Product::find($id)))
+        if (!$id || !($product = Product::query()
+                ->with(['attribute'])
+                ->where('id', $id)
+                ->where('show', 1)
+                ->first()))
             return response()
                 ->json([
                     'status' => 1,

@@ -11,12 +11,24 @@
             </div>
             <div class="product_info">
                 <div class="product_info-price">
-                    <div class="price_text">
-                        <span class="syb">¥</span>
-                        {{ data.price }}
+                    <div class="product_info-left">
+                        <div class="sales">
+                            <div class="pre_sale">
+                                <img src="https://pic.imgdb.cn/item/618667ab2ab3f51d91159db7.png"
+                                     dibdisplay: inline-blockalt="" class="mc-img">
+                            </div>
+                            已售{{ data.sales }}
+                        </div>
+                        <div class="price_text">
+                            <span class="syb">¥</span>
+                            {{ data.price }}
+                        </div>
                     </div>
-                    <div class="sales">
-                        已售{{ data.sales }}
+                    <div class="product_info-right">
+                        <div>
+                            <p>11月10日</p>
+                            <p>23:59:59 预售结束</p>
+                        </div>
                     </div>
                 </div>
                 <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>
@@ -41,6 +53,13 @@
 
                 </div>
             </div>
+            <div>
+                <img src="https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png" alt="" class="mc-img">
+            </div>
+            <div>
+                <img src="https://pic.imgdb.cn/item/618664552ab3f51d91108628.png" alt="" class="mc-img">
+            </div>
+
 
             <div class="product_content">
                 <van-divider/>
@@ -58,19 +77,18 @@
 
             <div class="product_actions">
                 <div class="product_actions_icon">
-                    <van-icon size="25" name="shop-o"/>
+                    <van-icon size="22" color="#767676" name="shop-o"/>
                     <div class="icon-text">
                         店铺
                     </div>
-
                 </div>
                 <div class="product_actions_icon">
-                    <van-icon size="25" name="star-o"/>
+                    <van-icon size="22" color="#767676" name="chat-o"/>
                     <div class="icon-text">
-                        收藏
+                        客服
                     </div>
                 </div>
-                <van-button @click="showSku" size="large" round type="danger">立即购买</van-button>
+                <van-button @click="showSku" size="large" type="danger">立即购买</van-button>
             </div>
         </van-skeleton>
     </div>
@@ -182,12 +200,45 @@ export default {
     .product_info-price {
         display: flex;
         padding: 15px 20px;
+        height: 90px;
+        background-color: #FA8742;
+
+        .product_info-left {
+            flex: none;
+
+        }
+
+        .product_info-right {
+            flex: none;
+            margin-left: auto;
+            text-align: right;
+            line-height: 1.4;
+            color: #fff;
+            display: flex;
+            align-items: center;
+
+            p {
+                padding: 0;
+                margin: 0;
+            }
+
+        }
+
+        .pre_sale {
+            width: 100px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .price_text {
+            color: #fff !important;
+        }
 
 
         .sales {
-            flex: none;
-            margin-left: auto;
-            color: #999;
+            display: flex;
+            align-items: center;
+            color: #fff;
         }
 
     }
@@ -200,10 +251,12 @@ export default {
 
     .product_actions_icon {
         text-align: center;
-        padding: 0 20px;
+        padding: 0 30px 0 20px;
 
         .icon-text {
+            color: #767676;
             white-space: nowrap;
+            padding-top: 7px;
         }
 
     }

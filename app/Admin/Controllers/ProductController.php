@@ -135,21 +135,22 @@ class ProductController extends AdminController
             $form->number('sales')->required()->min(0);
 
             $form->embeds('attributes', function ($form) use ($attribute) {
-                $attributes = json_decode($attribute->attributes);
+                $attributes = json_decode($attribute->attributes, true);
+//                dd($attributes);
                 foreach ($attributes as $attribute) {
-                    $form->text($attribute)->required();
+                    $form->text($attribute['name'])->required();
                 }
             })->saving(function ($v) {
                 // 转化为json格式存储
                 return json_encode($v);
             })->required();
 
-            $skus = json_decode($attribute->skus);
+            $skus = json_decode($attribute->skus, true);
             $skusValue = json_decode($model->skus, true);
 
             foreach ($skus as $sku) {
-
-                $form->table($sku, function ($form) {
+//                dd($sku);
+                $form->table($sku['name'], function ($form) {
                     $form->image('value', '图片')
                         ->autoUpload()
                         ->width(50)
@@ -157,7 +158,10 @@ class ProductController extends AdminController
                     $form->text('title', '名称')->required();
 //                    $form->number('stock' , '库存')->default(0)->width(50);
 
-                })->value(data_get($skusValue, $sku, []))->saveAsJson()->required();
+                })
+                    ->value(data_get($skusValue,  $sku['name'], []))
+                    ->saveAsJson()
+                    ->required();
             }
 
 
@@ -190,13 +194,19 @@ class ProductController extends AdminController
                 if (!$form->isCreating()) {
                     $arr = [];
                     $inputs = $form->input();
+//                    dd($inputs);
 
                     if (array_key_exists('skus', $inputs)) {
                         foreach ($skus as $sku) {
-                            $arr[$sku] = collect(data_get($inputs, $sku))->filter(function ($item) {
-                                return !$item['_remove_'];
-                            });
-                            $form->deleteInput($sku);
+
+                            $name = $sku['name'];
+
+
+                            $arr[$name] = collect(data_get($inputs, $name))
+                                ->filter(function ($item) {
+                                    return !$item['_remove_'];
+                                });
+                            $form->deleteInput($name);
                         }
                         $form->input('skus', json_encode($arr));
                     }

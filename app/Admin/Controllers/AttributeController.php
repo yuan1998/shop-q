@@ -61,12 +61,20 @@ class AttributeController extends AdminController
         return Form::make(new Attribute(), function (Form $form) {
             $form->display('id');
             $form->text('name');
-            $form->list('attributes')->saving(function ($v) {
-                return json_encode($v);
-            });
-            $form->list('skus')->saving(function ($v) {
-                return json_encode($v);
-            });
+            $form->table('attributes', function ($table) {
+                $table->text('name');
+                $table->number('order');
+            })
+                ->saving(function ($v) {
+                    return json_encode($v);
+                });
+            $form->table('skus', function ($table) {
+                $table->text('name');
+                $table->number('order');
+            })
+                ->saving(function ($v) {
+                    return json_encode($v);
+                });
 
             $form->display('created_at');
             $form->display('updated_at');

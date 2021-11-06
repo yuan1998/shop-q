@@ -5,43 +5,43 @@
     >
         <div class="action-content">
             <div class="action-content_header">
-                <div class="price_text">
-                    <span class="syb">¥</span>
-                    {{ product.price }}
-                </div>
-                <div class="action_text">
-                    剩余 21 件
-                </div>
-                <div class="action_text">
-                    {{ unSelectField ? `请选择 ${unSelectField}` : `已选择  ${selectField}` }}
+                <div class="flex-container">
+                    <div class="header-content_image">
+                        <img @click="imagePreview(photo)" :src="photo" alt="" class="mc-img">
+                    </div>
+                    <div class="header_content">
+                        <div class="price_text">
+                            <span class="syb">¥</span>
+                            {{ product.price }}
+                        </div>
+                        <div class="action_text">
+                            剩余 21 件
+                        </div>
+                        <div class="action_text">
+                            {{ unSelectField ? `请选择 ${unSelectField}` : `已选择  ${selectField}` }}
+                        </div>
+                    </div>
                 </div>
                 <van-divider/>
+
             </div>
             <div class="action-content_step">
-                <div class="action-content_step_sku_item" :key="key" v-for="(sku,key) in product.skus">
+                <div class="action-content_step_sku_item" :key="key" v-for="(sku,key) in skuArr">
                     <div class="sku_name">
-                        {{ key }}
+                        {{ sku['name'] }}
                     </div>
                     <div class="sku_values">
-                        <div @click="selectSku(key,item.title)"
-                             v-for="(item,index) in sku"
+                        <div @click="selectSku(sku['name'],item)"
+                             v-for="(item,index) in sku['data']"
                              :key="index"
-
-                             class="sku_value" :class="select[key] === item.title ? 'selected' : ''"
+                             class="sku_value" :class="select[sku['name']] === item.title ? 'selected' : ''"
                         >
-                            <div class="sku_value-image" v-if="item.value">
-                                <div class="sku_value-image-preview" @click="imagePreview(`/storage/${item.value}`)">
-                                    <van-icon size="17" name="expand-o" />
-                                </div>
-                                <img class="mc-img" :src="`/storage/${item.value}`" alt="">
-                            </div>
                             <div class="sku_value-text">
                                 {{ item.title }}
                             </div>
                         </div>
                     </div>
                     <van-divider/>
-
                 </div>
                 <van-field name="stepper" label="购买数量" input-align="right">
                     <template #input>
@@ -51,7 +51,7 @@
             </div>
             <div class="action-content_footer">
                 <van-divider/>
-                <van-button @click="handleSubmit" size="large" round type="danger">立即购买</van-button>
+                <van-button @click="handleSubmit" size="large" type="danger">立即购买</van-button>
             </div>
         </div>
     </van-action-sheet>
@@ -72,17 +72,35 @@ export default {
         const data = reactive({
             select: {},
             count: 1,
+            selectPhoto: null,
+            skuArr: []
         });
+        console.log("product", product);
 
         onMounted(() => {
-            Object.keys(product.skus).forEach((key) => {
-                data.select[key] = '';
+            let sku = JSON.parse(product.attribute.skus);
+            data.skuArr = sku?.sort(function (a, b) {
+                return b.order - a.order;
+            })?.map((item) => {
+                return {
+                    ...item,
+                    data: product.skus[item.name],
+                }
+            });
+
+            sku.forEach((item) => {
+                data.select[item['name']] = '';
             })
             console.log("data.select", data.select);
         });
 
-        const selectSku = (key, value) => {
-            data.select[key] = value;
+        const selectSku = (key, item) => {
+            data.select[key] = item.title;
+
+            if (item.value) {
+                data.selectPhoto = `/storage/${item.value}`;
+            }
+
         }
 
         const unSelectField = computed(() => {
@@ -101,6 +119,15 @@ export default {
                 arr.push(data.select[key]);
             });
             return arr.join(' ')
+        })
+
+        const photo = computed(() => {
+            if (data.selectPhoto) {
+                return data.selectPhoto;
+            }
+            let value = product.images[0].value;
+
+            return `/storage/${value}`;
         })
 
         const imagePreview = (url) => {
@@ -126,6 +153,7 @@ export default {
             selectSku,
             imagePreview,
             onCancel,
+            photo,
             unSelectField,
             selectField,
             handleSubmit,
@@ -141,7 +169,22 @@ export default {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    height: 60vh;
+    height: 70vh;
+
+    .flex-container {
+        display: flex;
+
+        .header-content_image {
+            width: 80px;
+            height: 80px;
+            flex: none;
+        }
+
+        .header_content {
+            flex: auto;
+            padding-left: 20px;
+        }
+    }
 
     .action-content_footer,
     .action-content_header {
@@ -153,12 +196,10 @@ export default {
         overflow: scroll;
     }
 
-
     .action_text {
         color: #999;
         font-size: 14px;
     }
-
 
     .sku_values {
         display: flex;
@@ -205,8 +246,11 @@ export default {
         }
 
         &.selected {
-            background-color: #FDE7EA;
-            color: #EE1131;
+            background-color: #FDE7EA !important;
+
+            .sku_value-text {
+                color: #CE758B !important;
+            }
         }
     }
 }
