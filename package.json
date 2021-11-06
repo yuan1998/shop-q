@@ -2,12 +2,12 @@
     "private": true,
     "scripts": {
         "dev:site1": "npm run development:site1",
-        "development:site1": "cross-env process.env.section=site1 NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch:site1": "npm run development:site1 -- --watch",
-        "watch-poll:site1": "npm run watch:site1 -- --watch-poll",
+        "development:site1": "cross-env process.env.section=site1 mix",
+        "watch:site1": "cross-env process.env.section=site1 mix watch",
+        "watch-poll:site1": "cross-env process.env.section=site1 mix watch -- --watch-options-poll=1000",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod:site1": "npm run production:site1",
-        "production:site1": "cross-env process.env.section=site1 NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production:site1": "cross-env process.env.section=site1 mix --production"
     },
     "devDependencies": {
         "@vue/compiler-sfc": "^3.0.7",

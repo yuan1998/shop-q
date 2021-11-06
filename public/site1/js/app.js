@@ -20921,7 +20921,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
             src: "https://pic.imgdb.cn/item/6185e2b92ab3f51d915d0582.png",
-            width: "70vw"
+            style: {
+              "width": "70vw",
+              "max-width": "700px"
+            }
           })];
         }),
         _: 1
@@ -20930,8 +20933,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, null, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
+            fil: "contain",
             src: "https://pic.imgdb.cn/item/6185e3202ab3f51d915d90ab.png",
-            width: "40vw"
+            style: {
+              "width": "40vw",
+              "max-width": "700px"
+            }
           })];
         }),
         _: 1
@@ -21060,7 +21067,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-        height: "40vw",
+        style: {
+          "height": "40vw",
+          "max-height": "400px"
+        },
         fit: "cover",
         src: "/storage/".concat(_ctx.image)
       }, null, 8
@@ -21297,6 +21307,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
+        onClick: _cache[0] || (_cache[0] = function ($event) {
+          return _ctx.$router.push({
+            path: '/'
+          });
+        }),
         round: "",
         type: "danger",
         "class": "bottom-button"
@@ -21829,7 +21844,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".product_detail[data-v-7c9eb83c] {\n  padding-bottom: 80px;\n}\n.product_detail .product_info-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  line-height: 1.3;\n  padding: 0 20px;\n}\n.product_detail .product_info-price[data-v-7c9eb83c] {\n  display: flex;\n  padding: 15px 20px;\n}\n.product_detail .product_info-price .sales[data-v-7c9eb83c] {\n  flex: none;\n  margin-left: auto;\n  color: #999;\n}\n.product_detail .product_info[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_detail .product_actions_icon[data-v-7c9eb83c] {\n  text-align: center;\n  padding: 0 20px;\n}\n.product_detail .product_actions_icon .icon-text[data-v-7c9eb83c] {\n  white-space: nowrap;\n}\n.product_content[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_content .product_content-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  padding-bottom: 10px;\n  padding-left: 20px;\n}\n.product-image_swiper[data-v-7c9eb83c] {\n  height: 100vw;\n}\n.product-image[data-v-7c9eb83c] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.nut-navbar[data-v-7c9eb83c] {\n  margin-bottom: 0;\n}\n.product_actions[data-v-7c9eb83c] {\n  padding: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto;\n  background-color: #fff;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".product_detail[data-v-7c9eb83c] {\n  padding-bottom: 80px;\n}\n.product_detail .product_info-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  line-height: 1.3;\n  padding: 0 20px;\n}\n.product_detail .product_info-price[data-v-7c9eb83c] {\n  display: flex;\n  padding: 15px 20px;\n}\n.product_detail .product_info-price .sales[data-v-7c9eb83c] {\n  flex: none;\n  margin-left: auto;\n  color: #999;\n}\n.product_detail .product_info[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_detail .product_actions_icon[data-v-7c9eb83c] {\n  text-align: center;\n  padding: 0 20px;\n}\n.product_detail .product_actions_icon .icon-text[data-v-7c9eb83c] {\n  white-space: nowrap;\n}\n.product_content[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_content .product_content-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  padding-bottom: 10px;\n  padding-left: 20px;\n}\n.product-image_swiper[data-v-7c9eb83c] {\n  height: 100vw;\n  max-height: 600px;\n}\n.product-image[data-v-7c9eb83c] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.nut-navbar[data-v-7c9eb83c] {\n  margin-bottom: 0;\n}\n.product_actions[data-v-7c9eb83c] {\n  padding: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto;\n  background-color: #fff;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

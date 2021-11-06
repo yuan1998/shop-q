@@ -29,13 +29,13 @@
                     <van-cell is-link>
                         <!-- 使用 title 插槽来自定义标题 -->
                         <template #title>
-                            <van-image src="https://pic.imgdb.cn/item/6185e2b92ab3f51d915d0582.png" width="70vw"/>
+                            <van-image src="https://pic.imgdb.cn/item/6185e2b92ab3f51d915d0582.png" style="width:70vw;max-width: 700px;"/>
                         </template>
                     </van-cell>
                     <van-cell>
                         <!-- 使用 title 插槽来自定义标题 -->
                         <template #title>
-                            <van-image src="https://pic.imgdb.cn/item/6185e3202ab3f51d915d90ab.png" width="40vw"/>
+                            <van-image fil="contain" src="https://pic.imgdb.cn/item/6185e3202ab3f51d915d90ab.png" style="width:40vw;max-width: 700px;"/>
                         </template>
                     </van-cell>
 
@@ -224,6 +224,7 @@ export default {
 
 .product-image_swiper {
     height: 100vw;
+    max-height: 600px;
 }
 
 .product-image {
