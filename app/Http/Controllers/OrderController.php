@@ -11,20 +11,10 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $data = [
-            'product_id' => '1',
-            'product_sku' => json_encode([
-                '大小' => 'x',
-                '颜色' => '黄色'
-            ]),
-            'custom_info' => json_encode([
-                '收货人' => '王花花',
-                '收货人电话' => '13112344321',
-                '收货人地址' => '四川省成都市花都大道100号世纪光花小区3023号',
-            ])
-        ];
+        $data = $request->only(['product_id', 'product_sku', 'custom_info']);
+
         try {
-            Order::generateOrder($data);
+            $order = Order::generateOrder($data);
         } catch (\Exception $exception) {
             $msg = $exception->getMessage();
             return response()
@@ -38,6 +28,7 @@ class OrderController extends Controller
         return response()
             ->json([
                 'status' => 0,
+                'id' => $order->id,
                 'msg' => '创建订单成功!'
             ]);
     }
@@ -67,12 +58,12 @@ class OrderController extends Controller
             'type' => 'WAP',//固定值"WAP" H5支付必填
             'wap_url' => env('HU_PI_PAY_HOME_URL'),//网站域名，H5支付必填
             'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
-            'total_fee' => '0.01',//人民币，单位精确到分(测试账户只支持0.1元内付款)
+            'total_fee' => $order->price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
             'title' => '耐克球鞋', //必须的，订单标题，长度32或以内
             'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
             'notify_url' => $domain . '/api/pay/notify', //必须的，支付成功异步回调接口
-            'return_url' => $domain . '/pay/success',//必须的，支付成功后的跳转地址
-            'callback_url' => $domain . '/pay/checkout',//必须的，支付发起地址（未支付或支付失败，系统会会跳到这个地址让用户修改支付信息）
+            'return_url' => $domain . '/#success',//必须的，支付成功后的跳转地址
+            'callback_url' => $domain . '/#checkout',//必须的，支付发起地址（未支付或支付失败，系统会会跳到这个地址让用户修改支付信息）
             'modal' => null, //可空，支付模式 ，可选值( full:返回完整的支付网页; qrcode:返回二维码; 空值:返回支付跳转链接)
             'nonce_str' => str_shuffle(time())//必须的，随机字符串，作用：1.避免服务器缓存，2.防止安全密钥被猜测出来
         );
@@ -92,8 +83,8 @@ class OrderController extends Controller
             /**
              * 支付回调数据
              * @var array(
-             *      order_id,//支付系统订单ID
-             *      url//支付跳转地址
+             *      order_id, //支付系统订单ID
+             *      url //支付跳转地址
              *  )
              */
             $result = $response ? json_decode($response, true) : null;

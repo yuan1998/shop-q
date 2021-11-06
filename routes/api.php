@@ -19,6 +19,12 @@ Route::group([
 ], function () {
     Route::post('store', 'OrderController@store');
 });
+Route::group([
+    'prefix' => 'product'
+], function () {
+    Route::get('detail', 'ProductController@detail');
+    Route::get('list', 'ProductController@list');
+});
 
 Route::group([
     'prefix' => 'pay'

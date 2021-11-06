@@ -190,9 +190,12 @@ class ProductController extends AdminController
                 if (!$form->isCreating()) {
                     $arr = [];
                     $inputs = $form->input();
+
                     if (array_key_exists('skus', $inputs)) {
                         foreach ($skus as $sku) {
-                            $arr[$sku] = data_get($inputs, $sku);
+                            $arr[$sku] = collect(data_get($inputs, $sku))->filter(function ($item) {
+                                return !$item['_remove_'];
+                            });
                             $form->deleteInput($sku);
                         }
                         $form->input('skus', json_encode($arr));
