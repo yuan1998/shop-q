@@ -12,17 +12,16 @@
             <div class="product_info">
                 <div class="product_info-price">
                     <div class="product_info-left">
-                        <div class="sales">
 
-                            已售{{ data.sales }}
-                        </div>
                         <div class="price_text">
                             <span class="syb">¥</span>
                             {{ data.price }}
                         </div>
                     </div>
                     <div class="product_info-right">
-
+                        <div class="sales">
+                            已售{{ data.sales }}
+                        </div>
                     </div>
                 </div>
                 <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>
@@ -71,18 +70,25 @@
 
             <div class="product_actions">
                 <div class="product_actions_icon">
-                    <van-icon size="22" color="#767676" name="shop-o"/>
+                    <van-icon size="20" color="#767676" name="shop-o"/>
                     <div class="icon-text">
                         店铺
                     </div>
                 </div>
                 <div class="product_actions_icon">
-                    <van-icon size="22" color="#767676" name="chat-o"/>
+                    <van-icon size="20" color="#767676" name="chat-o"/>
                     <div class="icon-text">
                         客服
                     </div>
                 </div>
-                <van-button @click="showSku" size="large" type="danger">立即购买</van-button>
+                <div class="product_actions_icon">
+                    <van-icon size="20" color="#767676" name="star-o"/>
+                    <div class="icon-text">
+                        收藏
+                    </div>
+                </div>
+
+                <van-button class="product_actions-button" @click="showSku" size="large" type="danger">立即购买</van-button>
             </div>
         </van-skeleton>
     </div>
@@ -194,8 +200,8 @@ export default {
     .product_info-price {
         display: flex;
         padding: 15px 20px;
-        height: 90px;
-        background-color: #FA8742;
+        //height: 90px;
+        //background-color: #FA8742;
 
         .product_info-left {
             flex: none;
@@ -222,17 +228,14 @@ export default {
             width: 100px;
             display: inline-block;
             margin-right: 10px;
-        }
 
-        .price_text {
-            color: #fff !important;
         }
 
 
         .sales {
             display: flex;
             align-items: center;
-            color: #fff;
+            color: #999;
         }
 
     }
@@ -243,12 +246,19 @@ export default {
 
     }
 
+    .product_actions-button {
+        margin-left: 10px;
+    }
+
     .product_actions_icon {
         text-align: center;
-        padding: 0 30px 0 20px;
+        //padding: 0 10px 0 20px;
+        padding: 10px 7px;
+
 
         .icon-text {
-            color: #767676;
+            font-size: 13px;
+            color: #999;
             white-space: nowrap;
             padding-top: 7px;
         }
@@ -270,8 +280,8 @@ export default {
 }
 
 .product-image_swiper {
-    height: 100vw;
-    max-height: 600px;
+    height: 70vw;
+    max-height: 400px;
 }
 
 .product-image {
