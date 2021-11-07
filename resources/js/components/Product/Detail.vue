@@ -13,10 +13,7 @@
                 <div class="product_info-price">
                     <div class="product_info-left">
                         <div class="sales">
-                            <div class="pre_sale">
-                                <img src="https://pic.imgdb.cn/item/618667ab2ab3f51d91159db7.png"
-                                     dibdisplay: inline-blockalt="" class="mc-img">
-                            </div>
+
                             已售{{ data.sales }}
                         </div>
                         <div class="price_text">
@@ -25,10 +22,7 @@
                         </div>
                     </div>
                     <div class="product_info-right">
-                        <div>
-                            <p>11月10日</p>
-                            <p>23:59:59 预售结束</p>
-                        </div>
+
                     </div>
                 </div>
                 <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>
