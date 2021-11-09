@@ -4,16 +4,11 @@ import {storageGet, storageSet, database} from "./common";
 let table = "locations";
 if (!database.tableExists(table)) {
     // create the "books" table
-    database.createTable(table, ["name", "phone", "area", "address", "tag", "default"]);
+    database.createTable(table, ["name", "phone", "area", "address", "tag", "default", "detail"]);
 
     // commit the database to localStorage
     // all create/drop/insert/update/delete operations should be committed
     database.commit();
-} else {
-    if (!(database.columnExists(table, "detail"))) {
-        database.alterTable(table, "detail", "");
-        database.commit(); // commit the deletions to localStorage
-    }
 }
 
 
