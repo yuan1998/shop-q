@@ -1,3 +1,12 @@
+import localStorageDB from 'localStorageDB';
+
+export const database = new localStorageDB("the_north_face", localStorage);
+
+
+export const getRandomArbitrary = (min, max) => {
+    return Math.random() * (max - min) + min;
+}
+
 export const toQueryString = (obj) => {
     var parts = [];
     for (var i in obj) {

@@ -19,21 +19,22 @@
                 </van-list>
 
             </van-tab>
-<!--            <van-tab title="商品" name="b">内容 2</van-tab>-->
+            <!--            <van-tab title="商品" name="b">内容 2</van-tab>-->
         </van-tabs>
     </div>
 </template>
 <script>
 import {reactive, ref, toRefs} from "vue";
-import ProductItem from '../Product/Item'
 import {getProductList} from "../../api/api";
+import lodash from 'lodash'
+import ProductItem from '../Product/Item'
 
 
 const listMethod = async () => {
     let result = await getProductList();
     let data = result.data.data.map((item) => {
         let images = JSON.parse(item.images);
-        item.image = images[0]?.value;
+        item.image = lodash.get(images, '0.value');
         return item;
     })
     return {

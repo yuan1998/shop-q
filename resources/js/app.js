@@ -12,6 +12,8 @@ import {
     Col,
     Image,
     Sticky,
+    Radio,
+    RadioGroup,
     List,
     Skeleton,
     Tab,
@@ -19,7 +21,21 @@ import {
     Field,
     Stepper,
     Empty,
-    Cell, Icon,CellGroup, ActionSheet, ImagePreview, Toast, Card, SubmitBar, AddressEdit,AddressList,NavBar
+    Loading,
+    Cell,
+    Icon,
+    CellGroup,
+    ActionSheet,
+    ImagePreview,
+    Toast,
+    Card,
+    Switch,
+    SubmitBar,
+    AddressEdit,
+    AddressList,
+    ContactCard,
+    Area,
+    NavBar
 } from 'vant';
 // import {Price, Navbar, Icon} from '@nutui/nutui';
 // import '@nutui/nutui/dist/style.css';
@@ -52,7 +68,13 @@ app.use(router)
     .use(ActionSheet)
     .use(Field)
     .use(AddressList)
+    .use(Loading)
+    .use(Switch)
+    .use(ContactCard)
     .use(AddressEdit)
+    .use(Area)
+    .use(Radio)
+    .use(RadioGroup)
     .use(Stepper)
     .use(ImagePreview)
     .use(SubmitBar)

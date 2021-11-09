@@ -1,8 +1,10 @@
-import Home from "./components/layouts/Home"
-import Success from "./components/Success/Index"
-import Checkout from "./components/Checkout/Index"
-import Detail from "./components/Product/Detail"
-import Create from "./components/Order/Create"
+const Home = () => import("./components/layouts/Home");
+const Success = () => import("./components/Success/Index");
+const Checkout = () => import("./components/Checkout/Index");
+const Detail = () => import("./components/Product/Detail");
+const OrderCreate = () => import("./components/Order/Create");
+const LocationIndex = () => import("./components/Location/Index");
+const LocationCreate = () => import("./components/Location/Create");
 
 export default [
     {path: '/', component: Home},
@@ -12,7 +14,14 @@ export default [
         path: '/detail/:id', component: Detail, props: true
     },
     {
-        path: '/order/create', component: Create
+        path: '/order/create', component: OrderCreate
     },
+    {
+        path: '/location/create', component: LocationCreate
+    },
+    {
+        path: '/location', component: LocationIndex
+    },
+
 
 ]

@@ -8,4 +8,9 @@ mix
     .options({
         processCssUrls: false
     })
+    .webpackConfig({
+        output: {
+            publicPath: 'site1/',
+        }
+    })
 ;

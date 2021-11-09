@@ -63,6 +63,7 @@ class Order extends Model
             throw new \Exception('错误的商品ID,请在正确的页面下单.');
 
         $product->sku = data_get($data, 'product_sku');
+        $product->count = data_get($data, 'count');
 
         $arr = [
             'snapshot' => json_encode($product),
@@ -70,7 +71,7 @@ class Order extends Model
             'custom_info' => data_get($data, 'custom_info'),
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,
-            'price' => $product->price,
+            'price' => data_get($data, 'price')
         ];
 
         return Order::create($arr);

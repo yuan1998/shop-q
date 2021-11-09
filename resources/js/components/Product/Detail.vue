@@ -1,7 +1,7 @@
 <template>
     <div class="product_detail">
         <van-skeleton :row="20" :loading="loading">
-            <van-nav-bar left-arrow title="商品详细" @click-left="$router.back()"/>
+            <van-nav-bar fixed placeholder left-arrow title="商品详细" @click-left="$router.back()"/>
             <div class="product_images">
                 <van-swipe :autoplay="3000" lazy-render class="product-image_swiper">
                     <van-swipe-item v-for="(image , index) in data.images" :key="index">
@@ -99,8 +99,8 @@
 import {onMounted, reactive, toRefs} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {getProductDetail} from "../../api/api";
-import Sku from './Sku';
 import {toQueryString} from "../../api/common";
+import Sku from './Sku';
 
 export default {
     name: 'product_detail',

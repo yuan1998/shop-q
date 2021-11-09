@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $data = $request->only(['product_id', 'product_sku', 'custom_info']);
+        $data = $request->only(['product_id', 'product_sku', 'custom_info', 'count', 'price']);
 
         try {
             $order = Order::generateOrder($data);
