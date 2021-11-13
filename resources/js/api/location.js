@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import {storageGet, storageSet, database} from "./common";
+import {database} from "./common";
 
 let table = "locations";
 if (!database.tableExists(table)) {
@@ -44,12 +44,9 @@ export const editLocationData = (data, id) => {
         clearDefault();
     }
     database.update(table, {ID: id}, (row) => {
-
-        // row.default = false;
         return result;
     })
     database.commit();
-
 }
 
 export const searchLocation = (query, limit = null, start = null) => {

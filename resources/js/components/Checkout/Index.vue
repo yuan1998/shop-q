@@ -5,8 +5,9 @@
             image="error"
             description="支付已取消或支付失败"
         >
-            <van-button @click="backHome" round type="danger" class="bottom-button">返回订单列表</van-button>
-
+            <van-button @click="backOrder" round type="danger" class="bottom-button">
+                返回订单列表
+            </van-button>
         </van-empty>
 
     </div>
@@ -20,13 +21,13 @@ export default {
     name: 'success',
     setup() {
         const router = useRouter()
-        const backHome = () => {
+        const backOrder = () => {
             router.push({
-                path: '/'
-            })
+                path: '/order'
+            });
         }
         return {
-            backHome
+            backOrder
         }
     }
 }

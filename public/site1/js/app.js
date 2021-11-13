@@ -20179,6 +20179,10 @@ var Detail = function Detail() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Product_Detail_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Product/Detail */ "./resources/js/components/Product/Detail.vue"));
 };
 
+var OrderIndex = function OrderIndex() {
+  return __webpack_require__.e(/*! import() */ "resources_js_components_Order_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Order/Index */ "./resources/js/components/Order/Index.vue"));
+};
+
 var OrderCreate = function OrderCreate() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Order_Create_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Order/Create */ "./resources/js/components/Order/Create.vue"));
 };
@@ -20204,6 +20208,9 @@ var LocationCreate = function LocationCreate() {
   path: '/detail/:id',
   component: Detail,
   props: true
+}, {
+  path: '/order',
+  component: OrderIndex
 }, {
   path: '/order/create',
   component: OrderCreate
@@ -37886,7 +37893,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_layouts_Home_vue":1,"resources_js_components_Success_Index_vue":1,"resources_js_components_Checkout_Index_vue":1,"resources_js_components_Product_Detail_vue":1,"resources_js_components_Order_Create_vue":1,"resources_js_components_Location_Index_vue":1,"resources_js_components_Location_Create_vue":1}[chunkId]) return "js/app/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_layouts_Home_vue":1,"resources_js_components_Success_Index_vue":1,"resources_js_components_Checkout_Index_vue":1,"resources_js_components_Product_Detail_vue":1,"resources_js_components_Order_Index_vue":1,"resources_js_components_Order_Create_vue":1,"resources_js_components_Location_Index_vue":1,"resources_js_components_Location_Create_vue":1}[chunkId]) return "js/app/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

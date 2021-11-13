@@ -105,7 +105,7 @@ import {
     searchLocation,
     setChosenLocationId
 } from "../../api/location";
-import {computed, onMounted, reactive, toRef, toRefs} from "vue";
+import {computed, reactive, toRefs} from "vue";
 import {Toast} from 'vant'
 import {areaList} from '@vant/area-data';
 import {getLocation} from "../../api/amap";

@@ -11,10 +11,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'success',
   setup: function setup() {
-    return {};
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.useRouter)();
+
+    var backOrder = function backOrder() {
+      router.push({
+        path: '/order'
+      });
+    };
+
+    return {
+      backOrder: backOrder
+    };
   }
 });
 
@@ -50,11 +62,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
-        onClick: _cache[0] || (_cache[0] = function ($event) {
-          return _ctx.$router.push({
-            path: '/'
-          });
-        }),
+        onClick: $setup.backOrder,
         round: "",
         type: "danger",
         "class": "bottom-button"
@@ -65,7 +73,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })];
+      }, 8
+      /* PROPS */
+      , ["onClick"])];
     }),
     _: 1
     /* STABLE */

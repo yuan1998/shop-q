@@ -138,10 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "storageGet": () => (/* binding */ storageGet),
 /* harmony export */   "storageSet": () => (/* binding */ storageSet)
 /* harmony export */ });
-/* harmony import */ var localStorageDB__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! localStorageDB */ "./node_modules/localStorageDB/localstoragedb.js");
-/* harmony import */ var localStorageDB__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(localStorageDB__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! localstoragedb */ "./node_modules/localstoragedb/localstoragedb.js");
+/* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(localstoragedb__WEBPACK_IMPORTED_MODULE_0__);
 
-var database = new (localStorageDB__WEBPACK_IMPORTED_MODULE_0___default())("the_north_face", localStorage);
+var database = new (localstoragedb__WEBPACK_IMPORTED_MODULE_0___default())("the_north_face", localStorage);
 var getRandomArbitrary = function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 };
@@ -192,15 +192,10 @@ var table = "locations";
 
 if (!_common__WEBPACK_IMPORTED_MODULE_1__.database.tableExists(table)) {
   // create the "books" table
-  _common__WEBPACK_IMPORTED_MODULE_1__.database.createTable(table, ["name", "phone", "area", "address", "tag", "default"]); // commit the database to localStorage
+  _common__WEBPACK_IMPORTED_MODULE_1__.database.createTable(table, ["name", "phone", "area", "address", "tag", "default", "detail"]); // commit the database to localStorage
   // all create/drop/insert/update/delete operations should be committed
 
   _common__WEBPACK_IMPORTED_MODULE_1__.database.commit();
-} else {
-  if (!_common__WEBPACK_IMPORTED_MODULE_1__.database.columnExists(table, "detail")) {
-    _common__WEBPACK_IMPORTED_MODULE_1__.database.alterTable(table, "detail", "");
-    _common__WEBPACK_IMPORTED_MODULE_1__.database.commit(); // commit the deletions to localStorage
-  }
 }
 
 var key = "_L_K_";
@@ -235,7 +230,6 @@ var editLocationData = function editLocationData(data, id) {
   _common__WEBPACK_IMPORTED_MODULE_1__.database.update(table, {
     ID: id
   }, function (row) {
-    // row.default = false;
     return result;
   });
   _common__WEBPACK_IMPORTED_MODULE_1__.database.commit();
@@ -269,9 +263,9 @@ var setChosenLocationId = function setChosenLocationId(id) {
 
 /***/ }),
 
-/***/ "./node_modules/localStorageDB/localstoragedb.js":
+/***/ "./node_modules/localstoragedb/localstoragedb.js":
 /*!*******************************************************!*\
-  !*** ./node_modules/localStorageDB/localstoragedb.js ***!
+  !*** ./node_modules/localstoragedb/localstoragedb.js ***!
   \*******************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 

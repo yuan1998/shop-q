@@ -14,10 +14,16 @@ class Order extends Model
 
     const PAY_ERROR = 3;
 
+    const PAY_OUTING = 4;
+
+    const PAY_OUTED = 5;
+
     public static $payStatus = [
         self::UN_PAY => '未支付',
         self::PAY_SUCCESS => '支付成功',
         self::PAY_ERROR => '支付失败',
+        self::PAY_OUTING => '退款中',
+        self::PAY_OUTED => '退款完成',
     ];
 
     protected $fillable = [

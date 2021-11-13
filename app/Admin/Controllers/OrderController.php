@@ -22,6 +22,7 @@ class OrderController extends AdminController
 
         return Grid::make(Order::indexQuery(), function (Grid $grid) {
             $grid->scrollbarX();
+            $grid->export();
             $grid->disableCreateButton();
             $grid->disableEditButton();
 

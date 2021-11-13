@@ -1,4 +1,4 @@
-import localStorageDB from 'localStorageDB';
+import localStorageDB from 'localstoragedb';
 
 export const database = new localStorageDB("the_north_face", localStorage);
 

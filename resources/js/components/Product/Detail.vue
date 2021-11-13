@@ -12,7 +12,6 @@
             <div class="product_info">
                 <div class="product_info-price">
                     <div class="product_info-left">
-
                         <div class="price_text">
                             <span class="syb">¥</span>
                             {{ data.price }}
@@ -99,7 +98,6 @@
 import {onMounted, reactive, toRefs} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {getProductDetail} from "../../api/api";
-import {toQueryString} from "../../api/common";
 import Sku from './Sku';
 
 export default {

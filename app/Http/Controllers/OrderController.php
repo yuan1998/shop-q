@@ -28,15 +28,55 @@ class OrderController extends Controller
         return response()
             ->json([
                 'status' => 0,
-                'id' => $order->id,
+                'id' => $order->order_id,
                 'msg' => '创建订单成功!'
+            ]);
+    }
+
+    public function outPay(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        $model = Order::query()
+            ->where('order_id', $orderId)
+            ->first();
+
+        if ($model->status != Order::PAY_SUCCESS) {
+            return response()
+                ->json([
+                    'status' => 1,
+                    'errMsg' => '当前订单不支持退款,可能未支付或者已退款.',
+                ]);
+        }
+
+        $model->status = Order::PAY_OUTING;
+        $model->save();
+
+        return response()
+            ->json([
+                'status' => 0,
+                'msg' => '订单开始退款,请耐心等待'
+            ]);
+    }
+
+    public function orderList(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        $list = Order::query()
+            ->whereIn('order_id', explode(',', $orderId))
+            ->paginate(10);
+
+        return response()
+            ->json([
+                'status' => 0,
+                'data' => $list,
+                'msg' => '获取订单成功!'
             ]);
     }
 
     public function orderPay(Request $request)
     {
         $id = $request->get('order_id');
-        if (!$id || !($order = Order::find($id))) {
+        if (!$id || !($order = Order::query()->where('order_id', $id)->first())) {
             echo '订单不存在,请刷新页面';
             return;
         }
@@ -119,35 +159,39 @@ class OrderController extends Controller
         $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
 
         $data = $request->post();
+        Log::info('notify 测试', $data);
 
         foreach ($data as $k => $v) {
             $data[$k] = stripslashes($v);
         }
 
         if (!isset($data['hash']) || !isset($data['trade_order_id'])) {
+            Log::info('参数不存在');
             return 'failed';
         }
 
-//自定义插件ID,请与支付请求时一致
+        //自定义插件ID,请与支付请求时一致
         if (isset($data['plugins']) && $data['plugins'] != $my_plugin_id) {
+            Log::info('自定义插件ID,请与支付请求时一致');
             return 'failed';
         }
 
-//APP SECRET
+        //APP SECRET
 
         $hash = HuPiPay::generate_xh_hash($data, $appsecret);
         if ($data['hash'] != $hash) {
+            Log::info('签名验证失败');
             //签名验证失败
             return 'failed';
         }
 
-//商户订单ID
+        //商户订单ID
         $trade_order_id = $data['trade_order_id'];
-        Log::info('notify 测试', $data);
 
         $order = Order::query()
             ->where('order_id', $trade_order_id)
             ->first();
+
 
         if ($data['status'] == 'OD') {
             if ($order->status != Order::PAY_SUCCESS) {

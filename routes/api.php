@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'order'
 ], function () {
+    Route::post('outPay', 'OrderController@outPay');
     Route::post('store', 'OrderController@store');
+    Route::get('list', 'OrderController@orderList');
 });
 Route::group([
     'prefix' => 'product'

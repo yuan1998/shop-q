@@ -174,6 +174,7 @@ import {storeOrder} from "../../api/api";
 import {Toast} from 'vant'
 import {getChosenLocation} from "../../api/location";
 import {getRandomArbitrary} from "../../api/common";
+import {addOrder, orderList} from "../../api/order";
 
 export default {
     name: 'order_create',
@@ -181,7 +182,6 @@ export default {
         const route = useRoute();
         const router = useRouter();
         const chosenLocation = getChosenLocation();
-        console.log("chosenLocation", chosenLocation);
 
         const data = reactive({
             loading: false,
@@ -226,7 +226,7 @@ export default {
             data.loading = false;
             Toast.clear();
             let id = result.id;
-            console.log("id", id);
+            addOrder(id);
             window.location.href = `/api/pay?order_id=${result.id}`;
 
         }

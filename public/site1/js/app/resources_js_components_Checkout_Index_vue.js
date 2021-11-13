@@ -18,14 +18,14 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup() {
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.useRouter)();
 
-    var backHome = function backHome() {
+    var backOrder = function backOrder() {
       router.push({
-        path: '/'
+        path: '/order'
       });
     };
 
     return {
-      backHome: backHome
+      backOrder: backOrder
     };
   }
 });
@@ -48,7 +48,7 @@ var _hoisted_1 = {
   id: "success"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("返回订单列表");
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 返回订单列表 ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-button");
@@ -62,7 +62,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
-        onClick: $setup.backHome,
+        onClick: $setup.backOrder,
         round: "",
         type: "danger",
         "class": "bottom-button"

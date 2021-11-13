@@ -29,9 +29,7 @@ class ProductController extends AdminController
             $grid->column('id');
             $grid->column('title');
             $grid->column('price')
-                ->display(function ($value) {
-                    return "{$value}元";
-                })->style("color:red;");
+                ->editable(true);
             $grid->column('sales');
             $grid->column('categories')
                 ->display(function ($value) {
