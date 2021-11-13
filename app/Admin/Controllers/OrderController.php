@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Renderable\ProductTable;
 use App\Admin\Repositories\Order;
+use App\Models\Product;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -22,12 +23,20 @@ class OrderController extends AdminController
 
         return Grid::make(Order::indexQuery(), function (Grid $grid) {
             $grid->scrollbarX();
-            $grid->export();
+            $grid->export()->rows(function (array $rows) {
+                foreach ($rows as $index => &$row) {
+                    $row['status'] = \App\Models\Order::$payStatus[$row['status']];
+                }
+
+                return $rows;
+            });
+
+
             $grid->disableCreateButton();
             $grid->disableEditButton();
 
             $grid->column('order_id');
-            $grid->column('test', '订单商品')
+            $grid->column('snapshot', '订单商品')
                 ->expand(function (Grid\Displayers\Expand $expand) {
                     $expand->button('详情');
                     return ProductTable::make()->payload([

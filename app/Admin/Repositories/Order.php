@@ -22,6 +22,7 @@ class Order extends EloquentRepository
                 'order_id',
                 'price',
                 'status',
+                'snapshot',
                 'pay_method',
                 'pay_date',
                 'custom_info',

@@ -1,7 +1,11 @@
 <template>
     <div class="product_detail">
         <van-skeleton :row="20" :loading="loading">
-            <van-nav-bar fixed placeholder left-arrow title="商品详细" @click-left="$router.back()"/>
+            <van-nav-bar fixed placeholder left-arrow title="商品详细" @click-left="$router.back()">
+                <template #right>
+                    <van-icon @click="routerToOrder" name="bag-o" size="18"/>
+                </template>
+            </van-nav-bar>
             <div class="product_images">
                 <van-swipe :autoplay="3000" lazy-render class="product-image_swiper">
                     <van-swipe-item v-for="(image , index) in data.images" :key="index">
@@ -151,6 +155,11 @@ export default {
         const onClickButton = () => {
 
         }
+        const routerToOrder = () => {
+            router.push({
+                path: '/order',
+            })
+        }
         const showSku = () => {
             data.show = true;
         }
@@ -178,6 +187,7 @@ export default {
             onClickIcon,
             showSku,
             buyProduct,
+            routerToOrder,
         }
     }
 }

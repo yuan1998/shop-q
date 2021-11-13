@@ -125,6 +125,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var onClickButton = function onClickButton() {};
 
+    var routerToOrder = function routerToOrder() {
+      router.push({
+        path: '/order'
+      });
+    };
+
     var showSku = function showSku() {
       data.show = true;
     };
@@ -152,7 +158,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       onClickButton: onClickButton,
       onClickIcon: onClickIcon,
       showSku: showSku,
-      buyProduct: buyProduct
+      buyProduct: buyProduct,
+      routerToOrder: routerToOrder
     });
   }
 });
@@ -418,6 +425,8 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("立即购买");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_van_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-icon");
+
   var _component_van_nav_bar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-nav-bar");
 
   var _component_van_swipe_item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-swipe-item");
@@ -433,8 +442,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_cell_group = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-cell-group");
 
   var _component_Sku = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Sku");
-
-  var _component_van_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-icon");
 
   var _component_van_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-button");
 
@@ -453,6 +460,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClickLeft: _cache[0] || (_cache[0] = function ($event) {
           return _ctx.$router.back();
         })
+      }, {
+        right: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
+            onClick: $setup.routerToOrder,
+            name: "bag-o",
+            size: "18"
+          }, null, 8
+          /* PROPS */
+          , ["onClick"])];
+        }),
+        _: 1
+        /* STABLE */
+
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_swipe, {
         autoplay: 3000,
         "lazy-render": "",
