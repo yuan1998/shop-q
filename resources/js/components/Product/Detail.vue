@@ -37,7 +37,7 @@
                     <van-cell is-link>
                         <!-- 使用 title 插槽来自定义标题 -->
                         <template #title>
-                            <van-image src="https://pic.imgdb.cn/item/6185e2b92ab3f51d915d0582.png" style="width:70vw;max-width: 700px;"/>
+                            <van-image src="https://pic.imgdb.cn/item/61937dae2ab3f51d9193b76c.jpg" style="width:70vw;max-width: 700px;"/>
                         </template>
                     </van-cell>
                     <van-cell>
@@ -53,7 +53,7 @@
                 <img src="https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png" alt="" class="mc-img">
             </div>
             <div>
-                <img src="https://pic.imgdb.cn/item/618664552ab3f51d91108628.png" alt="" class="mc-img">
+                <img src="https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg" alt="" class="mc-img">
             </div>
 
 

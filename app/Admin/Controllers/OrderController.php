@@ -56,8 +56,7 @@ class OrderController extends AdminController
                     return $val ?? '未发货';
                 })
                 ->if(function () {
-                    // 返回 "真" 或 "假"，"真" 则执行 "if" 后面的代码
-                    return $this->status === \App\Models\Order::PAY_SUCCESS;
+                    return $this->status !== \App\Models\Order::UN_PAY ;
                 })
                 ->modal(function (Grid\Displayers\Modal $modal) {
                     // 标题

@@ -359,7 +359,7 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: "https://pic.imgdb.cn/item/618664552ab3f51d91108628.png",
+    src: "https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg",
     alt: "",
     "class": "mc-img"
   })], -1
@@ -517,7 +517,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       }, {
         title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-            src: "https://pic.imgdb.cn/item/6185e2b92ab3f51d915d0582.png",
+            src: "https://pic.imgdb.cn/item/61937dae2ab3f51d9193b76c.jpg",
             style: {
               "width": "70vw",
               "max-width": "700px"

@@ -1,7 +1,7 @@
 <template>
     <div class="product_container">
         <div class="header">
-            <van-image src="https://pic.imgdb.cn/item/61852a522ab3f51d918ab110.png"></van-image>
+            <van-image src="https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd7.jpg"></van-image>
         </div>
         <van-tabs v-model:active="activeName" sticky>
             <van-tab title="精选" name="a">
