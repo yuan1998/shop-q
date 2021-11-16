@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\PayChannel;
 use App\Payable\HuPiPay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -81,8 +82,10 @@ class OrderController extends Controller
             return;
         }
 
-        $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
-        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        $payMethod = PayChannel::getPayMethod();
+        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
+        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
+//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
         $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
 //        $appid              = '201906120002';//测试账户，
 //        $appsecret          = '7a0967a8f830c9319c87e01e691b8f09';//测试账户，
@@ -155,7 +158,10 @@ class OrderController extends Controller
 
     public function orderNotify(Request $request)
     {
-        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        $payMethod = PayChannel::getPayMethod();
+//        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
+        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
+//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
         $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
 
         $data = $request->post();

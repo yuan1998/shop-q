@@ -37,6 +37,7 @@ class Order extends Model
         'pay_info',
         'price',
         'order_id',
+        'logistic_number',
     ];
 
     protected $casts = [

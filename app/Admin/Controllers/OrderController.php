@@ -2,6 +2,8 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Exporters\OrderExporter;
+use App\Admin\Forms\OrderLogisticNumber;
 use App\Admin\Renderable\ProductTable;
 use App\Admin\Repositories\Order;
 use App\Models\Product;
@@ -23,14 +25,8 @@ class OrderController extends AdminController
 
         return Grid::make(Order::indexQuery(), function (Grid $grid) {
             $grid->scrollbarX();
-            $grid->export()->rows(function (array $rows) {
-                foreach ($rows as $index => &$row) {
-                    $row['status'] = \App\Models\Order::$payStatus[$row['status']];
-                }
 
-                return $rows;
-            });
-
+            $grid->export(new OrderExporter());
 
             $grid->disableCreateButton();
             $grid->disableEditButton();
@@ -43,6 +39,7 @@ class OrderController extends AdminController
                         'id' => $this->id,
                     ]);
                 });
+
             $grid->column('price')
                 ->display(function ($value) {
                     return "{$value}元";
@@ -50,10 +47,31 @@ class OrderController extends AdminController
                 ->style("color:red;");
 
             $grid->column('status')
-                ->using(\App\Models\Order::$payStatus)
-                ->label();
+                ->select(\App\Models\Order::$payStatus, true);
+
             $grid->column('pay_method');
             $grid->column('pay_date');
+            $grid->column('logistic_number', '快递单号')
+                ->display(function ($val) {
+                    return $val ?? '未发货';
+                })
+                ->if(function () {
+                    // 返回 "真" 或 "假"，"真" 则执行 "if" 后面的代码
+                    return $this->status === \App\Models\Order::PAY_SUCCESS;
+                })
+                ->modal(function (Grid\Displayers\Modal $modal) {
+                    // 标题
+                    $modal->title('快递单号');
+                    // 自定义图标
+                    $modal->icon('feather icon-edit');
+
+                    // 传递当前行字段值
+                    return OrderLogisticNumber::make()->payload([
+                        'id' => $this->id,
+                    ]);
+                });
+
+
             $grid->column('custom_info')
                 ->display(function ($value) {
                     return collect(json_decode($value, true))
@@ -65,7 +83,9 @@ class OrderController extends AdminController
             $grid->column('created_at');
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
+                $filter->equal('order_id');
+                $filter->equal('status')->select(\App\Models\Order::$payStatus);
+                $filter->like('custom_info', '收货人/收货人电话');
             });
         });
     }
@@ -114,6 +134,7 @@ class OrderController extends AdminController
             $form->text('pay_info');
             $form->text('price');
             $form->text('order_id');
+            $form->text('logistic_number');
 
             $form->display('created_at');
             $form->display('updated_at');

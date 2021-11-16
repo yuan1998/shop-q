@@ -18,4 +18,5 @@ Route::group([
     $router->resource('categories', 'CategoryController');
     $router->resource('products', 'ProductController');
     $router->resource('orders', 'OrderController');
+    $router->resource('pay_channel', 'PayChannelController');
 });

@@ -27,6 +27,7 @@ class Order extends EloquentRepository
                 'pay_date',
                 'custom_info',
                 'created_at',
+                'logistic_number',
             ])
             ->orderBy('id', 'desc');
     }

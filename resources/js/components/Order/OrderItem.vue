@@ -9,13 +9,22 @@
             <strong>¥{{ item.price }}</strong>
         </div>
         <div class="actions">
-            <van-button type="default" size="small" style="margin-right: 15px;">删除订单</van-button>
-
+            <van-button type="default" size="small">
+                删除订单
+            </van-button>
             <van-button type="default" size="small" @click="handleStatusClick()">
                 {{
                     buttonText[item.status]
                 }}
             </van-button>
+
+            <template v-if="item.status !==1">
+                <van-button type="default" size="small" @click="handleLogisticClick()">
+                    {{
+                        item.logistic_number ? '查看物流' : '未发货'
+                    }}
+                </van-button>
+            </template>
 
         </div>
     </div>
@@ -61,6 +70,7 @@ export default {
 
         const outPay = async (id) => {
             Toast.loading('请求退款中...');
+
             let result = await outPayOrder(id);
             console.log("result", result);
 
@@ -74,7 +84,6 @@ export default {
         }
 
         const handleStatusClick = () => {
-
             let id = item.order_id;
             switch (item.status) {
                 case 1:
@@ -88,7 +97,12 @@ export default {
                     Toast(statusList[item.status]);
                     break;
             }
+        }
 
+        const handleLogisticClick = () => {
+            if (item.logistic_number) {
+                window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${item.logistic_number}&coname=px&callbackurl=${window.location.href}`
+            }
         }
 
         return {
@@ -96,6 +110,7 @@ export default {
             statusList,
             buttonText,
             handleStatusClick,
+            handleLogisticClick,
         }
     }
 }
@@ -107,23 +122,31 @@ export default {
     background-color: #fff;
     padding-bottom: 10px;
 
-.total_price,
-.actions {
-    text-align: right;
-    padding-right: 15px;
-}
+    .total_price,
+    .actions {
+        text-align: right;
+        padding-right: 15px;
 
-.total_price {
-    padding: 10px;
+        .van-button {
+            margin-right: 15px;
 
-span {
-    font-size: 13px;
-    color: #777777;
-    margin-right: 4px;
-}
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
 
-font-size: 18px;
-}
+    .total_price {
+        padding: 10px;
+
+        span {
+            font-size: 13px;
+            color: #777777;
+            margin-right: 4px;
+        }
+
+        font-size: 18px;
+    }
 }
 
 
