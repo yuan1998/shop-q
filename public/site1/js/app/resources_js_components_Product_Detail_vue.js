@@ -433,9 +433,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_van_swipe = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-swipe");
 
-  var _component_van_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-image");
-
   var _component_van_divider = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-divider");
+
+  var _component_van_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-image");
 
   var _component_van_cell = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-cell");
 
@@ -508,9 +508,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* TEXT */
       )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, " 已售" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.sales), 1
       /* TEXT */
-      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-        src: "https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.title), 1
+      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                <van-image src=\"https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.title), 1
       /* TEXT */
       ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
         "is-link": ""

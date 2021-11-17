@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>
+<!--                <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>-->
                 <div class="product_info-title">
                     {{ data.title }}
                 </div>

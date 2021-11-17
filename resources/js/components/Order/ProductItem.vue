@@ -14,9 +14,9 @@
                     </div>
                 </div>
                 <div class="product_text">
-                    <span>
-                        7天无理由退货
-                    </span>
+<!--                    <span>-->
+<!--                        7天无理由退货-->
+<!--                    </span>-->
                 </div>
             </div>
             <div class="product_price">

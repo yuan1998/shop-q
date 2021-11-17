@@ -86,7 +86,6 @@ export default {
             } else {
                 Toast.fail(result.errMsg);
             }
-
         }
 
         const handleStatusClick = () => {
