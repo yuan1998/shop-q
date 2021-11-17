@@ -24,6 +24,10 @@
                         item.logistic_number ? '查看物流' : '未发货'
                     }}
                 </van-button>
+                <van-button type="default" size="small" @click="handleComplaintClick(item.order_id)">
+                    投诉
+                </van-button>
+
             </template>
 
         </div>
@@ -36,6 +40,7 @@ import {Toast} from "vant";
 import {outPayOrder} from "../../api/api";
 import ProductItem from "./ProductItem";
 import {reactive} from "vue";
+import {useRouter} from "vue-router";
 
 export default {
     name: '',
@@ -44,6 +49,7 @@ export default {
         ProductItem
     },
     setup(props) {
+        const router = useRouter();
         const {product} = props;
         const item = reactive(product);
 
@@ -104,6 +110,14 @@ export default {
                 window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${item.logistic_number}&coname=px&callbackurl=${window.location.href}`
             }
         }
+        const handleComplaintClick = (id) => {
+            router.push({
+                path: '/complaint',
+                query: {
+                    order_id: id
+                }
+            })
+        }
 
         return {
             item,
@@ -111,6 +125,7 @@ export default {
             buttonText,
             handleStatusClick,
             handleLogisticClick,
+            handleComplaintClick,
         }
     }
 }

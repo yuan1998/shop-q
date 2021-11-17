@@ -21,6 +21,13 @@ Route::group([
     Route::post('store', 'OrderController@store');
     Route::get('list', 'OrderController@orderList');
 });
+
+Route::group([
+    'prefix' => 'complaint'
+], function () {
+    Route::post('store', 'ComplaintController@store');
+});
+
 Route::group([
     'prefix' => 'product'
 ], function () {

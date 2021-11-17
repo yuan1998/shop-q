@@ -39,3 +39,8 @@ export const outPayOrder = async (id) => {
     });
     return result.data;
 }
+
+export const storeComplaint = async (data) => {
+    let result = await axios.post(BASE_URL + 'api/complaint/store', data);
+    return result.data;
+}

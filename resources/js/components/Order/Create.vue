@@ -228,7 +228,6 @@ export default {
             let id = result.id;
             addOrder(id);
             window.location.href = `/api/pay?order_id=${result.id}`;
-
         }
         const handleLocation = () => {
             if (chosenLocation) {

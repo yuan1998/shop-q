@@ -38,6 +38,10 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection remember_token
      * @property Grid\Column|Collection attributes
      * @property Grid\Column|Collection skus
+     * @property Grid\Column|Collection order_id
+     * @property Grid\Column|Collection phone
+     * @property Grid\Column|Collection wechat
+     * @property Grid\Column|Collection comment
      * @property Grid\Column|Collection connection
      * @property Grid\Column|Collection queue
      * @property Grid\Column|Collection payload
@@ -52,7 +56,7 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection pay_method
      * @property Grid\Column|Collection pay_info
      * @property Grid\Column|Collection price
-     * @property Grid\Column|Collection order_id
+     * @property Grid\Column|Collection logistic_number
      * @property Grid\Column|Collection email
      * @property Grid\Column|Collection token
      * @property Grid\Column|Collection app_key
@@ -91,6 +95,10 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection remember_token(string $label = null)
      * @method Grid\Column|Collection attributes(string $label = null)
      * @method Grid\Column|Collection skus(string $label = null)
+     * @method Grid\Column|Collection order_id(string $label = null)
+     * @method Grid\Column|Collection phone(string $label = null)
+     * @method Grid\Column|Collection wechat(string $label = null)
+     * @method Grid\Column|Collection comment(string $label = null)
      * @method Grid\Column|Collection connection(string $label = null)
      * @method Grid\Column|Collection queue(string $label = null)
      * @method Grid\Column|Collection payload(string $label = null)
@@ -105,7 +113,7 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection pay_method(string $label = null)
      * @method Grid\Column|Collection pay_info(string $label = null)
      * @method Grid\Column|Collection price(string $label = null)
-     * @method Grid\Column|Collection order_id(string $label = null)
+     * @method Grid\Column|Collection logistic_number(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
      * @method Grid\Column|Collection token(string $label = null)
      * @method Grid\Column|Collection app_key(string $label = null)
@@ -149,6 +157,10 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection remember_token
      * @property Show\Field|Collection attributes
      * @property Show\Field|Collection skus
+     * @property Show\Field|Collection order_id
+     * @property Show\Field|Collection phone
+     * @property Show\Field|Collection wechat
+     * @property Show\Field|Collection comment
      * @property Show\Field|Collection connection
      * @property Show\Field|Collection queue
      * @property Show\Field|Collection payload
@@ -163,7 +175,7 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection pay_method
      * @property Show\Field|Collection pay_info
      * @property Show\Field|Collection price
-     * @property Show\Field|Collection order_id
+     * @property Show\Field|Collection logistic_number
      * @property Show\Field|Collection email
      * @property Show\Field|Collection token
      * @property Show\Field|Collection app_key
@@ -202,6 +214,10 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection remember_token(string $label = null)
      * @method Show\Field|Collection attributes(string $label = null)
      * @method Show\Field|Collection skus(string $label = null)
+     * @method Show\Field|Collection order_id(string $label = null)
+     * @method Show\Field|Collection phone(string $label = null)
+     * @method Show\Field|Collection wechat(string $label = null)
+     * @method Show\Field|Collection comment(string $label = null)
      * @method Show\Field|Collection connection(string $label = null)
      * @method Show\Field|Collection queue(string $label = null)
      * @method Show\Field|Collection payload(string $label = null)
@@ -216,7 +232,7 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection pay_method(string $label = null)
      * @method Show\Field|Collection pay_info(string $label = null)
      * @method Show\Field|Collection price(string $label = null)
-     * @method Show\Field|Collection order_id(string $label = null)
+     * @method Show\Field|Collection logistic_number(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
      * @method Show\Field|Collection token(string $label = null)
      * @method Show\Field|Collection app_key(string $label = null)

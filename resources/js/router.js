@@ -6,6 +6,7 @@ const OrderIndex = () => import("./components/Order/Index");
 const OrderCreate = () => import("./components/Order/Create");
 const LocationIndex = () => import("./components/Location/Index");
 const LocationCreate = () => import("./components/Location/Create");
+const ComplaintIndex = () => import("./components/Complaint/Index");
 
 export default [
     {path: '/', component: Home},
@@ -26,6 +27,9 @@ export default [
     },
     {
         path: '/location', component: LocationIndex
+    },
+    {
+        path: '/complaint', component: ComplaintIndex
     },
 
 
