@@ -72,20 +72,22 @@
             <Sku @buy="buyProduct" :product="data" v-model:show="show"/>
 
             <div class="product_actions">
-                <div class="product_actions_icon">
+                <div class="product_actions_icon" @click="$router.push({
+                path: '/'
+                })">
                     <van-icon size="20" color="#767676" name="shop-o"/>
                     <div class="icon-text">
                         店铺
                     </div>
                 </div>
-                <div class="product_actions_icon">
+                <div class="product_actions_icon" @click="handleClickMsg">
                     <van-icon size="20" color="#767676" name="chat-o"/>
                     <div class="icon-text">
                         客服
                     </div>
                 </div>
-                <div class="product_actions_icon">
-                    <van-icon size="20" color="#767676" name="star-o"/>
+                <div class="product_actions_icon" @click="like = !like">
+                    <van-icon size="20" color="#767676" :name="like ?'star': 'star-o'"/>
                     <div class="icon-text">
                         收藏
                     </div>
@@ -117,6 +119,7 @@ export default {
             loading: true,
             show: false,
             id: '',
+            like : false,
             data: {}
         });
 
@@ -180,6 +183,10 @@ export default {
 
         }
 
+        const handleClickMsg = () => {
+            Toast('请返回抖音联系客服');
+        }
+
         return {
             ...toRefs(data),
             send,
@@ -188,6 +195,7 @@ export default {
             showSku,
             buyProduct,
             routerToOrder,
+            handleClickMsg
         }
     }
 }
