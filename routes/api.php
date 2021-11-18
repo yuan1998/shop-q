@@ -39,7 +39,8 @@ Route::group([
     'prefix' => 'pay'
 ], function () {
     Route::get('/', 'OrderController@orderPay');
-    Route::post('notify', 'OrderController@orderNotify');
+    Route::any('notify', 'OrderController@orderNotify');
+    Route::any('return', 'OrderController@orderReturn');
 });
 
 

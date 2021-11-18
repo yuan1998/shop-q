@@ -30,8 +30,10 @@ class PayChannelController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('app_key');
             $grid->column('app_secret');
-            $grid->column('type');
+            $grid->column('comment')->editable();
+            $grid->column('type')->using(\App\Models\PayChannel::$pay_method);
             $grid->column('enable')->switch();
+//            $grid->column('alipay_enable')->switch();
             $grid->column('created_at');
 
             $grid->filter(function (Grid\Filter $filter) {
@@ -72,9 +74,11 @@ class PayChannelController extends AdminController
             $form->display('id');
             $form->text('app_key')->required();
             $form->text('app_secret')->required();
+            $form->text('comment');
             $form->select('type')
                 ->options(\App\Models\PayChannel::$pay_method)->required();
             $form->switch('enable');
+            $form->switch('alipay_enable');
 
             $form->display('created_at');
             $form->display('updated_at');
@@ -85,6 +89,13 @@ class PayChannelController extends AdminController
                     \App\Models\PayChannel::query()
                         ->update([
                             'enable' => false,
+                        ]);
+                }
+                $alipay_enable = $form->input('alipay_enable');
+                if ($alipay_enable) {
+                    \App\Models\PayChannel::query()
+                        ->update([
+                            'alipay_enable' => false,
                         ]);
                 }
             });

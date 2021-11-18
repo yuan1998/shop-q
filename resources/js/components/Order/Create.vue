@@ -141,6 +141,21 @@
                             <van-radio name="wechat" checked-color="#F93E5B"/>
                         </template>
                     </van-cell>
+                    <van-cell clickable @click="payment = 'alipay'">
+                        <template #title>
+                            <div style="display:flex;align-items: center;">
+                                <van-image width="30"
+                                           height="30"
+                                           src="https://pic.imgdb.cn/item/619631732ab3f51d91398c6f.jpg"
+                                           round/>
+                                <div style="margin-left: 15px;">支付宝</div>
+                            </div>
+                        </template>
+                        <template #right-icon>
+                            <van-radio name="alipay" checked-color="#F93E5B"/>
+                        </template>
+                    </van-cell>
+
                 </van-cell-group>
             </van-radio-group>
 
@@ -217,6 +232,7 @@ export default {
                 product_sku: route.query.sku,
                 count: data.count,
                 price: price.value,
+                payment: data.payment,
                 'custom_info': JSON.stringify({
                     '收货人': chosenLocation.name,
                     '收货人电话': chosenLocation.phone,

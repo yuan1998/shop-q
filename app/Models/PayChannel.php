@@ -4,22 +4,75 @@ namespace App\Models;
 
 //use Illuminate\Database\Eloquent\Model;
 
+use App\Payable\HuPiPay;
+use App\Payable\MuJiePay;
+
 class PayChannel extends Model
 {
 
+    const HiPi = 'HU_PI_PAY';
+    const MuJie = 'MU_JIE_PAY';
+
     public static $pay_method = [
-        'HU_PI_PAY' => '虎皮支付',
+        self::HiPi => '虎皮支付',
+        self::MuJie => '木皆支付',
+    ];
+
+    public static $pay_model = [
+        self::HiPi => HuPiPay::class,
+        self::MuJie => MuJiePay::class,
+    ];
+
+    protected $fillable = [
+        'app_key',
+        'app_secret',
+        'type',
+        'enable',
+        'alipay_enable',
+        'comment',
     ];
 
     public static function getPayMethod()
     {
+        $payment = request()->get('payment', 'wechat');
+
         return static::query()
             ->select([
-                'enable',
+                'id',
                 'app_key',
-                'app_secret'
+                'app_secret',
+                'type',
+                'enable',
+                'alipay_enable',
             ])
             ->orderBy('enable', 'desc')
             ->first();
+    }
+
+    public function payment($order, $request)
+    {
+        $model = data_get(static::$pay_model, $this->type);
+        if (!$model)
+            throw new \Exception('支付方法错误,未配置的支付方法');
+
+        return $model::payment($order, $this, $request);
+    }
+
+    public function notify($request)
+    {
+        $model = data_get(static::$pay_model, $this->type);
+        if (!$model)
+            throw new \Exception('支付方法错误,未配置的支付方法');
+
+        return $model::notify($request);
+    }
+
+    public function handleReturn($request)
+    {
+        $model = data_get(static::$pay_model, $this->type);
+        if (!$model)
+            throw new \Exception('支付方法错误,未配置的支付方法');
+
+        return $model::handleReturn($request);
     }
 }

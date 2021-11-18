@@ -6,7 +6,7 @@
         <div class="product_content">
             <div class="product_info">
                 <div class="product_title">
-                    {{ product.title }}M是數字的最大數(精度)。其範圍為1~65(在較舊的MySQL版本中,允許的範圍是1~254),M 的預設值是10。
+                    {{ product.title }}
                 </div>
                 <div class="product_sku">
                     <div class="sku">
@@ -14,9 +14,9 @@
                     </div>
                 </div>
                 <div class="product_text">
-<!--                    <span>-->
-<!--                        7天无理由退货-->
-<!--                    </span>-->
+                    <!--                    <span>-->
+                    <!--                        7天无理由退货-->
+                    <!--                    </span>-->
                 </div>
             </div>
             <div class="product_price">

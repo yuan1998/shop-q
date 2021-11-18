@@ -8,7 +8,9 @@ return [
         'app_key' => 'AppKey',
         'app_secret' => 'AppSecret',
         'type' => '类型',
-        'enable' => '启用',
+        'comment' => '备注',
+        'enable' => '微信支付',
+        'alipay_enable' => '阿里云支付',
     ],
     'options' => [
     ],
