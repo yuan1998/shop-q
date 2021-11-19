@@ -168,7 +168,6 @@ class HuPiPay
                 throw new \Exception($result['errmsg'], $result['errcode']);
             }
 
-
             $pay_url = $result['url'];
             header("Location: $pay_url");
             exit;

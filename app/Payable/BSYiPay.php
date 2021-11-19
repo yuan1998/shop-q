@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 
-class MuJiePay
+class BSYiPay
 {
 
     public static $payment = [
@@ -44,7 +44,7 @@ class MuJiePay
     {
         $str = http_build_query($data);
 
-        $pay_url = "https://pay.muitc.com/submit.php?{$str}";
+        $pay_url = "https://www.cshswl.top/submit.php?{$str}";
         header("Location: $pay_url");
         exit;
     }

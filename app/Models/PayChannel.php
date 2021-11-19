@@ -4,6 +4,7 @@ namespace App\Models;
 
 //use Illuminate\Database\Eloquent\Model;
 
+use App\Payable\BSYiPay;
 use App\Payable\HuPiPay;
 use App\Payable\MuJiePay;
 
@@ -12,15 +13,18 @@ class PayChannel extends Model
 
     const HiPi = 'HU_PI_PAY';
     const MuJie = 'MU_JIE_PAY';
+    const BSYi = 'BS_YI_PAY';
 
     public static $pay_method = [
         self::HiPi => '虎皮支付',
         self::MuJie => '木皆支付',
+        self::BSYi => 'BS易支付',
     ];
 
     public static $pay_model = [
         self::HiPi => HuPiPay::class,
         self::MuJie => MuJiePay::class,
+        self::BSYi => BSYiPay::class,
     ];
 
     protected $fillable = [
