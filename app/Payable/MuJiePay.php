@@ -111,13 +111,15 @@ class MuJiePay
 
             if ($verifyNotify) {
                 if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
-                    $order = Order::find($id);
+                    $order = Order::query()
+                        ->where('order_id', $id)
+                        ->first();
                     Log::info('notify回调测试 : $order', [
                         $order
                     ]);
 
                     if ($order && $order->status === Order::UN_PAY) {
-                        Log::info('支付成功;',[]);
+                        Log::info('支付成功;', []);
                         $order->status = Order::PAY_SUCCESS;
                         $order->pay_info = json_encode($params);
                         $order->save();
