@@ -64,7 +64,7 @@ class PayChannel extends Model
         if (!$model)
             throw new \Exception('支付方法错误,未配置的支付方法');
 
-        return $model::notify($request);
+        return $model::notify($this, $request);
     }
 
     public function handleReturn($request)
