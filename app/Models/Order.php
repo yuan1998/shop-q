@@ -75,6 +75,7 @@ class Order extends Model
         $arr = [
             'snapshot' => json_encode($product),
             'product_id' => $productId,
+            'pay_method' => data_get($data, 'payment', 'wechat'),
             'custom_info' => data_get($data, 'custom_info'),
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,

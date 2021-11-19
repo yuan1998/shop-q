@@ -17,9 +17,9 @@ class MuJiePay
         'alipay' => 'alipay',
     ];
 
-    public static function getPayment()
+    public static function getPayment($method)
     {
-        $type = request()->get('payment', 'alipay');
+        $type =  $method ?? 'alipay';
         if (!in_array($type, array_keys(static::$payment))) {
             $type = 'alipay';
         }
@@ -65,7 +65,7 @@ class MuJiePay
             'pid' => $appid,
             'return_url' => $domain . '/api/pay/return',
             'sitename' => env('MU_JIE_PAY_HOME_NAME'),
-            'type' => static::getPayment(),
+            'type' => static::getPayment($order->pay_method),
         ];
         $data['sign'] = static::signStr($data, $appsecret);
         $data['sign_type'] = 'MD5';
