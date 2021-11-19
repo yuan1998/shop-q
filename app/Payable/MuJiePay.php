@@ -19,7 +19,7 @@ class MuJiePay
 
     public static function getPayment($method)
     {
-        $type =  $method ?? 'alipay';
+        $type = $method ?? 'alipay';
         if (!in_array($type, array_keys(static::$payment))) {
             $type = 'alipay';
         }
@@ -100,6 +100,8 @@ class MuJiePay
     {
         $params = $request->all();
         $orderData = explode('A', data_get($params, 'out_trade_no', ''));
+        $id = data_get($orderData, '0');
+        Log::info('notify回调测试 : $id', $id);
         Log::info('notify回调测试 : $params', $params);
         Log::info('notify回调测试 : $orderData', $orderData);
         if ($orderData) {
@@ -107,10 +109,11 @@ class MuJiePay
 
             if ($verifyNotify) {
                 if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
-                    $order = Order::find(data_get($orderData, '0'));
+                    $order = Order::find($id);
+                    Log::info('notify回调测试 : $order', $order);
+
                     if ($order && $order->status === Order::UN_PAY) {
                         Log::info('支付成功;');
-
                         $order->status = Order::PAY_SUCCESS;
                         $order->pay_info = json_encode($params);
                         $order->save();
