@@ -101,7 +101,9 @@ class MuJiePay
         $params = $request->all();
         $orderData = explode('A', data_get($params, 'out_trade_no', ''));
         $id = data_get($orderData, '0');
-        Log::info('notify回调测试 : $id', $id);
+        Log::info('notify回调测试 : $id', [
+            'id' => $id
+        ]);
         Log::info('notify回调测试 : $params', $params);
         Log::info('notify回调测试 : $orderData', $orderData);
         if ($orderData) {
@@ -113,7 +115,7 @@ class MuJiePay
                     Log::info('notify回调测试 : $order', $order->toArray());
 
                     if ($order && $order->status === Order::UN_PAY) {
-                        Log::info('支付成功;');
+                        Log::info('支付成功;',[]);
                         $order->status = Order::PAY_SUCCESS;
                         $order->pay_info = json_encode($params);
                         $order->save();
