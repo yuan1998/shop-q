@@ -285,6 +285,10 @@ export default {
     margin-top: 15px;
 }
 
+.order-create {
+    padding-bottom: 100px;
+}
+
 .card-product {
     background-color: #fff;
     margin: 0;

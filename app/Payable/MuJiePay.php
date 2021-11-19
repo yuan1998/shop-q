@@ -19,7 +19,7 @@ class MuJiePay
 
     public static function getPayment()
     {
-        $type = request()->get('payment', 'wechat');
+        $type = request()->get('payment', 'alipay');
         if (!in_array($type, array_keys(static::$payment))) {
             $type = 'alipay';
         }
@@ -55,17 +55,13 @@ class MuJiePay
 
         $str = str_shuffle(time());
 
-        $orderData = [
-            'i' => $order->order_id,
-            'p' => $payMethod->id,
-            't' => $str
-        ];
+        $orderId = "{$order->order_id}A{$str}";
 
         $data = [
             'money' => $order->price,
             'name' => '耐克球鞋',
             'notify_url' => $domain . '/api/pay/notify',
-            'out_trade_no' => json_encode($orderData),
+            'out_trade_no' => $orderId,
             'pid' => $appid,
             'return_url' => $domain . '/api/pay/return',
             'sitename' => env('MU_JIE_PAY_HOME_NAME'),
@@ -79,10 +75,8 @@ class MuJiePay
         return static::createPay($data);
     }
 
-    public static function verifyNotify($para_temp, $orderData): bool
+    public static function verifyNotify($para_temp, $payment): bool
     {
-        $payment = PayChannel::find(data_get($orderData, 'p'));
-
         //除去待签名参数数组中的空值和签名参数
         $para_filter = Helper::paraFilter($para_temp);
 
@@ -105,15 +99,15 @@ class MuJiePay
     public static function notify($payMethod, $request): string
     {
         $params = $request->all();
-        $orderData = json_decode(data_get($params, 'out_trade_no'), true);
+        $orderData = explode('A', data_get($params, 'out_trade_no', ''));
         Log::info('notify回调测试 : $params', $params);
         Log::info('notify回调测试 : $orderData', $orderData);
         if ($orderData) {
-            $verifyNotify = static::verifyNotify($params, $orderData);
+            $verifyNotify = static::verifyNotify($params, $payMethod);
 
             if ($verifyNotify) {
                 if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
-                    $order = Order::find(data_get($orderData, 'i'));
+                    $order = Order::find(data_get($orderData, '0'));
                     if ($order && $order->status === Order::UN_PAY) {
                         Log::info('支付成功;');
 
@@ -132,19 +126,11 @@ class MuJiePay
     {
         $params = $request->all();
         $domain = env('APP_URL');
-        $orderData = json_decode(data_get($params, 'out_trade_no'), true);
 
         Log::info('return回调测试 : $params', $params);
-        Log::info('return回调测试 : $orderData', $orderData);
-
-        if ($orderData) {
-            $verifyNotify = static::verifyNotify($params, $orderData);
-            if ($verifyNotify) {
-                if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
-                    header("Location: {$domain}/#/success");
-                    exit;
-                }
-            }
+        if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
+            header("Location: {$domain}/#/success");
+            exit;
         }
 
         header("Location: {$domain}/#/checkout");

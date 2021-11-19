@@ -106,6 +106,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   product_sku: route.query.sku,
                   count: data.count,
                   price: price.value,
+                  payment: data.payment,
                   'custom_info': JSON.stringify({
                     '收货人': chosenLocation.name,
                     '收货人电话': chosenLocation.phone,
@@ -310,21 +311,38 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_23 = {
+  style: {
+    "display": "flex",
+    "align-items": "center"
+  }
+};
+
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    style: {
+      "margin-left": "15px"
+    }
+  }, "支付宝", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_25 = {
   "class": "van-submit-bar__text"
 };
-var _hoisted_24 = {
+var _hoisted_26 = {
   "class": "van-submit-bar__price"
 };
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("¥");
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("¥");
 
-var _hoisted_26 = {
+var _hoisted_28 = {
   "class": "van-submit-bar__price-integer"
 };
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(".00");
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(".00");
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 提交订单 ");
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 提交订单 ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-image");
@@ -481,7 +499,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_radio_group, {
     modelValue: _ctx.payment,
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return _ctx.payment = $event;
     })
   }, {
@@ -511,6 +529,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
             /* STABLE */
 
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
+            clickable: "",
+            onClick: _cache[3] || (_cache[3] = function ($event) {
+              return _ctx.payment = 'alipay';
+            })
+          }, {
+            title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
+                width: "30",
+                height: "30",
+                src: "https://pic.imgdb.cn/item/619631732ab3f51d91398c6f.jpg",
+                round: ""
+              }), _hoisted_24])];
+            }),
+            "right-icon": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_radio, {
+                name: "alipay",
+                "checked-color": "#F93E5B"
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
           })];
         }),
         _: 1
@@ -528,9 +569,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "decimal-length": 2
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.price), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.price), 1
       /* TEXT */
-      ), _hoisted_27])])];
+      ), _hoisted_29])])];
     }),
     button: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
@@ -538,7 +579,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         color: "#FB3E5B"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_28];
+          return [_hoisted_30];
         }),
         _: 1
         /* STABLE */
@@ -955,7 +996,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nut-navbar[data-v-1c9b6068] {\n  margin-bottom: 0;\n}\n.payment[data-v-1c9b6068] {\n  margin-top: 15px;\n}\n.card-product[data-v-1c9b6068] {\n  background-color: #fff;\n  margin: 0;\n}\n.card-product .card-product_title[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_sku[data-v-1c9b6068] {\n  display: inline-block;\n  font-size: 15px;\n  background-color: #FAFAFA;\n  color: #ABABAB;\n  padding: 3px 8px;\n  margin: 5px 0;\n}\n.card-product .van-card__price-integer[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_text[data-v-1c9b6068] {\n  font-size: 15px;\n  margin: 7px 0;\n}\n.card-product .card-product_text.red[data-v-1c9b6068] {\n  color: #D78161;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags[data-v-1c9b6068] {\n  color: #CF8062;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags span[data-v-1c9b6068] {\n  border: 1px solid #CF8062;\n  border-radius: 3px;\n  display: inline-block;\n  padding: 2px 5px;\n  margin-right: 8px;\n}\n.location_title strong[data-v-1c9b6068] {\n  font-size: 15px;\n}\n.location_label[data-v-1c9b6068] {\n  font-size: 14px;\n  color: #333;\n}\n.nav_title[data-v-1c9b6068] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.van-submit-bar[data-v-1c9b6068] {\n  padding: 10px 0;\n}\n.van-submit-bar__text[data-v-1c9b6068] {\n  text-align: left;\n}\n.order-title[data-v-1c9b6068] {\n  margin-top: 15px;\n  background-color: #fff;\n  font-size: 16px;\n  padding: 15px 20px;\n  color: #333;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nut-navbar[data-v-1c9b6068] {\n  margin-bottom: 0;\n}\n.payment[data-v-1c9b6068] {\n  margin-top: 15px;\n}\n.order-create[data-v-1c9b6068] {\n  padding-bottom: 30px;\n}\n.card-product[data-v-1c9b6068] {\n  background-color: #fff;\n  margin: 0;\n}\n.card-product .card-product_title[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_sku[data-v-1c9b6068] {\n  display: inline-block;\n  font-size: 15px;\n  background-color: #FAFAFA;\n  color: #ABABAB;\n  padding: 3px 8px;\n  margin: 5px 0;\n}\n.card-product .van-card__price-integer[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_text[data-v-1c9b6068] {\n  font-size: 15px;\n  margin: 7px 0;\n}\n.card-product .card-product_text.red[data-v-1c9b6068] {\n  color: #D78161;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags[data-v-1c9b6068] {\n  color: #CF8062;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags span[data-v-1c9b6068] {\n  border: 1px solid #CF8062;\n  border-radius: 3px;\n  display: inline-block;\n  padding: 2px 5px;\n  margin-right: 8px;\n}\n.location_title strong[data-v-1c9b6068] {\n  font-size: 15px;\n}\n.location_label[data-v-1c9b6068] {\n  font-size: 14px;\n  color: #333;\n}\n.nav_title[data-v-1c9b6068] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.van-submit-bar[data-v-1c9b6068] {\n  padding: 10px 0;\n}\n.van-submit-bar__text[data-v-1c9b6068] {\n  text-align: left;\n}\n.order-title[data-v-1c9b6068] {\n  margin-top: 15px;\n  background-color: #fff;\n  font-size: 16px;\n  padding: 15px 20px;\n  color: #333;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

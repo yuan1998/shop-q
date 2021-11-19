@@ -22,12 +22,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
-/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
-/* harmony import */ var _Sku__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Sku */ "./resources/js/components/Product/Sku.vue");
+/* harmony import */ var vant_es_toast_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vant/es/toast/style */ "./node_modules/vant/es/toast/style/index.js");
+/* harmony import */ var vant_es_toast__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vant/es/toast */ "./node_modules/vant/es/toast/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+/* harmony import */ var _Sku__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Sku */ "./resources/js/components/Product/Sku.vue");
+
+
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -47,27 +51,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'product_detail',
   components: {
-    Sku: _Sku__WEBPACK_IMPORTED_MODULE_3__["default"]
+    Sku: _Sku__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   setup: function setup() {
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRoute)();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
-    var data = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRoute)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
+    var data = (0,vue__WEBPACK_IMPORTED_MODULE_2__.reactive)({
       loading: true,
       show: false,
       id: '',
+      like: false,
       data: {}
     });
 
     var productDetail = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(id) {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee(id) {
         var result, resultData, skus;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return (0,_api_api__WEBPACK_IMPORTED_MODULE_2__.getProductDetail)(id);
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_3__.getProductDetail)(id);
 
               case 2:
                 result = _context.sent;
@@ -98,8 +103,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
-    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
@@ -153,13 +158,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     };
 
-    return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_1__.toRefs)(data)), {}, {
+    var handleClickMsg = function handleClickMsg() {
+      (0,vant_es_toast__WEBPACK_IMPORTED_MODULE_6__["default"])('请返回抖音联系客服');
+    };
+
+    return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_2__.toRefs)(data)), {}, {
       send: send,
       onClickButton: onClickButton,
       onClickIcon: onClickIcon,
       showSku: showSku,
       buyProduct: buyProduct,
-      routerToOrder: routerToOrder
+      routerToOrder: routerToOrder,
+      handleClickMsg: handleClickMsg
     });
   }
 });
@@ -358,20 +368,21 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: "https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg",
     alt: "",
     "class": "mc-img"
-  })], -1
+  }, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_15 = {
+var _hoisted_15 = [_hoisted_14];
+var _hoisted_16 = {
   "class": "product_content"
 };
 
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "product_content-title"
   }, " 商品详情 ", -1
@@ -379,15 +390,12 @@ var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_17 = {
+var _hoisted_18 = {
   "class": "product_content-description"
 };
-var _hoisted_18 = ["innerHTML"];
-var _hoisted_19 = {
-  "class": "product_actions"
-};
+var _hoisted_19 = ["innerHTML"];
 var _hoisted_20 = {
-  "class": "product_actions_icon"
+  "class": "product_actions"
 };
 
 var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
@@ -398,11 +406,7 @@ var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_22 = {
-  "class": "product_actions_icon"
-};
-
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon-text"
   }, " 客服 ", -1
@@ -410,11 +414,7 @@ var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_24 = {
-  "class": "product_actions_icon"
-};
-
-var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon-text"
   }, " 收藏 ", -1
@@ -422,7 +422,7 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("立即购买");
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("立即购买");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-icon");
@@ -539,7 +539,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })])]), _hoisted_13, _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, {
+      })])]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        onClick: _cache[1] || (_cache[1] = function ($event) {
+          return _ctx.$router.push({
+            path: '/'
+          });
+        })
+      }, _hoisted_15), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, {
         inset: ""
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -558,39 +564,58 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         innerHTML: _ctx.data.description
       }, null, 8
       /* PROPS */
-      , _hoisted_18)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sku, {
+      , _hoisted_19)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sku, {
         onBuy: $setup.buyProduct,
         product: _ctx.data,
         show: _ctx.show,
-        "onUpdate:show": _cache[1] || (_cache[1] = function ($event) {
+        "onUpdate:show": _cache[2] || (_cache[2] = function ($event) {
           return _ctx.show = $event;
         })
       }, null, 8
       /* PROPS */
-      , ["onBuy", "product", "show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
+      , ["onBuy", "product", "show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "product_actions_icon",
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return _ctx.$router.push({
+            path: '/'
+          });
+        })
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
         size: "20",
         color: "#767676",
         name: "shop-o"
-      }), _hoisted_21]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
+      }), _hoisted_21]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "product_actions_icon",
+        onClick: _cache[4] || (_cache[4] = function () {
+          return $setup.handleClickMsg && $setup.handleClickMsg.apply($setup, arguments);
+        })
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
         size: "20",
         color: "#767676",
         name: "chat-o"
-      }), _hoisted_23]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
+      }), _hoisted_22]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "product_actions_icon",
+        onClick: _cache[5] || (_cache[5] = function ($event) {
+          return _ctx.like = !_ctx.like;
+        })
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_icon, {
         size: "20",
-        color: "#767676",
-        name: "star-o"
-      }), _hoisted_25]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
+        color: _ctx.like ? '#ED0829' : '#767676',
+        name: _ctx.like ? 'star' : 'star-o'
+      }, null, 8
+      /* PROPS */
+      , ["color", "name"]), _hoisted_23]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
         "class": "product_actions-button",
         onClick: $setup.showSku,
         size: "large",
         type: "danger"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_26];
+          return [_hoisted_24];
         }),
         _: 1
         /* STABLE */

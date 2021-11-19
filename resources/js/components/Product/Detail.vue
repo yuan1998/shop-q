@@ -52,7 +52,7 @@
             <div>
                 <img src="https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png" alt="" class="mc-img">
             </div>
-            <div>
+            <div  @click="$router.push({path: '/'})">
                 <img src="https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg" alt="" class="mc-img">
             </div>
 
@@ -72,9 +72,7 @@
             <Sku @buy="buyProduct" :product="data" v-model:show="show"/>
 
             <div class="product_actions">
-                <div class="product_actions_icon" @click="$router.push({
-                path: '/'
-                })">
+                <div class="product_actions_icon" @click="$router.push({path: '/'})">
                     <van-icon size="20" color="#767676" name="shop-o"/>
                     <div class="icon-text">
                         店铺
@@ -87,7 +85,7 @@
                     </div>
                 </div>
                 <div class="product_actions_icon" @click="like = !like">
-                    <van-icon size="20" color="#767676" :name="like ?'star': 'star-o'"/>
+                    <van-icon size="20" :color="like ? '#ED0829' :'#767676'" :name="like ?'star': 'star-o'"/>
                     <div class="icon-text">
                         收藏
                     </div>
@@ -100,7 +98,7 @@
 </template>
 
 <script>
-
+import {Toast} from 'vant';
 import {onMounted, reactive, toRefs} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {getProductDetail} from "../../api/api";
