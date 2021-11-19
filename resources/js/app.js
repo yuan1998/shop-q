@@ -30,6 +30,7 @@ import {
     Toast,
     Card,
     Switch,
+    Search,
     SubmitBar,
     AddressEdit,
     AddressList,
@@ -37,8 +38,6 @@ import {
     Area,
     NavBar
 } from 'vant';
-// import {Price, Navbar, Icon} from '@nutui/nutui';
-// import '@nutui/nutui/dist/style.css';
 
 const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
@@ -68,6 +67,7 @@ app.use(router)
     .use(ActionSheet)
     .use(Field)
     .use(AddressList)
+    .use(Search)
     .use(Loading)
     .use(Switch)
     .use(ContactCard)

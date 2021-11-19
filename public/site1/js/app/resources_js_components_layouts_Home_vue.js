@@ -375,6 +375,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getProductDetail": () => (/* binding */ getProductDetail),
 /* harmony export */   "getProductList": () => (/* binding */ getProductList),
 /* harmony export */   "getOrderList": () => (/* binding */ getOrderList),
+/* harmony export */   "searchOrderByPhone": () => (/* binding */ searchOrderByPhone),
 /* harmony export */   "storeOrder": () => (/* binding */ storeOrder),
 /* harmony export */   "outPayOrder": () => (/* binding */ outPayOrder),
 /* harmony export */   "storeComplaint": () => (/* binding */ storeComplaint)
@@ -477,15 +478,19 @@ var getOrderList = /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }();
-var storeOrder = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(data) {
+var searchOrderByPhone = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(phone) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/searchByPhone', {
+              params: {
+                phone: phone
+              }
+            });
 
           case 2:
             result = _context4.sent;
@@ -499,21 +504,19 @@ var storeOrder = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function storeOrder(_x3) {
+  return function searchOrderByPhone(_x3) {
     return _ref4.apply(this, arguments);
   };
 }();
-var outPayOrder = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(id) {
+var storeOrder = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
-              order_id: id
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
 
           case 2:
             result = _context5.sent;
@@ -527,19 +530,21 @@ var outPayOrder = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function outPayOrder(_x4) {
+  return function storeOrder(_x4) {
     return _ref5.apply(this, arguments);
   };
 }();
-var storeComplaint = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(data) {
+var outPayOrder = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(id) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
+              order_id: id
+            });
 
           case 2:
             result = _context6.sent;
@@ -553,8 +558,34 @@ var storeComplaint = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function storeComplaint(_x5) {
+  return function outPayOrder(_x5) {
     return _ref6.apply(this, arguments);
+  };
+}();
+var storeComplaint = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+
+          case 2:
+            result = _context7.sent;
+            return _context7.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function storeComplaint(_x6) {
+    return _ref7.apply(this, arguments);
   };
 }();
 

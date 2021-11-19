@@ -2,7 +2,9 @@
     <div class="order_index">
         <van-skeleton :row="20" :loading="loading">
             <van-nav-bar fixed placeholder left-arrow title="全部订单" @click-left="$router.back()">
-
+                <template #right>
+                    <van-icon @click="onClickRight" name="search" size="18"/>
+                </template>
             </van-nav-bar>
             <van-list
                 v-model="loading"
@@ -12,15 +14,27 @@
             >
                 <OrderItem :product="item" v-for="item in list" :key="item.id"/>
             </van-list>
+            <van-action-sheet v-model:show="show"
+                              description="输入手机号码搜索订单">
+                <div class="content">
+                    <van-search v-model="searchValue" placeholder="请输入收货人电话号码"/>
+                    <div class="van-action-sheet__gap"></div>
+                    <button @click="onCancel" type="button" class="van-action-sheet__cancel">
+                        {{
+                            searchValue ? '查询' : '取消'
+                        }}
+                    </button>
+                </div>
+            </van-action-sheet>
         </van-skeleton>
-
     </div>
 </template>
 
 <script>
-import {orderIdStr} from "../../api/order";
-import {getOrderList} from "../../api/api";
-import {reactive, toRefs} from "vue";
+import {existsOrder, mergeOrder, orderIdStr, truncateOrder} from "../../api/order";
+import {getOrderList, searchOrderByPhone} from "../../api/api";
+import {onMounted, reactive, toRefs} from "vue";
+import {Toast} from 'vant';
 import OrderItem from "./OrderItem";
 
 export default {
@@ -33,13 +47,15 @@ export default {
             list: [],
             loading: false,
             finished: false,
+            show: false,
+            searchValue: '',
         });
 
 
-        let id = orderIdStr();
-
-
         const pullOrderId = async () => {
+            let id = orderIdStr();
+            console.log("id", id);
+
             if (id) {
                 data.loading = true;
                 let result = await getOrderList(id);
@@ -61,12 +77,33 @@ export default {
                 data.finished = true;
             }
         }
+        const onClickRight = () => {
+            data.show = true;
+        };
+        const onCancel = async () => {
+            const {searchValue} = data;
+            if (searchValue) {
+                if (!/^[1][345789][0-9]{9}$/.test(searchValue)) {
+                    Toast.fail('请输入正确的电话号码');
+                    return;
+                }
 
+                Toast.loading('获取订单中,请稍等...');
+                let result = await searchOrderByPhone(searchValue);
+                mergeOrder(result.data);
+                Toast.success('获取订单中成功');
+                data.finished = false;
+                pullOrderId();
+            }
+
+            data.show = false;
+        };
 
         return {
             ...toRefs(data),
             pullOrderId,
-
+            onClickRight,
+            onCancel,
         }
     }
 }

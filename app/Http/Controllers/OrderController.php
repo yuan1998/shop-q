@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $data = $request->only(['product_id', 'product_sku', 'custom_info', 'count', 'price','payment']);
+        $data = $request->only(['product_id', 'product_sku', 'custom_info', 'count', 'price', 'payment']);
 
         try {
             $order = Order::generateOrder($data);
@@ -72,6 +72,32 @@ class OrderController extends Controller
                 'msg' => '获取订单成功!'
             ]);
     }
+
+    public function getPhoneOrderList(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $phone = $request->get('phone');
+        $data = [];
+
+        if ($phone) {
+            $data = Order::query()
+                ->select([
+                    'custom_info',
+                    'order_id',
+                ])
+                ->where('custom_info', 'like', "%$phone%")
+                ->get()
+                ->pluck('order_id');
+        }
+
+
+        return response()
+            ->json([
+                'status' => 0,
+                'data' => $data,
+                'msg' => '查询成功'
+            ]);
+    }
+
 
     public function orderPay(Request $request)
     {

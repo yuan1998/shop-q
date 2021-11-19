@@ -8,12 +8,33 @@ if (!database.tableExists(table)) {
     database.commit();
 }
 
-
-export const addOrder = (id) => {
-
-    database.insert(table, {
+export const existsOrder = (id) => {
+    let exists = database.query(table, {
         order_id: id,
-    })
+    });
+
+    return !!exists.length;
+}
+
+export const addOrder = (id, commit = true) => {
+    if (!existsOrder(id)) {
+        database.insert(table, {
+            order_id: id,
+        })
+        commit && database.commit();
+    }
+}
+
+export const truncateOrder = () => {
+    database.truncate(table);
+    database.commit();
+}
+
+export const mergeOrder = (ids) => {
+    for (let i = 0; i < ids.length; i++) {
+        let id = ids[i];
+        addOrder(id, false);
+    }
     database.commit();
 }
 
@@ -23,6 +44,6 @@ export const orderList = (page = 1, pageSize = 15) => {
 
 export const orderIdStr = () => {
     let orderIdList = orderList();
-    console.log("orderIdList",orderIdList);
-    return  lodash.map(orderIdList, 'order_id').join(',');
+    console.log("orderIdList", orderIdList);
+    return lodash.map(orderIdList, 'order_id').join(',');
 }

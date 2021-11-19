@@ -27,6 +27,15 @@ export const getOrderList = async (id) => {
     return result.data;
 }
 
+export const searchOrderByPhone = async (phone) => {
+    let result = await axios.get(BASE_URL + 'api/order/searchByPhone', {
+        params: {
+            phone,
+        }
+    })
+
+    return result.data;
+}
 
 export const storeOrder = async (data) => {
     let result = await axios.post(BASE_URL + 'api/order/store', data);
