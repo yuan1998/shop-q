@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\PayChannel;
-use App\Payable\HuPiPay;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -88,7 +86,6 @@ class OrderController extends Controller
             throw new \Exception('未配置支付渠道.');
 
         return $payMethod->payment($order, $request);
-
     }
 
     public function orderNotify(Request $request)

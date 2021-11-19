@@ -1,7 +1,9 @@
 <template>
     <div class="order_index">
         <van-skeleton :row="20" :loading="loading">
-            <van-nav-bar fixed placeholder left-arrow title="全部订单" @click-left="$router.back()"/>
+            <van-nav-bar fixed placeholder left-arrow title="全部订单" @click-left="$router.back()">
+
+            </van-nav-bar>
             <van-list
                 v-model="loading"
                 :finished="finished"
