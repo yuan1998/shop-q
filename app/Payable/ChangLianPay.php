@@ -111,7 +111,7 @@ class ChangLianPay
          * 个人支付宝/微信官方支付，支付网关：https://api.xunhupay.com
          * 微信支付宝代收款，需提现，支付网关：https://pay.wordpressopen.com
          */
-        $url = 'https://api2.payunk.com/index/unifiedorder?format=json';
+        $url = 'http://api2.payunk.com/index/unifiedorder?format=json';
 
         try {
             Log::info('payment 测试 $data' ,[
