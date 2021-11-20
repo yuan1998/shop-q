@@ -68,7 +68,7 @@ class ChangLianPay
         $sign = $data['sign'];
         unset($data['sign']);
         // 生成新的签名、验证传过来的签名
-        $sign2 = getSign($secret, $data);
+        $sign2 = static::getSign($secret, $data);
 
         return $sign2;
     }
