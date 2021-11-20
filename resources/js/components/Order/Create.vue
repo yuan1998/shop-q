@@ -127,20 +127,20 @@
 
             <van-radio-group v-model="payment">
                 <van-cell-group>
-                    <!--                    <van-cell clickable @click="payment = 'wechat'">-->
-                    <!--                        <template #title>-->
-                    <!--                            <div style="display:flex;align-items: center;">-->
-                    <!--                                <van-image width="30"-->
-                    <!--                                           height="30"-->
-                    <!--                                           src="https://pic.imgdb.cn/item/618a48d52ab3f51d917adac2.png"-->
-                    <!--                                           round/>-->
-                    <!--                                <div style="margin-left: 15px;">微信支付</div>-->
-                    <!--                            </div>-->
-                    <!--                        </template>-->
-                    <!--                        <template #right-icon>-->
-                    <!--                            <van-radio name="wechat" checked-color="#F93E5B"/>-->
-                    <!--                        </template>-->
-                    <!--                    </van-cell>-->
+                    <van-cell clickable @click="payment = 'wechat'">
+                        <template #title>
+                            <div style="display:flex;align-items: center;">
+                                <van-image width="30"
+                                           height="30"
+                                           src="https://pic.imgdb.cn/item/618a48d52ab3f51d917adac2.png"
+                                           round/>
+                                <div style="margin-left: 15px;">微信支付</div>
+                            </div>
+                        </template>
+                        <template #right-icon>
+                            <van-radio name="wechat" checked-color="#F93E5B"/>
+                        </template>
+                    </van-cell>
                     <van-cell clickable @click="payment = 'alipay'">
                         <template #title>
                             <div style="display:flex;align-items: center;">
@@ -201,7 +201,7 @@ export default {
         const data = reactive({
             loading: false,
             count: route.query.count,
-            payment: 'alipay',
+            payment: 'wechat',
             location: {
                 name: '',
                 phone: '',

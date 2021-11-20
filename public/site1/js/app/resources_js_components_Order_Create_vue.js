@@ -64,7 +64,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var data = (0,vue__WEBPACK_IMPORTED_MODULE_2__.reactive)({
       loading: false,
       count: route.query.count,
-      payment: 'alipay',
+      payment: 'wechat',
       location: {
         name: '',
         phone: '',
@@ -305,27 +305,44 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
     style: {
       "margin-left": "15px"
     }
-  }, "支付宝", -1
+  }, "微信支付", -1
   /* HOISTED */
   );
 });
 
 var _hoisted_23 = {
+  style: {
+    "display": "flex",
+    "align-items": "center"
+  }
+};
+
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    style: {
+      "margin-left": "15px"
+    }
+  }, "支付宝", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_25 = {
   "class": "van-submit-bar__text"
 };
-var _hoisted_24 = {
+var _hoisted_26 = {
   "class": "van-submit-bar__price"
 };
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("¥");
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("¥");
 
-var _hoisted_26 = {
+var _hoisted_28 = {
   "class": "van-submit-bar__price-integer"
 };
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(".00");
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(".00");
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 提交订单 ");
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 提交订单 ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-image");
@@ -482,26 +499,49 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_radio_group, {
     modelValue: _ctx.payment,
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return _ctx.payment = $event;
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, null, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                    <van-cell clickable @click=\"payment = 'wechat'\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                        <template #title>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <div style=\"display:flex;align-items: center;\">"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                <van-image width=\"30\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                           height=\"30\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                           src=\"https://pic.imgdb.cn/item/618a48d52ab3f51d917adac2.png\""), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                           round/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                                <div style=\"margin-left: 15px;\">微信支付</div>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            </div>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                        </template>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                        <template #right-icon>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                            <van-radio name=\"wechat\" checked-color=\"#F93E5B\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                        </template>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                    </van-cell>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
             clickable: "",
             onClick: _cache[2] || (_cache[2] = function ($event) {
-              return _ctx.payment = 'alipay';
+              return _ctx.payment = 'wechat';
             })
           }, {
             title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
                 width: "30",
                 height: "30",
-                src: "https://pic.imgdb.cn/item/619631732ab3f51d91398c6f.jpg",
+                src: "https://pic.imgdb.cn/item/618a48d52ab3f51d917adac2.png",
                 round: ""
               }), _hoisted_22])];
+            }),
+            "right-icon": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_radio, {
+                name: "wechat",
+                "checked-color": "#F93E5B"
+              })];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
+            clickable: "",
+            onClick: _cache[3] || (_cache[3] = function ($event) {
+              return _ctx.payment = 'alipay';
+            })
+          }, {
+            title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
+                width: "30",
+                height: "30",
+                src: "https://pic.imgdb.cn/item/619631732ab3f51d91398c6f.jpg",
+                round: ""
+              }), _hoisted_24])];
             }),
             "right-icon": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_radio, {
@@ -529,9 +569,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "decimal-length": 2
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.price), 1
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_26, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.price), 1
       /* TEXT */
-      ), _hoisted_27])])];
+      ), _hoisted_29])])];
     }),
     button: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
@@ -539,7 +579,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         color: "#FB3E5B"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_28];
+          return [_hoisted_30];
         }),
         _: 1
         /* STABLE */
