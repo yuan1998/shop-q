@@ -114,7 +114,9 @@ class ChangLianPay
         $url = 'https://api2.payunk.com/index/unifiedorder?format=json';
 
         try {
-
+            Log::info('payment 测试 $data' ,[
+                $data
+            ]);
             $client = new Client();
             $response = $client->post($url, [
                 'form_params' => $data,
@@ -122,6 +124,9 @@ class ChangLianPay
             $result = $response->getBody()->getContents();
 
             $result = json_decode($result, true);
+            Log::info('payment 测试 $result' ,[
+            $result
+                ]);
 
 
             $pay_url = $result['url'];
@@ -138,8 +143,6 @@ class ChangLianPay
 
 //        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
-//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
 
         $data = $request->all();
         Log::info('notify 测试 $data', $data);
