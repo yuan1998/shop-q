@@ -120,6 +120,7 @@ class ChangLianPay
             $client = new Client();
             $response = $client->post($url, [
                 'form_params' => $data,
+                'verify' => false,
             ]);
             $result = $response->getBody()->getContents();
 
