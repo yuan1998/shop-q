@@ -658,14 +658,18 @@ var getProductDetail = /*#__PURE__*/function () {
   };
 }();
 var getProductList = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list');
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list', {
+              params: {
+                page: page
+              }
+            });
 
           case 2:
             result = _context2.sent;
@@ -679,7 +683,7 @@ var getProductList = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function getProductList() {
+  return function getProductList(_x2) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -710,7 +714,7 @@ var getOrderList = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getOrderList(_x2, _x3) {
+  return function getOrderList(_x3, _x4) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -740,7 +744,7 @@ var searchOrderByPhone = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function searchOrderByPhone(_x4) {
+  return function searchOrderByPhone(_x5) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -766,7 +770,7 @@ var storeOrder = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function storeOrder(_x5) {
+  return function storeOrder(_x6) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -794,7 +798,7 @@ var outPayOrder = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function outPayOrder(_x6) {
+  return function outPayOrder(_x7) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -820,7 +824,7 @@ var storeComplaint = /*#__PURE__*/function () {
     }, _callee7);
   }));
 
-  return function storeComplaint(_x7) {
+  return function storeComplaint(_x8) {
     return _ref7.apply(this, arguments);
   };
 }();

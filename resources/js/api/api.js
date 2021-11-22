@@ -12,8 +12,12 @@ export const getProductDetail = async (id) => {
     return result.data;
 }
 
-export const getProductList = async () => {
-    let result = await axios.get(BASE_URL + 'api/product/list')
+export const getProductList = async (page) => {
+    let result = await axios.get(BASE_URL + 'api/product/list', {
+        params: {
+            page
+        }
+    })
 
     return result.data;
 }

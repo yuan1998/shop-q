@@ -30,8 +30,8 @@ import lodash from 'lodash'
 import ProductItem from '../Product/Item'
 
 
-const listMethod = async () => {
-    let result = await getProductList();
+const listMethod = async (page) => {
+    let result = await getProductList(page);
     let data = result.data.data.map((item) => {
         let images = JSON.parse(item.images);
         item.image = lodash.get(images, '0.value');
@@ -57,13 +57,13 @@ export default {
             loading: false,
             finished: false,
             list: [],
+            currentPage: null,
         })
 
 
         const onLoad = async () => {
-            let d = await listMethod();
+            let d = await listMethod(data.currentPage ? data.currentPage + 1 : 1);
             data.loading = false;
-            console.log("",);
             data.list = data.list.concat(d.data);
 
             if (d.current_page >= d.last_page) {
