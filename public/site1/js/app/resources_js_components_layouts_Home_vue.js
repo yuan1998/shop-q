@@ -286,7 +286,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_tabs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-tabs");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-    src: "https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd7.jpg"
+    src: "https://pic.imgdb.cn/item/619aefaa2ab3f51d9157501a.jpg"
   })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_tabs, {
     active: $setup.activeName,
     "onUpdate:active": _cache[1] || (_cache[1] = function ($event) {

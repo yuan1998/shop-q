@@ -31,29 +31,17 @@
                 <div class="product_info-title">
                     {{ data.title }}
                 </div>
-                <van-divider/>
 
                 <div class="product_info-list">
-                    <van-cell is-link>
-                        <!-- 使用 title 插槽来自定义标题 -->
-                        <template #title>
-                            <van-image src="https://pic.imgdb.cn/item/61937dae2ab3f51d9193b76c.jpg" style="width:70vw;max-width: 700px;"/>
-                        </template>
-                    </van-cell>
-                    <van-cell>
-                        <!-- 使用 title 插槽来自定义标题 -->
-                        <template #title>
-                            <van-image fil="contain" src="https://pic.imgdb.cn/item/6185e3202ab3f51d915d90ab.png" style="width:40vw;max-width: 700px;"/>
-                        </template>
-                    </van-cell>
-
+                    <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d111.jpg" alt="" class="mc-img">
                 </div>
+
             </div>
             <div>
                 <img src="https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png" alt="" class="mc-img">
             </div>
             <div  @click="$router.push({path: '/'})">
-                <img src="https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg" alt="" class="mc-img">
+                <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png" alt="" class="mc-img">
             </div>
 
 

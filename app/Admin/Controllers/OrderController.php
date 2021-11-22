@@ -6,6 +6,8 @@ use App\Admin\Exporters\OrderExporter;
 use App\Admin\Forms\OrderLogisticNumber;
 use App\Admin\Renderable\ProductTable;
 use App\Admin\Repositories\Order;
+use App\Models\Order as OrderModel;
+use App\Models\OrderReturn;
 use App\Models\Product;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -31,6 +33,10 @@ class OrderController extends AdminController
             $grid->disableCreateButton();
             $grid->disableEditButton();
 
+
+            $grid->column('id')->display(function () {
+                return $this->_index + 1;
+            });
             $grid->column('order_id');
             $grid->column('snapshot', '订单商品')
                 ->expand(function (Grid\Displayers\Expand $expand) {
@@ -46,17 +52,29 @@ class OrderController extends AdminController
                 })
                 ->style("color:red;");
 
+//            $statusField = $grid->column('status')
+//                ->display(function ($val) {
+//                    $returnStatus = $this->return_status;
+//                    if ($returnStatus) {
+//                        return data_get(OrderReturn::$outStatus, $returnStatus);
+//                    } else {
+//                        return data_get(OrderModel::$payStatus, $val);
+//                    }
+//                });
+
+
             $grid->column('status')
                 ->select(\App\Models\Order::$payStatus, true);
 
-            $grid->column('pay_method');
+            $grid->column('pay_method')
+                ->using(\App\Models\Order::$paymentName);
             $grid->column('pay_date');
             $grid->column('logistic_number', '快递单号')
                 ->display(function ($val) {
                     return $val ?? '未发货';
                 })
                 ->if(function () {
-                    return $this->status !== \App\Models\Order::UN_PAY ;
+                    return $this->status !== \App\Models\Order::UN_PAY;
                 })
                 ->modal(function (Grid\Displayers\Modal $modal) {
                     // 标题

@@ -24,7 +24,6 @@ class ChangLianPay
         return data_get(static::$payment, $type);
     }
 
-
     public static function getSign($secret, $data)
     {
         // 去空

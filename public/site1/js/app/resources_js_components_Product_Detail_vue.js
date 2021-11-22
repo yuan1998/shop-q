@@ -353,9 +353,18 @@ var _hoisted_10 = {
 var _hoisted_11 = {
   "class": "product_info-title"
 };
-var _hoisted_12 = {
-  "class": "product_info-list"
-};
+
+var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "product_info-list"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d111.jpg",
+    alt: "",
+    "class": "mc-img"
+  })], -1
+  /* HOISTED */
+  );
+});
 
 var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -369,7 +378,7 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: "https://pic.imgdb.cn/item/61937c942ab3f51d9192fbd3.jpg",
+    src: "https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png",
     alt: "",
     "class": "mc-img"
   }, null, -1
@@ -434,8 +443,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_swipe = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-swipe");
 
   var _component_van_divider = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-divider");
-
-  var _component_van_image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-image");
 
   var _component_van_cell = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-cell");
 
@@ -510,36 +517,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* TEXT */
       )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                <van-image src=\"https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.title), 1
       /* TEXT */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
-        "is-link": ""
-      }, {
-        title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-            src: "https://pic.imgdb.cn/item/61937dae2ab3f51d9193b76c.jpg",
-            style: {
-              "width": "70vw",
-              "max-width": "700px"
-            }
-          })];
-        }),
-        _: 1
-        /* STABLE */
-
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, null, {
-        title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_image, {
-            fil: "contain",
-            src: "https://pic.imgdb.cn/item/6185e3202ab3f51d915d90ab.png",
-            style: {
-              "width": "40vw",
-              "max-width": "700px"
-            }
-          })];
-        }),
-        _: 1
-        /* STABLE */
-
-      })])]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      ), _hoisted_12]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         onClick: _cache[1] || (_cache[1] = function ($event) {
           return _ctx.$router.push({
             path: '/'

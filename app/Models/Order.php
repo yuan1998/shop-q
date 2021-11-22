@@ -9,21 +9,24 @@ class Order extends Model
 {
 
     const UN_PAY = 1;
-
     const PAY_SUCCESS = 2;
-
     const PAY_ERROR = 3;
-
     const PAY_OUTING = 4;
+    const SHIP = 5;
+    const CANCEL = 6;
 
-    const PAY_OUTED = 5;
+    public static $paymentName = [
+        'wechat' => '微信支付',
+        'alipay' => '支付宝',
+    ];
 
     public static $payStatus = [
         self::UN_PAY => '未支付',
         self::PAY_SUCCESS => '支付成功',
         self::PAY_ERROR => '支付失败',
-        self::PAY_OUTING => '退款中',
-        self::PAY_OUTED => '退款完成',
+        self::PAY_OUTING => '退货/退款',
+        self::SHIP => '已发货',
+        self::CANCEL => '已取消',
     ];
 
     protected $fillable = [
@@ -38,6 +41,14 @@ class Order extends Model
         'price',
         'order_id',
         'logistic_number',
+        'pay_channel_id',
+        'origin_price',
+        'send_at',
+        'return_status',
+        'return_at',
+        'return_reason',
+        'return_location',
+        'return_logistics_number',
     ];
 
     protected $casts = [
