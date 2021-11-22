@@ -181,8 +181,8 @@ class HuPiPay
 
     public static function notify($payMethod = null, $request = null): string
     {
-        $request = !$request ?? request();
-        $data = $request->all();
+        $request = $request ?? request();
+        $data = $request->post();
         Log::info('notify 测试', $data);
 
         foreach ($data as $k => $v) {
