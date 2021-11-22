@@ -65,7 +65,7 @@ export default {
             let d = await listMethod(data.currentPage ? data.currentPage + 1 : 1);
             data.loading = false;
             data.list = data.list.concat(d.data);
-
+            data.currentPage = d.current_page;
             if (d.current_page >= d.last_page) {
                 data.finished = true;
             }

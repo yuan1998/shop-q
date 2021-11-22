@@ -138,12 +138,13 @@ var listMethod = /*#__PURE__*/function () {
                 d = _context2.sent;
                 data.loading = false;
                 data.list = data.list.concat(d.data);
+                data.currentPage = d.current_page;
 
                 if (d.current_page >= d.last_page) {
                   data.finished = true;
                 }
 
-              case 6:
+              case 7:
               case "end":
                 return _context2.stop();
             }
