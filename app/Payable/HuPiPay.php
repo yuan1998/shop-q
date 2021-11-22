@@ -104,7 +104,8 @@ class HuPiPay
         return strripos($_SERVER['HTTP_USER_AGENT'], 'micromessenger');
     }
 
-    public static function payment($order,$payMethod,$request) {
+    public static function payment($order, $payMethod, $request)
+    {
         $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
         $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
 //        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
@@ -126,7 +127,7 @@ class HuPiPay
             'total_fee' => $order->price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
             'title' => '耐克球鞋', //必须的，订单标题，长度32或以内
             'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
-            'notify_url' => $domain . '/api/pay/notify', //必须的，支付成功异步回调接口
+            'notify_url' => $domain . '/api/pay/notify/hupi', //必须的，支付成功异步回调接口
             'return_url' => $domain . '/#success',//必须的，支付成功后的跳转地址
             'callback_url' => $domain . '/#checkout',//必须的，支付发起地址（未支付或支付失败，系统会会跳到这个地址让用户修改支付信息）
             'modal' => null, //可空，支付模式 ，可选值( full:返回完整的支付网页; qrcode:返回二维码; 空值:返回支付跳转链接)
@@ -178,14 +179,9 @@ class HuPiPay
         }
     }
 
-    public static function notify($payMethod,$request): string
+    public static function notify($payMethod = null, $request = null): string
     {
-
-//        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
-        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
-//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
-
+        $request = !$request ?? request();
         $data = $request->post();
         Log::info('notify 测试', $data);
 
@@ -198,18 +194,12 @@ class HuPiPay
             return 'failed';
         }
 
+        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+
+
         //自定义插件ID,请与支付请求时一致
         if (isset($data['plugins']) && $data['plugins'] != $my_plugin_id) {
             Log::info('自定义插件ID,请与支付请求时一致');
-            return 'failed';
-        }
-
-        //APP SECRET
-
-        $hash = HuPiPay::generate_xh_hash($data, $appsecret);
-        if ($data['hash'] != $hash) {
-            Log::info('签名验证失败');
-            //签名验证失败
             return 'failed';
         }
 
@@ -219,6 +209,30 @@ class HuPiPay
         $order = Order::query()
             ->where('order_id', $trade_order_id)
             ->first();
+
+        if (!$order) {
+            Log::info('notify 测试: 订单不存在', [
+                $data
+            ]);
+
+            return 'failed';
+        }
+        $payMethod = $payMethod ?? $order->getPayment;
+
+
+//        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
+        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
+//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+
+
+        //APP SECRET
+
+        $hash = HuPiPay::generate_xh_hash($data, $appsecret);
+        if ($data['hash'] != $hash) {
+            Log::info('签名验证失败');
+            //签名验证失败
+            return 'failed';
+        }
 
 
         if ($data['status'] == 'OD') {

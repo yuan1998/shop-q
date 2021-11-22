@@ -38,13 +38,14 @@ class ProductTable extends LazyRenderable
 
 
             return [
-                'title' => $product['title'],
+                'title' => data_get($product, 'title'),
                 'sku' => $sku,
-                'price' => $product['price'],
+                'price' => data_get($product, 'price'),
+                'count' => data_get($product, 'count'),
             ];
 
         });
 
-        return Table::make(['商品', 'Sku', '价格'], $data);
+        return Table::make(['商品', 'Sku', '价格', '数量'], $data);
     }
 }

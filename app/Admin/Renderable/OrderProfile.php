@@ -4,6 +4,7 @@ namespace App\Admin\Renderable;
 
 use App\Models\Order;
 use App\Models\OrderReturn;
+use Carbon\Carbon;
 use Dcat\Admin\Admin;
 use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Traits\LazyWidget;
@@ -28,21 +29,21 @@ class OrderProfile extends Form implements LazyRenderable
         switch ($action) {
             case "PASS_ORDER":
                 $data->put('price', data_get($input, 'price'));
-                $data->put('status', 1);
+                $data->put('status', Order::UN_PAY);
                 break;
             case "PAYED":
-                $data->put('status', 2);
-
+                $data->put('pay_date', Carbon::now()->toDateTimeString());
+                $data->put('status', Order::PAY_SUCCESS);
                 break;
             case "SEND":
-                $data->put('logistics_number', $input['logistics_number']);
-                $data->put('status', 3);
+                $data->put('logistic_number', $input['logistic_number']);
+                $data->put('status', Order::SHIP);
+                $data->put('send_at', Carbon::now()->toDateTimeString());
                 break;
             case "PASS_RETURN_PRODUCT":
                 $data->put('return_location', $input['return_location']);
                 $data->put('return_status', 2);
                 $data->put('status', 4);
-
                 break;
             case "SEND_RETURN_PRODUCT":
                 $data->put('return_status', 3);
@@ -82,7 +83,9 @@ class OrderProfile extends Form implements LazyRenderable
             $this->submitButton(false);
             $this->resetButton(false);
         }
-        $this->textarea('comment', '备注')->value($model->comment);
+
+        $this->textarea('comment', '备注')
+            ->value($model->comment);
 
         if ($returnStatus) {
             $this->display('return_status', '退货/退款类型')
@@ -147,14 +150,17 @@ class OrderProfile extends Form implements LazyRenderable
 
 //        $this->display('logistics_type_id', '快递类型')
 //            ->value($typeTitle);
+        $customInfo = json_decode($model->custom_info, true);
 
         $this->display('recipient_name', '收件人姓名')
-            ->value($model->recipient_name);
+            ->value($customInfo['收货人']);
         $this->display('recipient_phone', '收件人电话')
-            ->value($model->recipient_phone);
+            ->value($customInfo['收货人电话']);
         $this->display('recipient_location', '收件人地址')
-            ->value($model->recipient_location);
+            ->value($customInfo['收货人地址']);
 
+
+//        dd($status);
         if ($status == 0) {
             $this->submitButton(false);
             $this->resetButton(false);
@@ -174,14 +180,14 @@ class OrderProfile extends Form implements LazyRenderable
         }
         if ($status == 2) {
             $this->hidden('action')->value('SEND');
-            $this->text('logistics_number', '快递单号')
+            $this->text('logistic_number', '快递单号')
                 ->required();
         }
-        if ($status == 3) {
+        if ($status == 5) {
             $this->submitButton(false);
             $this->resetButton(false);
-            $this->display('logistics_number', '快递单号')
-                ->value($model->logistics_number);
+            $this->display('logistic_number', '快递单号')
+                ->value($model->logistic_number);
         }
     }
 }

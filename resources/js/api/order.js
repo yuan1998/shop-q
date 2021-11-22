@@ -47,3 +47,9 @@ export const orderIdStr = () => {
     console.log("orderIdList", orderIdList);
     return lodash.map(orderIdList, 'order_id').join(',');
 }
+
+export const orderDelete = (id) => {
+    if (!id) return;
+    database.deleteRows(table, {order_id: id});
+    database.commit();
+}

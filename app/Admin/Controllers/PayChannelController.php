@@ -33,7 +33,7 @@ class PayChannelController extends AdminController
             $grid->column('comment')->editable();
             $grid->column('type')->using(\App\Models\PayChannel::$pay_method);
             $grid->column('enable')->switch();
-//            $grid->column('alipay_enable')->switch();
+            $grid->column('alipay_enable')->switch();
             $grid->column('created_at');
 
             $grid->filter(function (Grid\Filter $filter) {

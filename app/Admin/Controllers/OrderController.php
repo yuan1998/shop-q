@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Exporters\OrderExporter;
 use App\Admin\Forms\OrderLogisticNumber;
+use App\Admin\Renderable\OrderProfile;
 use App\Admin\Renderable\ProductTable;
 use App\Admin\Repositories\Order;
 use App\Models\Order as OrderModel;
@@ -33,7 +34,6 @@ class OrderController extends AdminController
             $grid->disableCreateButton();
             $grid->disableEditButton();
 
-
             $grid->column('id')->display(function () {
                 return $this->_index + 1;
             });
@@ -52,19 +52,24 @@ class OrderController extends AdminController
                 })
                 ->style("color:red;");
 
-//            $statusField = $grid->column('status')
-//                ->display(function ($val) {
-//                    $returnStatus = $this->return_status;
-//                    if ($returnStatus) {
-//                        return data_get(OrderReturn::$outStatus, $returnStatus);
-//                    } else {
-//                        return data_get(OrderModel::$payStatus, $val);
-//                    }
-//                });
+            $statusField = $grid->column('status')
+                ->display(function ($val) {
+                    $returnStatus = $this->return_status;
 
+                    if ($returnStatus) {
+                        return data_get(OrderReturn::$outStatus, $returnStatus);
+                    } else {
+                        return data_get(OrderModel::$payStatus, $val);
+                    }
+                });
 
-            $grid->column('status')
-                ->select(\App\Models\Order::$payStatus, true);
+            $statusField->modal(function () {
+                return OrderProfile::make()->payload([
+                    'id' => $this->id,
+                ]);
+            });
+//            $grid->column('status')
+//                ->select(\App\Models\Order::$payStatus, true);
 
             $grid->column('pay_method')
                 ->using(\App\Models\Order::$paymentName);
@@ -77,12 +82,9 @@ class OrderController extends AdminController
                     return $this->status !== \App\Models\Order::UN_PAY;
                 })
                 ->modal(function (Grid\Displayers\Modal $modal) {
-                    // 标题
                     $modal->title('快递单号');
-                    // 自定义图标
                     $modal->icon('feather icon-edit');
 
-                    // 传递当前行字段值
                     return OrderLogisticNumber::make()->payload([
                         'id' => $this->id,
                     ]);

@@ -1,18 +1,21 @@
 <template>
     <div class="order_index">
-        <van-skeleton :row="20" :loading="loading">
+        <van-skeleton :row="20" :loading="!list && listLoading">
             <van-nav-bar fixed placeholder left-arrow title="全部订单" @click-left="$router.back()">
                 <template #right>
                     <van-icon @click="onClickRight" name="search" size="18"/>
                 </template>
             </van-nav-bar>
             <van-list
-                v-model="loading"
+                v-model="listLoading"
                 :finished="finished"
                 finished-text="没有更多了"
                 @load="pullOrderId"
             >
-                <OrderItem :product="item" v-for="item in list" :key="item.id"/>
+                <OrderItem :product="item"
+                           v-for="item in list"
+                           :key="item.id"
+                           @delete-row="deleteOrder"/>
             </van-list>
             <van-action-sheet v-model:show="show"
                               description="输入手机号码搜索订单">
@@ -31,7 +34,7 @@
 </template>
 
 <script>
-import {existsOrder, mergeOrder, orderIdStr, truncateOrder} from "../../api/order";
+import {existsOrder, mergeOrder, orderDelete, orderIdStr, truncateOrder} from "../../api/order";
 import {getOrderList, searchOrderByPhone} from "../../api/api";
 import {onMounted, reactive, toRefs} from "vue";
 import {Toast} from 'vant';
@@ -46,9 +49,11 @@ export default {
         const data = reactive({
             list: [],
             loading: false,
+            listLoading: false,
             finished: false,
             show: false,
             searchValue: '',
+            currentPage: null,
         });
 
 
@@ -57,22 +62,22 @@ export default {
             console.log("id", id);
 
             if (id) {
-                data.loading = true;
-                let result = await getOrderList(id);
+                data.listLoading = true;
+                let result = await getOrderList(id, !data.currentPage ? 1 : data.currentPage + 1);
 
-                data.loading = false;
-                data.list = result.data.data.map((item) => {
+                data.listLoading = false;
+                data.list = data.list.concat(result.data.data.map((item) => {
                     return {
                         ...item,
                         custom_info: JSON.parse(item.custom_info),
                         snapshot: [].concat(JSON.parse(item.snapshot)),
                     }
-                });
+                }));
+                data.currentPage = result.data.current_page;
 
-                if (result.data.last_page >= result.data.current_page) {
+                if (result.data.last_page <= result.data.current_page) {
                     data.finished = true;
                 }
-
             } else {
                 data.finished = true;
             }
@@ -99,11 +104,19 @@ export default {
             data.show = false;
         };
 
+        const deleteOrder = (id) => {
+            console.log("id", id);
+            data.list = data.list.filter((item) => item.order_id !== id);
+            orderDelete(id);
+            pullOrderId();
+        }
+
         return {
             ...toRefs(data),
             pullOrderId,
             onClickRight,
             onCancel,
+            deleteOrder,
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use App\Payable\BSYiPay;
@@ -37,9 +38,12 @@ class PayChannel extends Model
         'comment',
     ];
 
-    public static function getPayMethod()
+    public static function getPayMethod($payment = 'wechat')
     {
-        $payment = request()->get('payment', 'wechat');
+        $field = 'enable';
+        if (in_array($payment, ['wechat', 'alipay'])) {
+            $field = $payment === 'wechat' ? 'enable' : 'alipay_enable';
+        }
 
         return static::query()
             ->select([
@@ -50,7 +54,7 @@ class PayChannel extends Model
                 'enable',
                 'alipay_enable',
             ])
-            ->orderBy('enable', 'desc')
+            ->orderBy($field, 'desc')
             ->first();
     }
 

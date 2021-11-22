@@ -42,13 +42,13 @@ class Order extends Model
         'order_id',
         'logistic_number',
         'pay_channel_id',
-        'origin_price',
         'send_at',
         'return_status',
         'return_at',
         'return_reason',
         'return_location',
         'return_logistics_number',
+        'comment',
     ];
 
     protected $casts = [
@@ -83,16 +83,28 @@ class Order extends Model
         $product->sku = data_get($data, 'product_sku');
         $product->count = data_get($data, 'count');
 
+
+        $payment = data_get($data, 'payment', 'wechat');
+        $payChannel = PayChannel::getPayMethod($payment);
+
         $arr = [
             'snapshot' => json_encode($product),
             'product_id' => $productId,
-            'pay_method' => data_get($data, 'payment', 'wechat'),
+            'pay_method' => $payment,
             'custom_info' => data_get($data, 'custom_info'),
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,
-            'price' => data_get($data, 'price')
+            'price' => data_get($data, 'price'),
+            'pay_channel_id' => $payChannel->id,
         ];
 
         return Order::create($arr);
+    }
+
+    public function getPayment()
+    {
+        return $this->pay_channel_id ? PayChannel::find($this->pay_channel_id)
+            : PayChannel::getPayMethod($this->pay_method);
+
     }
 }

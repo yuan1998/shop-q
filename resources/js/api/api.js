@@ -17,10 +17,11 @@ export const getProductList = async () => {
 
     return result.data;
 }
-export const getOrderList = async (id) => {
+export const getOrderList = async (id, page) => {
     let result = await axios.get(BASE_URL + 'api/order/list', {
         params: {
             order_id: id,
+            page,
         }
     })
 

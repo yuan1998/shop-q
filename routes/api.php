@@ -41,6 +41,7 @@ Route::group([
 ], function () {
     Route::get('/', 'OrderController@orderPay');
     Route::any('notify', 'OrderController@orderNotify');
+    Route::any('notify/hupi', 'OrderController@orderNotifyHupi');
     Route::any('return', 'OrderController@orderReturn');
 });
 

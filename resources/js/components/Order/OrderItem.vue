@@ -9,7 +9,7 @@
             <strong>¥{{ item.price }}</strong>
         </div>
         <div class="actions">
-            <van-button type="default" size="small">
+            <van-button type="default" size="small" @click="deleteOrder(item.order_id)">
                 删除订单
             </van-button>
             <van-button type="default" size="small" @click="handleStatusClick()">
@@ -41,6 +41,7 @@ import {outPayOrder} from "../../api/api";
 import ProductItem from "./ProductItem";
 import {reactive} from "vue";
 import {useRouter} from "vue-router";
+import {orderDelete} from "../../api/order";
 
 export default {
     name: '',
@@ -48,7 +49,8 @@ export default {
     components: {
         ProductItem
     },
-    setup(props) {
+    // emits: ['delete-row'],
+    setup(props,{emit}) {
         const router = useRouter();
         const {product} = props;
         const item = reactive(product);
@@ -109,6 +111,7 @@ export default {
                 window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${item.logistic_number}&coname=px&callbackurl=${window.location.href}`
             }
         }
+
         const handleComplaintClick = (id) => {
             router.push({
                 path: '/complaint',
@@ -118,6 +121,10 @@ export default {
             })
         }
 
+        const deleteOrder = (id) => {
+            emit('delete-row',id);
+        }
+
         return {
             item,
             statusList,
@@ -125,6 +132,7 @@ export default {
             handleStatusClick,
             handleLogisticClick,
             handleComplaintClick,
+            deleteOrder
         }
     }
 }

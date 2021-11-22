@@ -684,7 +684,7 @@ var getProductList = /*#__PURE__*/function () {
   };
 }();
 var getOrderList = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id, page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
@@ -693,7 +693,8 @@ var getOrderList = /*#__PURE__*/function () {
             _context3.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/list', {
               params: {
-                order_id: id
+                order_id: id,
+                page: page
               }
             });
 
@@ -709,7 +710,7 @@ var getOrderList = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getOrderList(_x2) {
+  return function getOrderList(_x2, _x3) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -739,7 +740,7 @@ var searchOrderByPhone = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function searchOrderByPhone(_x3) {
+  return function searchOrderByPhone(_x4) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -765,7 +766,7 @@ var storeOrder = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function storeOrder(_x4) {
+  return function storeOrder(_x5) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -793,7 +794,7 @@ var outPayOrder = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function outPayOrder(_x5) {
+  return function outPayOrder(_x6) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -819,7 +820,7 @@ var storeComplaint = /*#__PURE__*/function () {
     }, _callee7);
   }));
 
-  return function storeComplaint(_x6) {
+  return function storeComplaint(_x7) {
     return _ref7.apply(this, arguments);
   };
 }();
@@ -980,7 +981,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "truncateOrder": () => (/* binding */ truncateOrder),
 /* harmony export */   "mergeOrder": () => (/* binding */ mergeOrder),
 /* harmony export */   "orderList": () => (/* binding */ orderList),
-/* harmony export */   "orderIdStr": () => (/* binding */ orderIdStr)
+/* harmony export */   "orderIdStr": () => (/* binding */ orderIdStr),
+/* harmony export */   "orderDelete": () => (/* binding */ orderDelete)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
@@ -1031,6 +1033,13 @@ var orderIdStr = function orderIdStr() {
   var orderIdList = orderList();
   console.log("orderIdList", orderIdList);
   return lodash__WEBPACK_IMPORTED_MODULE_0___default().map(orderIdList, 'order_id').join(',');
+};
+var orderDelete = function orderDelete(id) {
+  if (!id) return;
+  _common__WEBPACK_IMPORTED_MODULE_1__.database.deleteRows(table, {
+    order_id: id
+  });
+  _common__WEBPACK_IMPORTED_MODULE_1__.database.commit();
 };
 
 /***/ }),

@@ -4,13 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\PayChannel;
+use App\Payable\HuPiPay;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        $data = $request->only(['product_id', 'product_sku', 'custom_info', 'count', 'price', 'payment']);
+        $data = $request->only([
+            'product_id',
+            'product_sku',
+            'custom_info',
+            'count',
+            'price',
+            'payment',
+        ]);
 
         try {
             $order = Order::generateOrder($data);
@@ -107,7 +115,8 @@ class OrderController extends Controller
             return;
         }
 
-        $payMethod = PayChannel::getPayMethod();
+        $payMethod = $order->getPayment();
+
         if (!$payMethod)
             throw new \Exception('未配置支付渠道.');
 
@@ -121,6 +130,11 @@ class OrderController extends Controller
             throw new \Exception('未配置支付渠道.');
 
         return $payMethod->notify($request);
+    }
+
+    public function orderNotifyHupi(Request $request): string
+    {
+        return HuPiPay::notify(null, $request);
     }
 
     public function orderReturn(Request $request)
