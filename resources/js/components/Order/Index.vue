@@ -1,7 +1,10 @@
 <template>
     <div class="order_index">
         <van-skeleton :row="20" :loading="!list && listLoading">
-            <van-nav-bar fixed placeholder left-arrow title="全部订单" @click-left="$router.back()">
+            <van-nav-bar fixed placeholder  title="全部订单">
+                <template #left>
+                    <van-icon @click="$router.back()" name="shop" size="18"/>
+                </template>
                 <template #right>
                     <van-icon @click="onClickRight" name="search" size="18"/>
                 </template>

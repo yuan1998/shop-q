@@ -105,6 +105,5 @@ class Order extends Model
     {
         return $this->pay_channel_id ? PayChannel::find($this->pay_channel_id)
             : PayChannel::getPayMethod($this->pay_method);
-
     }
 }

@@ -52,24 +52,24 @@ class OrderController extends AdminController
                 })
                 ->style("color:red;");
 
-            $statusField = $grid->column('status')
-                ->display(function ($val) {
-                    $returnStatus = $this->return_status;
-
-                    if ($returnStatus) {
-                        return data_get(OrderReturn::$outStatus, $returnStatus);
-                    } else {
-                        return data_get(OrderModel::$payStatus, $val);
-                    }
-                });
-
-            $statusField->modal(function () {
-                return OrderProfile::make()->payload([
-                    'id' => $this->id,
-                ]);
-            });
-//            $grid->column('status')
-//                ->select(\App\Models\Order::$payStatus, true);
+//            $statusField = $grid->column('status')
+//                ->display(function ($val) {
+//                    $returnStatus = $this->return_status;
+//
+//                    if ($returnStatus) {
+//                        return data_get(OrderReturn::$outStatus, $returnStatus);
+//                    } else {
+//                        return data_get(OrderModel::$payStatus, $val);
+//                    }
+//                });
+//
+//            $statusField->modal(function () {
+//                return OrderProfile::make()->payload([
+//                    'id' => $this->id,
+//                ]);
+//            });
+            $grid->column('status')
+                ->select(\App\Models\Order::$payStatus, true);
 
             $grid->column('pay_method')
                 ->using(\App\Models\Order::$paymentName);
