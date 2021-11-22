@@ -217,7 +217,7 @@ class HuPiPay
 
             return 'failed';
         }
-        $payMethod = $payMethod ?? $order->getPayment;
+        $payMethod = $payMethod ?? $order->getPayment();
 
 
 //        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
