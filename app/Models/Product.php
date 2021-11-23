@@ -22,6 +22,8 @@ class Product extends Model
         'images',
         'attributes',
         'skus',
+        
+        'origin_price',
     ];
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

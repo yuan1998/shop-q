@@ -204,8 +204,11 @@ var _hoisted_5 = {
 var _hoisted_6 = {
   "class": "product_price"
 };
+var _hoisted_7 = {
+  "class": "red_price"
+};
 
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "syb"
   }, "¥", -1
@@ -213,7 +216,20 @@ var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_8 = {
+var _hoisted_9 = {
+  key: 0,
+  "class": "origin_price"
+};
+
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "syb"
+  }, "¥", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_11 = {
   "class": "product_sales"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -236,9 +252,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["src"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.title), 1
       /* TEXT */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.price), 1
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.price), 1
       /* TEXT */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, " 已售" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.sales), 1
+      )]), _ctx.origin_price ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.origin_price), 1
+      /* TEXT */
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, " 已售" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.sales), 1
       /* TEXT */
       )])])];
     }),
@@ -614,7 +632,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".product_item[data-v-f5a37a84] {\n  background-color: #fff;\n  border-radius: 2px;\n  margin-bottom: 20px;\n}\n.product_meta[data-v-f5a37a84] {\n  padding: 10px;\n}\n.product_title[data-v-f5a37a84] {\n  font-size: 18px;\n  color: #333;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  overflow: hidden;\n  /*! autoprefixer: off */\n  -webkit-box-orient: vertical;\n}\n.product_info[data-v-f5a37a84] {\n  display: flex;\n  padding-top: 15px;\n}\n.product_info .product_price[data-v-f5a37a84] {\n  flex: auto;\n  color: red;\n  font-size: 18px;\n}\n.product_info .product_price .syb[data-v-f5a37a84] {\n  font-size: 16px;\n}\n.product_info .product_sales[data-v-f5a37a84] {\n  flex: none;\n  margin-left: auto;\n  color: #B2B2B2;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".product_item[data-v-f5a37a84] {\n  background-color: #fff;\n  border-radius: 2px;\n  margin-bottom: 20px;\n}\n.product_meta[data-v-f5a37a84] {\n  padding: 10px;\n}\n.product_title[data-v-f5a37a84] {\n  font-size: 18px;\n  color: #333;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  overflow: hidden;\n  /*! autoprefixer: off */\n  -webkit-box-orient: vertical;\n}\n.product_info[data-v-f5a37a84] {\n  display: flex;\n  padding-top: 15px;\n}\n.product_info .product_price[data-v-f5a37a84] {\n  flex: auto;\n  color: red;\n  font-size: 22px;\n}\n.product_info .product_price .syb[data-v-f5a37a84] {\n  font-size: 16px;\n}\n.product_info .product_price .origin_price[data-v-f5a37a84] {\n  margin-left: 10px;\n  font-size: 16px;\n  color: #b3b3b3;\n  text-decoration: line-through;\n}\n.product_info .product_sales[data-v-f5a37a84] {\n  flex: none;\n  margin-left: auto;\n  color: #B2B2B2;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

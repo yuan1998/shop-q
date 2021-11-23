@@ -15,12 +15,12 @@ class CreateProductRepliesTable extends Migration
     {
         Schema::create('product_replies', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->string('thumb');
-            $table->string('username');
-            $table->integer('rating')->default(0);
-            $table->text('comment');
-            $table->json('images')->nullable();
+            $table->unsignedBigInteger('order_id',);
+            $table->string('thumb',);
+            $table->string('username',);
+            $table->integer('rating',)->default(0);
+            $table->text('comment',);
+            $table->json('images',)->nullable();
             $table->timestamps();
         });
     }

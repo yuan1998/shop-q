@@ -22,6 +22,7 @@ class Product extends EloquentRepository
                 'title',
                 'show',
                 'price',
+                'origin_price',
                 'sales',
                 'images',
                 'attributes',

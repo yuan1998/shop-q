@@ -78,7 +78,7 @@ class ChangLianPay
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
         $pay_type = static::getPayment($order->pay_method);
-        $domain = env('APP_URL');
+        $domain = $request->getSchemeAndHttpHost();
         $success_url = $domain . '/#success';
         $error_url = $domain . '/#checkout';
         $callback_url = $domain . '/api/pay/notify';

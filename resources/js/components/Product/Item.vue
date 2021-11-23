@@ -14,8 +14,14 @@
                 </div>
                 <div class="product_info">
                     <div class="product_price">
-                        <span class="syb">¥</span>
-                        {{ price }}
+                        <span class="red_price">
+                            <span class="syb">¥</span>
+                            {{ price }}
+                        </span>
+                        <span v-if="origin_price" class="origin_price">
+                            <span class="syb">¥</span>
+                            {{ origin_price }}
+                        </span>
                     </div>
                     <div class="product_sales">
                         已售{{ sales }}
@@ -74,10 +80,17 @@ export default {
     .product_price {
         flex: auto;
         color: red;
-        font-size: 18px;
+        font-size: 22px;
 
         .syb {
             font-size: 16px;
+        }
+
+        .origin_price {
+            margin-left: 10px;
+            font-size: 16px;
+            color: #b3b3b3;
+            text-decoration:line-through;
         }
     }
 

@@ -17,8 +17,14 @@
                 <div class="product_info-price">
                     <div class="product_info-left">
                         <div class="price_text">
-                            <span class="syb">¥</span>
-                            {{ data.price }}
+                            <span class="red_price">
+                                <span class="syb">¥</span>
+                                {{ data.price }}
+                            </span>
+                            <div class="origin_price" v-if="data.origin_price">
+                                <span class="syb">¥</span>
+                                {{ data.origin_price }}
+                            </div>
                         </div>
                     </div>
                     <div class="product_info-right">
@@ -196,7 +202,7 @@ export default {
         font-size: 20px;
         line-height: 1.3;
         padding: 0 20px;
-
+        margin-bottom: 15px;
     }
 
     .product_info-price {
@@ -342,9 +348,19 @@ export default {
     color: red;
     font-size: 26px;
     font-weight: bold;
+    display: flex;
+    align-items: baseline;
 
     .syb {
         font-size: 16px;
+    }
+
+    .origin_price {
+        font-size: 22px;
+        color: #b3b3b3;
+        margin-left: 15px;
+        text-decoration:line-through;
+        font-weight: normal;
     }
 }
 </style>

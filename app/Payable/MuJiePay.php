@@ -51,7 +51,7 @@ class MuJiePay
 
     public static function payment($order, $payMethod, $request)
     {
-        $domain = env('APP_URL');
+        $domain = $request->getSchemeAndHttpHost();
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 

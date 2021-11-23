@@ -30,6 +30,8 @@ class ProductController extends AdminController
             $grid->column('title');
             $grid->column('price')
                 ->editable(true);
+            $grid->column('origin_price')
+                ->editable(true);
             $grid->column('sales');
             $grid->column('categories')
                 ->display(function ($value) {
@@ -130,6 +132,7 @@ class ProductController extends AdminController
                 $form->hidden('skus');
                 $form->text('title')->required();
                 $form->currency('price')->symbol('¥')->required();
+                $form->currency('origin_price')->symbol('¥')->required();
                 $form->switch('show')->required()->default(1);
                 $form->number('sales')->required()->min(0);
 

@@ -335,8 +335,11 @@ var _hoisted_6 = {
 var _hoisted_7 = {
   "class": "price_text"
 };
+var _hoisted_8 = {
+  "class": "red_price"
+};
 
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "syb"
   }, "¥", -1
@@ -344,17 +347,30 @@ var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_9 = {
+var _hoisted_10 = {
+  key: 0,
+  "class": "origin_price"
+};
+
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "syb"
+  }, "¥", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_12 = {
   "class": "product_info-right"
 };
-var _hoisted_10 = {
+var _hoisted_13 = {
   "class": "sales"
 };
-var _hoisted_11 = {
+var _hoisted_14 = {
   "class": "product_info-title"
 };
 
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "product_info-list"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
@@ -366,7 +382,7 @@ var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: "https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png",
     alt: "",
@@ -376,7 +392,7 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: "https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png",
     alt: "",
@@ -386,12 +402,12 @@ var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_15 = [_hoisted_14];
-var _hoisted_16 = {
+var _hoisted_18 = [_hoisted_17];
+var _hoisted_19 = {
   "class": "product_content"
 };
 
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "product_content-title"
   }, " 商品详情 ", -1
@@ -399,15 +415,15 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_18 = {
+var _hoisted_21 = {
   "class": "product_content-description"
 };
-var _hoisted_19 = ["innerHTML"];
-var _hoisted_20 = {
+var _hoisted_22 = ["innerHTML"];
+var _hoisted_23 = {
   "class": "product_actions"
 };
 
-var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon-text"
   }, " 店铺 ", -1
@@ -415,7 +431,7 @@ var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon-text"
   }, " 客服 ", -1
@@ -423,7 +439,7 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "icon-text"
   }, " 收藏 ", -1
@@ -431,7 +447,7 @@ var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("立即购买");
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("立即购买");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_van_icon = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("van-icon");
@@ -511,19 +527,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.price), 1
+      })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.price), 1
       /* TEXT */
-      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, " 已售" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.sales), 1
+      )]), _ctx.data.origin_price ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.origin_price), 1
       /* TEXT */
-      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                <van-image src=\"https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.title), 1
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, " 已售" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.sales), 1
       /* TEXT */
-      ), _hoisted_12]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                <van-image src=\"https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png\"/>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.data.title), 1
+      /* TEXT */
+      ), _hoisted_15]), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         onClick: _cache[1] || (_cache[1] = function ($event) {
           return _ctx.$router.push({
             path: '/'
           });
         })
-      }, _hoisted_15), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, {
+      }, _hoisted_18), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_divider), _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, {
         inset: ""
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -542,11 +560,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         innerHTML: _ctx.data.description
       }, null, 8
       /* PROPS */
-      , _hoisted_19)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sku, {
+      , _hoisted_22)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Sku, {
         onBuy: $setup.buyProduct,
         product: _ctx.data,
         show: _ctx.show,
@@ -555,7 +573,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         })
       }, null, 8
       /* PROPS */
-      , ["onBuy", "product", "show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      , ["onBuy", "product", "show"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "product_actions_icon",
         onClick: _cache[3] || (_cache[3] = function ($event) {
           return _ctx.$router.push({
@@ -566,7 +584,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         size: "20",
         color: "#767676",
         name: "shop-o"
-      }), _hoisted_21]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }), _hoisted_24]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "product_actions_icon",
         onClick: _cache[4] || (_cache[4] = function () {
           return $setup.handleClickMsg && $setup.handleClickMsg.apply($setup, arguments);
@@ -575,7 +593,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         size: "20",
         color: "#767676",
         name: "chat-o"
-      }), _hoisted_22]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      }), _hoisted_25]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
         "class": "product_actions_icon",
         onClick: _cache[5] || (_cache[5] = function ($event) {
           return _ctx.like = !_ctx.like;
@@ -586,14 +604,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         name: _ctx.like ? 'star' : 'star-o'
       }, null, 8
       /* PROPS */
-      , ["color", "name"]), _hoisted_23]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
+      , ["color", "name"]), _hoisted_26]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_button, {
         "class": "product_actions-button",
         onClick: $setup.showSku,
         size: "large",
         type: "danger"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_24];
+          return [_hoisted_27];
         }),
         _: 1
         /* STABLE */
@@ -1039,7 +1057,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".product_detail[data-v-7c9eb83c] {\n  padding-bottom: 80px;\n}\n.product_detail .product_info-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  line-height: 1.3;\n  padding: 0 20px;\n}\n.product_detail .product_info-price[data-v-7c9eb83c] {\n  display: flex;\n  padding: 15px 20px;\n}\n.product_detail .product_info-price .product_info-left[data-v-7c9eb83c] {\n  flex: none;\n}\n.product_detail .product_info-price .product_info-right[data-v-7c9eb83c] {\n  flex: none;\n  margin-left: auto;\n  text-align: right;\n  line-height: 1.4;\n  color: #fff;\n  display: flex;\n  align-items: center;\n}\n.product_detail .product_info-price .product_info-right p[data-v-7c9eb83c] {\n  padding: 0;\n  margin: 0;\n}\n.product_detail .product_info-price .pre_sale[data-v-7c9eb83c] {\n  width: 100px;\n  display: inline-block;\n  margin-right: 10px;\n}\n.product_detail .product_info-price .sales[data-v-7c9eb83c] {\n  display: flex;\n  align-items: center;\n  color: #999;\n}\n.product_detail .product_info[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_detail .product_actions-button[data-v-7c9eb83c] {\n  margin-left: 10px;\n}\n.product_detail .product_actions_icon[data-v-7c9eb83c] {\n  text-align: center;\n  padding: 10px 7px;\n}\n.product_detail .product_actions_icon .icon-text[data-v-7c9eb83c] {\n  font-size: 13px;\n  color: #999;\n  white-space: nowrap;\n  padding-top: 7px;\n}\n.product_content[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_content .product_content-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  padding-bottom: 10px;\n  padding-left: 20px;\n}\n.product-image_swiper[data-v-7c9eb83c] {\n  height: 70vw;\n  max-height: 400px;\n}\n.product-image[data-v-7c9eb83c] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.nut-navbar[data-v-7c9eb83c] {\n  margin-bottom: 0;\n}\n.product_actions[data-v-7c9eb83c] {\n  padding: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto;\n  background-color: #fff;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".product_detail[data-v-7c9eb83c] {\n  padding-bottom: 80px;\n}\n.product_detail .product_info-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  line-height: 1.3;\n  padding: 0 20px;\n  margin-bottom: 15px;\n}\n.product_detail .product_info-price[data-v-7c9eb83c] {\n  display: flex;\n  padding: 15px 20px;\n}\n.product_detail .product_info-price .product_info-left[data-v-7c9eb83c] {\n  flex: none;\n}\n.product_detail .product_info-price .product_info-right[data-v-7c9eb83c] {\n  flex: none;\n  margin-left: auto;\n  text-align: right;\n  line-height: 1.4;\n  color: #fff;\n  display: flex;\n  align-items: center;\n}\n.product_detail .product_info-price .product_info-right p[data-v-7c9eb83c] {\n  padding: 0;\n  margin: 0;\n}\n.product_detail .product_info-price .pre_sale[data-v-7c9eb83c] {\n  width: 100px;\n  display: inline-block;\n  margin-right: 10px;\n}\n.product_detail .product_info-price .sales[data-v-7c9eb83c] {\n  display: flex;\n  align-items: center;\n  color: #999;\n}\n.product_detail .product_info[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_detail .product_actions-button[data-v-7c9eb83c] {\n  margin-left: 10px;\n}\n.product_detail .product_actions_icon[data-v-7c9eb83c] {\n  text-align: center;\n  padding: 10px 7px;\n}\n.product_detail .product_actions_icon .icon-text[data-v-7c9eb83c] {\n  font-size: 13px;\n  color: #999;\n  white-space: nowrap;\n  padding-top: 7px;\n}\n.product_content[data-v-7c9eb83c] {\n  background-color: #fff;\n}\n.product_content .product_content-title[data-v-7c9eb83c] {\n  font-size: 20px;\n  padding-bottom: 10px;\n  padding-left: 20px;\n}\n.product-image_swiper[data-v-7c9eb83c] {\n  height: 70vw;\n  max-height: 400px;\n}\n.product-image[data-v-7c9eb83c] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.nut-navbar[data-v-7c9eb83c] {\n  margin-bottom: 0;\n}\n.product_actions[data-v-7c9eb83c] {\n  padding: 10px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  width: 100%;\n  max-width: 750px;\n  margin: 0 auto;\n  background-color: #fff;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1087,7 +1105,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".price_text {\n  flex: none;\n  color: red;\n  font-size: 26px;\n  font-weight: bold;\n}\n.price_text .syb {\n  font-size: 16px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".price_text {\n  flex: none;\n  color: red;\n  font-size: 26px;\n  font-weight: bold;\n  display: flex;\n  align-items: baseline;\n}\n.price_text .syb {\n  font-size: 16px;\n}\n.price_text .origin_price {\n  font-size: 22px;\n  color: #b3b3b3;\n  margin-left: 15px;\n  text-decoration: line-through;\n  font-weight: normal;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

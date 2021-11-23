@@ -20,4 +20,5 @@ Route::group([
     $router->resource('orders', 'OrderController');
     $router->resource('pay_channel', 'PayChannelController');
     $router->resource('complaint', 'ComplaintController');
+    $router->resource('product_reply', 'ProductReplyController');
 });

@@ -106,13 +106,14 @@ class HuPiPay
 
     public static function payment($order, $payMethod, $request)
     {
+
         $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
         $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
 //        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
         $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
 //        $appid              = '201906120002';//测试账户，
 //        $appsecret          = '7a0967a8f830c9319c87e01e691b8f09';//测试账户，
-        $domain = env('APP_URL');
+        $domain = $request->getSchemeAndHttpHost();
 
         $data = array(
             'version' => '1.1',//固定值，api 版本，目前暂时是1.1
@@ -219,13 +220,7 @@ class HuPiPay
         }
         $payMethod = $payMethod ?? $order->getPayment();
 
-
-//        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
-        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
-//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
-
-
-        //APP SECRET
+        $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
         $hash = HuPiPay::generate_xh_hash($data, $appsecret);
         if ($data['hash'] != $hash) {
