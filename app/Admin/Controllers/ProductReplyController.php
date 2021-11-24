@@ -27,10 +27,10 @@ class ProductReplyController extends AdminController
             $grid->column('images');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -67,12 +67,18 @@ class ProductReplyController extends AdminController
         return Form::make(new ProductReply(), function (Form $form) {
             $form->display('id');
             $form->text('order_id');
-            $form->text('thumb');
+            $form->image('thumb')
+                ->removable(false)
+                ->autoUpload();
             $form->text('username');
-            $form->text('rating');
+            $form->slider('rating')
+                ->options([
+                    'max' => 5, 'min' => 1, 'step' => 1,
+                ])
+                ->default(5);
             $form->text('comment');
             $form->text('images');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

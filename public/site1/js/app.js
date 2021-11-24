@@ -20053,6 +20053,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_34__);
 /* harmony import */ var _components_layouts_App__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/layouts/App */ "./resources/js/components/layouts/App.vue");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 
 
 
@@ -20134,6 +20135,9 @@ var router = VueRouter.createRouter({
 var app = Vue.createApp(_components_layouts_App__WEBPACK_IMPORTED_MODULE_35__["default"]);
 app.config.globalProperties.$http = (axios__WEBPACK_IMPORTED_MODULE_34___default());
 app.use(router).use(vant_es_button__WEBPACK_IMPORTED_MODULE_36__["default"]).use(vant_es_swipe__WEBPACK_IMPORTED_MODULE_37__["default"]).use(vant_es_swipe_item__WEBPACK_IMPORTED_MODULE_38__["default"]).use(vant_es_row__WEBPACK_IMPORTED_MODULE_39__["default"]).use(vant_es_col__WEBPACK_IMPORTED_MODULE_40__["default"]).use(vant_es_image__WEBPACK_IMPORTED_MODULE_41__["default"]).use(vant_es_sticky__WEBPACK_IMPORTED_MODULE_42__["default"]).use(vant_es_list__WEBPACK_IMPORTED_MODULE_43__["default"]).use(vant_es_toast__WEBPACK_IMPORTED_MODULE_44__["default"]).use(vant_es_skeleton__WEBPACK_IMPORTED_MODULE_45__["default"]).use(vant_es_tab__WEBPACK_IMPORTED_MODULE_46__["default"]).use(vant_es_tabs__WEBPACK_IMPORTED_MODULE_47__["default"]).use(vant_es_cell__WEBPACK_IMPORTED_MODULE_48__["default"]).use(vant_es_cell_group__WEBPACK_IMPORTED_MODULE_49__["default"]).use(vant_es_divider__WEBPACK_IMPORTED_MODULE_50__["default"]).use(vant_es_action_sheet__WEBPACK_IMPORTED_MODULE_51__["default"]).use(vant_es_field__WEBPACK_IMPORTED_MODULE_52__["default"]).use(vant_es_address_list__WEBPACK_IMPORTED_MODULE_53__["default"]).use(vant_es_search__WEBPACK_IMPORTED_MODULE_54__["default"]).use(vant_es_loading__WEBPACK_IMPORTED_MODULE_55__["default"]).use(vant_es_switch__WEBPACK_IMPORTED_MODULE_56__["default"]).use(vant_es_contact_card__WEBPACK_IMPORTED_MODULE_57__["default"]).use(vant_es_address_edit__WEBPACK_IMPORTED_MODULE_58__["default"]).use(vant_es_area__WEBPACK_IMPORTED_MODULE_59__["default"]).use(vant_es_radio__WEBPACK_IMPORTED_MODULE_60__["default"]).use(vant_es_radio_group__WEBPACK_IMPORTED_MODULE_61__["default"]).use(vant_es_stepper__WEBPACK_IMPORTED_MODULE_62__["default"]).use(vant_es_image_preview__WEBPACK_IMPORTED_MODULE_63__["default"]).use(vant_es_submit_bar__WEBPACK_IMPORTED_MODULE_64__["default"]).use(vant_es_card__WEBPACK_IMPORTED_MODULE_65__["default"]).use(vant_es_empty__WEBPACK_IMPORTED_MODULE_66__["default"]).use(vant_es_nav_bar__WEBPACK_IMPORTED_MODULE_67__["default"]).use(vant_es_icon__WEBPACK_IMPORTED_MODULE_68__["default"]);
+console.log("process.env", process.env);
+console.log("process.env.MIX_API_URL", "0");
+console.log("process.env.MIX_API_URL", "1");
 app.mount('#app');
 
 /***/ }),

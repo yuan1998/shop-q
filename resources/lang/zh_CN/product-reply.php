@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'ProductReply' => 'ProductReply',
-        'product-reply' => 'ProductReply',
+        'ProductReply' => '商品评论',
+        'product-reply' => '商品评论',
     ],
     'fields' => [
         'order_id' => '商品ID',

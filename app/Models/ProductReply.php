@@ -14,4 +14,9 @@ class ProductReply extends Model
         'comment',
         'images',
     ];
+
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'order_id', 'id');
+    }
 }

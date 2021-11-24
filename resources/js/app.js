@@ -82,6 +82,7 @@ app.use(router)
     .use(Empty)
     .use(NavBar)
     .use(Icon)
-
-
+console.log("process.env",process.env);
+console.log("process.env.MIX_API_URL",process.env.MIX_DISABLE_WECHAT);
+console.log("process.env.MIX_API_URL",process.env.MIX_DISABLE_ALIPAY);
 app.mount('#app')

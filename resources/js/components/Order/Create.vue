@@ -127,7 +127,7 @@
 
             <van-radio-group v-model="payment">
                 <van-cell-group>
-                    <van-cell clickable @click="payment = 'wechat'">
+                    <van-cell v-if="!disableWechat" clickable @click="payment = 'wechat'">
                         <template #title>
                             <div style="display:flex;align-items: center;">
                                 <van-image width="30"
@@ -141,7 +141,7 @@
                             <van-radio name="wechat" checked-color="#F93E5B"/>
                         </template>
                     </van-cell>
-                    <van-cell clickable @click="payment = 'alipay'">
+                    <van-cell v-if="!disableAlipay" clickable @click="payment = 'alipay'">
                         <template #title>
                             <div style="display:flex;align-items: center;">
                                 <van-image width="30"
@@ -188,7 +188,7 @@ import {computed, reactive, toRefs} from "vue";
 import {storeOrder} from "../../api/api";
 import {Toast} from 'vant'
 import {getChosenLocation} from "../../api/location";
-import {getRandomArbitrary} from "../../api/common";
+import {getRandomArbitrary, stringToBoolean} from "../../api/common";
 import {addOrder, orderList} from "../../api/order";
 
 export default {
@@ -257,10 +257,20 @@ export default {
                 })
             }
         }
-
-        console.log("getRandomArbitrary(1, 24)", getRandomArbitrary(1, 24));
+        const disableAlipay = computed(() => {
+            console.log("process.env.MIX_DISABLE_ALIPAY",process.env.MIX_DISABLE_ALIPAY);
+            return stringToBoolean(process.env.MIX_DISABLE_ALIPAY);
+        })
+        const disableWechat = computed(() => {
+            console.log("process.env.MIX_DISABLE_WECHAT",process.env.MIX_DISABLE_WECHAT);
+            return stringToBoolean(process.env.MIX_DISABLE_WECHAT);
+        });
+        console.log("disableAlipay",disableAlipay);
+console.log("disableWechat",disableWechat);
         return {
             ...toRefs(data),
+            disableAlipay,
+            disableWechat,
             onSubmit,
             handleLocation,
             chosenLocation,

@@ -1,0 +1,32 @@
+{
+    "name": "dcat-admin/grid-sortable",
+    "alias": "",
+    "description": "Description...",
+    "type": "library",
+    "keywords": ["dcat-admin", "extension"],
+    "homepage": "https://github.com/dcat-admin/grid-sortable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "your name",
+            "email": "your email"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "dcat/laravel-admin": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dcat\\Admin\\GridSortable\\": "src/"
+        }
+    },
+    "extra": {
+        "dcat-admin": "Dcat\\Admin\\GridSortable\\GridSortableServiceProvider",
+        "laravel": {
+            "providers": [
+                "Dcat\\Admin\\GridSortable\\GridSortableServiceProvider"
+            ]
+        }
+    }
+}

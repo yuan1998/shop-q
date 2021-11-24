@@ -21,4 +21,5 @@ Route::group([
     $router->resource('pay_channel', 'PayChannelController');
     $router->resource('complaint', 'ComplaintController');
     $router->resource('product_reply', 'ProductReplyController');
+    $router->resource('banners', 'BannerController');
 });

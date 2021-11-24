@@ -152,8 +152,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
 
-    console.log("getRandomArbitrary(1, 24)", (0,_api_common__WEBPACK_IMPORTED_MODULE_5__.getRandomArbitrary)(1, 24));
+    var disableAlipay = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      console.log("process.env.MIX_DISABLE_ALIPAY", "1");
+      return (0,_api_common__WEBPACK_IMPORTED_MODULE_5__.stringToBoolean)("1");
+    });
+    var disableWechat = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+      console.log("process.env.MIX_DISABLE_WECHAT", "0");
+      return (0,_api_common__WEBPACK_IMPORTED_MODULE_5__.stringToBoolean)("0");
+    });
+    console.log("disableAlipay", disableAlipay);
+    console.log("disableWechat", disableWechat);
     return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_2__.toRefs)(data)), {}, {
+      disableAlipay: disableAlipay,
+      disableWechat: disableWechat,
       onSubmit: onSubmit,
       handleLocation: handleLocation,
       chosenLocation: chosenLocation,
@@ -506,7 +517,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell_group, null, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
+          return [!$setup.disableWechat ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_van_cell, {
+            key: 0,
             clickable: "",
             onClick: _cache[2] || (_cache[2] = function ($event) {
               return _ctx.payment = 'wechat';
@@ -529,7 +541,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
             /* STABLE */
 
-          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_van_cell, {
+          })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$setup.disableAlipay ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_van_cell, {
+            key: 1,
             clickable: "",
             onClick: _cache[3] || (_cache[3] = function ($event) {
               return _ctx.payment = 'alipay';
@@ -552,7 +565,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 1
             /* STABLE */
 
-          })];
+          })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
         }),
         _: 1
         /* STABLE */
@@ -844,7 +857,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getRandomArbitrary": () => (/* binding */ getRandomArbitrary),
 /* harmony export */   "toQueryString": () => (/* binding */ toQueryString),
 /* harmony export */   "storageGet": () => (/* binding */ storageGet),
-/* harmony export */   "storageSet": () => (/* binding */ storageSet)
+/* harmony export */   "storageSet": () => (/* binding */ storageSet),
+/* harmony export */   "stringToBoolean": () => (/* binding */ stringToBoolean)
 /* harmony export */ });
 /* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! localstoragedb */ "./node_modules/localstoragedb/localstoragedb.js");
 /* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(localstoragedb__WEBPACK_IMPORTED_MODULE_0__);
@@ -870,6 +884,23 @@ var storageGet = function storageGet(key) {
 };
 var storageSet = function storageSet(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
+};
+var stringToBoolean = function stringToBoolean(string) {
+  switch (string.toLowerCase().trim()) {
+    case "true":
+    case "yes":
+    case "1":
+      return true;
+
+    case "false":
+    case "no":
+    case "0":
+    case null:
+      return false;
+
+    default:
+      return Boolean(string);
+  }
 };
 
 /***/ }),

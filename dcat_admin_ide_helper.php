@@ -38,6 +38,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection username
      * @property Grid\Column|Collection attributes
      * @property Grid\Column|Collection skus
+     * @property Grid\Column|Collection image
+     * @property Grid\Column|Collection url
      * @property Grid\Column|Collection comment
      * @property Grid\Column|Collection order_id
      * @property Grid\Column|Collection phone
@@ -106,6 +108,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection username(string $label = null)
      * @method Grid\Column|Collection attributes(string $label = null)
      * @method Grid\Column|Collection skus(string $label = null)
+     * @method Grid\Column|Collection image(string $label = null)
+     * @method Grid\Column|Collection url(string $label = null)
      * @method Grid\Column|Collection comment(string $label = null)
      * @method Grid\Column|Collection order_id(string $label = null)
      * @method Grid\Column|Collection phone(string $label = null)
@@ -179,6 +183,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection username
      * @property Show\Field|Collection attributes
      * @property Show\Field|Collection skus
+     * @property Show\Field|Collection image
+     * @property Show\Field|Collection url
      * @property Show\Field|Collection comment
      * @property Show\Field|Collection order_id
      * @property Show\Field|Collection phone
@@ -247,6 +253,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection username(string $label = null)
      * @method Show\Field|Collection attributes(string $label = null)
      * @method Show\Field|Collection skus(string $label = null)
+     * @method Show\Field|Collection image(string $label = null)
+     * @method Show\Field|Collection url(string $label = null)
      * @method Show\Field|Collection comment(string $label = null)
      * @method Show\Field|Collection order_id(string $label = null)
      * @method Show\Field|Collection phone(string $label = null)

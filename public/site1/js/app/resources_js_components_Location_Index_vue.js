@@ -136,7 +136,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getRandomArbitrary": () => (/* binding */ getRandomArbitrary),
 /* harmony export */   "toQueryString": () => (/* binding */ toQueryString),
 /* harmony export */   "storageGet": () => (/* binding */ storageGet),
-/* harmony export */   "storageSet": () => (/* binding */ storageSet)
+/* harmony export */   "storageSet": () => (/* binding */ storageSet),
+/* harmony export */   "stringToBoolean": () => (/* binding */ stringToBoolean)
 /* harmony export */ });
 /* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! localstoragedb */ "./node_modules/localstoragedb/localstoragedb.js");
 /* harmony import */ var localstoragedb__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(localstoragedb__WEBPACK_IMPORTED_MODULE_0__);
@@ -162,6 +163,23 @@ var storageGet = function storageGet(key) {
 };
 var storageSet = function storageSet(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
+};
+var stringToBoolean = function stringToBoolean(string) {
+  switch (string.toLowerCase().trim()) {
+    case "true":
+    case "yes":
+    case "1":
+      return true;
+
+    case "false":
+    case "no":
+    case "0":
+    case null:
+      return false;
+
+    default:
+      return Boolean(string);
+  }
 };
 
 /***/ }),
