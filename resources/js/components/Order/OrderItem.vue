@@ -50,7 +50,7 @@ export default {
         ProductItem
     },
     // emits: ['delete-row'],
-    setup(props,{emit}) {
+    setup(props, {emit}) {
         const router = useRouter();
         const {product} = props;
         const item = reactive(product);
@@ -59,16 +59,18 @@ export default {
             1: '未支付',
             2: '支付成功',
             3: '支付失败',
-            4: '退款中',
-            5: '退款完成',
+            4: '退货/退款',
+            5: '已发货',
+            6: '已取消',
         };
 
         const buttonText = {
             1: '去支付',
-            2: '退款',
+            2: '退货/退款',
             3: '去支付',
             4: '退款中',
-            5: '退款完成',
+            5: '已发货',
+            6: '订单已取消',
         }
 
         const toPay = (id) => {
@@ -122,7 +124,7 @@ export default {
         }
 
         const deleteOrder = (id) => {
-            emit('delete-row',id);
+            emit('delete-row', id);
         }
 
         return {

@@ -1,7 +1,7 @@
 <template>
     <div class="order_index">
         <van-skeleton :row="20" :loading="!list && listLoading">
-            <van-nav-bar fixed placeholder  title="全部订单">
+            <van-nav-bar fixed placeholder title="全部订单">
                 <template #left>
                     <van-icon @click="$router.back()" name="shop" size="18"/>
                 </template>
@@ -12,13 +12,22 @@
             <van-list
                 v-model="listLoading"
                 :finished="finished"
-                finished-text="没有更多了"
                 @load="pullOrderId"
             >
                 <OrderItem :product="item"
                            v-for="item in list"
                            :key="item.id"
                            @delete-row="deleteOrder"/>
+                <template #finished>
+                    <div style="font-size: 16px;">
+                        <p>Q: 为什么没有或者缺失了我的订单?</p>
+                        <p>A: 系统网络波动会导致本地订单数据丢失
+                            <br>
+                            可以点击下方文字或者右上角的查询图标手动输入收货人电话
+                            <br>
+                            <span style="color: #4aa0e6;" @click="onClickRight">获取订单</span></p>
+                    </div>
+                </template>
             </van-list>
             <van-action-sheet v-model:show="show"
                               description="输入手机号码搜索订单">
