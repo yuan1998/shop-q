@@ -20,7 +20,11 @@ Route::group([
     Route::post('outPay', 'OrderController@outPay');
     Route::post('store', 'OrderController@store');
     Route::get('list', 'OrderController@orderList');
+    Route::get('getById', 'OrderController@orderById');
     Route::get('searchByPhone', 'OrderController@getPhoneOrderList');
+    Route::post('return/request', 'OrderController@requestReturn');
+    Route::post('return/shipReturn', 'OrderController@shipReturnProduct');
+    Route::post('return/cancel', 'OrderController@cancelReturn');
 });
 
 Route::group([
@@ -45,6 +49,14 @@ Route::group([
     Route::any('return', 'OrderController@orderReturn');
 });
 
+Route::group([
+    'prefix' => 'setting'
+], function () {
+    Route::get('/', function () {
+        return response()
+            ->json(\App\Helper::site_1_config());
+    });
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

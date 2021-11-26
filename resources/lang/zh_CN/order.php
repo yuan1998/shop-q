@@ -15,6 +15,11 @@ return [
         'pay_info' => '支付信息',
         'price' => '金额',
         'order_id' => '订单号',
+        'logistic_number' => '快递单号',
+        'return_reason' => '退货退款理由',
+        'return_status' => '退款状态',
+        'return_location' => '收货人信息 + 退货地址',
+        'return_logistics_number' => '退货-快递单号',
     ],
     'options' => [
     ],

@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $setting = \App\Helper::site_1_config();
+    return view('welcome', [
+        'setting' => $setting,
+    ]);
 });
 
 Route::group([

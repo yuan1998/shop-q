@@ -22,10 +22,10 @@ class Order extends Model
 
     public static $payStatus = [
         self::UN_PAY => '未支付',
-        self::PAY_SUCCESS => '支付成功',
         self::PAY_ERROR => '支付失败',
-        self::PAY_OUTING => '退货/退款',
+        self::PAY_SUCCESS => '支付成功',
         self::SHIP => '已发货',
+        self::PAY_OUTING => '退货/退款',
         self::CANCEL => '已取消',
     ];
 
@@ -43,6 +43,7 @@ class Order extends Model
         'logistic_number',
         'pay_channel_id',
         'send_at',
+
         'return_status',
         'return_at',
         'return_reason',

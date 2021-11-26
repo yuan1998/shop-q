@@ -392,11 +392,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getProductDetail": () => (/* binding */ getProductDetail),
+/* harmony export */   "getSetting": () => (/* binding */ getSetting),
 /* harmony export */   "getProductList": () => (/* binding */ getProductList),
 /* harmony export */   "getOrderList": () => (/* binding */ getOrderList),
 /* harmony export */   "searchOrderByPhone": () => (/* binding */ searchOrderByPhone),
 /* harmony export */   "storeOrder": () => (/* binding */ storeOrder),
 /* harmony export */   "outPayOrder": () => (/* binding */ outPayOrder),
+/* harmony export */   "getOrderById": () => (/* binding */ getOrderById),
+/* harmony export */   "requestReturn": () => (/* binding */ requestReturn),
+/* harmony export */   "shipReturn": () => (/* binding */ shipReturn),
+/* harmony export */   "cancelReturn": () => (/* binding */ cancelReturn),
 /* harmony export */   "storeComplaint": () => (/* binding */ storeComplaint)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -441,19 +446,15 @@ var getProductDetail = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var getProductList = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(page) {
+var getSetting = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list', {
-              params: {
-                page: page
-              }
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/setting/');
 
           case 2:
             result = _context2.sent;
@@ -467,21 +468,20 @@ var getProductList = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function getProductList(_x2) {
+  return function getSetting() {
     return _ref2.apply(this, arguments);
   };
 }();
-var getOrderList = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id, page) {
+var getProductList = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/list', {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list', {
               params: {
-                order_id: id,
                 page: page
               }
             });
@@ -498,21 +498,22 @@ var getOrderList = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getOrderList(_x3, _x4) {
+  return function getProductList(_x2) {
     return _ref3.apply(this, arguments);
   };
 }();
-var searchOrderByPhone = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(phone) {
+var getOrderList = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id, page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/searchByPhone', {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/list', {
               params: {
-                phone: phone
+                order_id: id,
+                page: page
               }
             });
 
@@ -528,19 +529,23 @@ var searchOrderByPhone = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function searchOrderByPhone(_x5) {
+  return function getOrderList(_x3, _x4) {
     return _ref4.apply(this, arguments);
   };
 }();
-var storeOrder = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
+var searchOrderByPhone = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(phone) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/searchByPhone', {
+              params: {
+                phone: phone
+              }
+            });
 
           case 2:
             result = _context5.sent;
@@ -554,21 +559,19 @@ var storeOrder = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function storeOrder(_x6) {
+  return function searchOrderByPhone(_x5) {
     return _ref5.apply(this, arguments);
   };
 }();
-var outPayOrder = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(id) {
+var storeOrder = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(data) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
-              order_id: id
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
 
           case 2:
             result = _context6.sent;
@@ -582,19 +585,21 @@ var outPayOrder = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function outPayOrder(_x7) {
+  return function storeOrder(_x6) {
     return _ref6.apply(this, arguments);
   };
 }();
-var storeComplaint = /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(data) {
+var outPayOrder = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(id) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
             _context7.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
+              order_id: id
+            });
 
           case 2:
             result = _context7.sent;
@@ -608,8 +613,142 @@ var storeComplaint = /*#__PURE__*/function () {
     }, _callee7);
   }));
 
-  return function storeComplaint(_x8) {
+  return function outPayOrder(_x7) {
     return _ref7.apply(this, arguments);
+  };
+}();
+var getOrderById = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(id) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/getById', {
+              params: {
+                order_id: id
+              }
+            });
+
+          case 2:
+            result = _context8.sent;
+            return _context8.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function getOrderById(_x8) {
+    return _ref8.apply(this, arguments);
+  };
+}();
+var requestReturn = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/request', data);
+
+          case 2:
+            result = _context9.sent;
+            return _context9.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function requestReturn(_x9) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+var shipReturn = /*#__PURE__*/function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            _context10.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/shipReturn', data);
+
+          case 2:
+            result = _context10.sent;
+            return _context10.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context10.stop();
+        }
+      }
+    }, _callee10);
+  }));
+
+  return function shipReturn(_x10) {
+    return _ref10.apply(this, arguments);
+  };
+}();
+var cancelReturn = /*#__PURE__*/function () {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee11(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee11$(_context11) {
+      while (1) {
+        switch (_context11.prev = _context11.next) {
+          case 0:
+            _context11.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/cancel', data);
+
+          case 2:
+            result = _context11.sent;
+            return _context11.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context11.stop();
+        }
+      }
+    }, _callee11);
+  }));
+
+  return function cancelReturn(_x11) {
+    return _ref11.apply(this, arguments);
+  };
+}();
+var storeComplaint = /*#__PURE__*/function () {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee12(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            _context12.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+
+          case 2:
+            result = _context12.sent;
+            return _context12.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  }));
+
+  return function storeComplaint(_x12) {
+    return _ref12.apply(this, arguments);
   };
 }();
 

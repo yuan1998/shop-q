@@ -4,6 +4,7 @@ use Dcat\Admin\Admin;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid\Filter;
+use Dcat\Admin\Layout\Navbar;
 use Dcat\Admin\Show;
 
 /**
@@ -24,3 +25,13 @@ use Dcat\Admin\Show;
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+app('view')->prependNamespace('admin', resource_path('views/admin'));
+
+
+Admin::navbar(function (Navbar $navbar) {
+    $method = config('admin.layout.horizontal_menu') ? 'left' : 'right';
+
+    if (! Dcat\Admin\Support\Helper::isAjaxRequest()) {
+        $navbar->$method(App\Admin\Actions\Site1SettingConfig::make()->render());
+    }
+});

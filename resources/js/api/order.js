@@ -53,3 +53,33 @@ export const orderDelete = (id) => {
     database.deleteRows(table, {order_id: id});
     database.commit();
 }
+
+export const buttonText = {
+    1: '去支付',
+    2: '退货/退款',
+    3: '去支付',
+    4: '退款中',
+    5: '已发货',
+    6: '订单已取消',
+};
+
+export const statusList = {
+    1: '未支付',
+    2: '支付成功',
+    3: '支付失败',
+    4: '退货/退款中',
+    5: '已发货',
+    6: '已取消',
+};
+
+export const returnStatusList = {
+    1: '申请退货退款中',
+    2: '退货退款同意-待发货',
+    3: '退货退款同意-已发货',
+    4: '申请退款',
+    5: '同意退款',
+    6: '取消退款',
+    7: '换货/换款',
+    8: '同意换货/换款-待发货',
+    9: '同意换货/换款-已发货',
+}

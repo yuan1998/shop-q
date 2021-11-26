@@ -11,6 +11,10 @@ export const getProductDetail = async (id) => {
 
     return result.data;
 }
+export const getSetting = async () => {
+    let result = await axios.get(BASE_URL + 'api/setting/')
+    return result.data;
+}
 
 export const getProductList = async (page) => {
     let result = await axios.get(BASE_URL + 'api/product/list', {
@@ -21,6 +25,7 @@ export const getProductList = async (page) => {
 
     return result.data;
 }
+
 export const getOrderList = async (id, page) => {
     let result = await axios.get(BASE_URL + 'api/order/list', {
         params: {
@@ -53,6 +58,31 @@ export const outPayOrder = async (id) => {
     });
     return result.data;
 }
+
+export const getOrderById = async (id) => {
+    let result = await axios.get(BASE_URL + 'api/order/getById', {
+        params: {
+            order_id: id
+        }
+    });
+    return result.data;
+}
+
+export const requestReturn = async (data) => {
+    let result = await axios.post(BASE_URL + 'api/order/return/request', data);
+    return result.data;
+}
+
+export const shipReturn = async (data) => {
+    let result = await axios.post(BASE_URL + 'api/order/return/shipReturn', data);
+    return result.data;
+}
+
+export const cancelReturn = async (data) => {
+    let result = await axios.post(BASE_URL + 'api/order/return/cancel', data);
+    return result.data;
+}
+
 
 export const storeComplaint = async (data) => {
     let result = await axios.post(BASE_URL + 'api/complaint/store', data);

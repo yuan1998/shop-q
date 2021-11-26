@@ -23,15 +23,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vant_es_toast_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vant/es/toast/style */ "./node_modules/vant/es/toast/style/index.js");
-/* harmony import */ var vant_es_toast__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vant/es/toast */ "./node_modules/vant/es/toast/index.js");
+/* harmony import */ var vant_es_toast__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vant/es/toast */ "./node_modules/vant/es/toast/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
-/* harmony import */ var _api_location__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../api/location */ "./resources/js/api/location.js");
-/* harmony import */ var _api_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../api/common */ "./resources/js/api/common.js");
-/* harmony import */ var _api_order__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../api/order */ "./resources/js/api/order.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm-bundler.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _api_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../api/api */ "./resources/js/api/api.js");
+/* harmony import */ var _api_location__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../api/location */ "./resources/js/api/location.js");
+/* harmony import */ var _api_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../api/common */ "./resources/js/api/common.js");
+/* harmony import */ var _api_order__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../api/order */ "./resources/js/api/order.js");
 
 
 
@@ -53,15 +55,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'order_create',
   setup: function setup() {
     var _route$query;
 
-    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.useRoute)();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
-    var chosenLocation = (0,_api_location__WEBPACK_IMPORTED_MODULE_4__.getChosenLocation)();
-    var data = (0,vue__WEBPACK_IMPORTED_MODULE_2__.reactive)({
+    var route = (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.useRoute)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.useRouter)();
+    var chosenLocation = (0,_api_location__WEBPACK_IMPORTED_MODULE_5__.getChosenLocation)();
+    var data = (0,vue__WEBPACK_IMPORTED_MODULE_3__.reactive)({
       loading: false,
       count: route.query.count,
       payment: 'wechat',
@@ -73,7 +76,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       list: []
     });
     var sku = JSON.parse((_route$query = route.query) === null || _route$query === void 0 ? void 0 : _route$query.sku);
-    var price = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
+    var price = (0,vue__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
       return route.query.price * data.count;
     });
 
@@ -89,19 +92,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                (0,vant_es_toast__WEBPACK_IMPORTED_MODULE_8__["default"])('请输入收货人信息');
+                (0,vant_es_toast__WEBPACK_IMPORTED_MODULE_9__["default"])('请输入收货人信息');
 
                 return _context.abrupt("return");
 
               case 3:
-                vant_es_toast__WEBPACK_IMPORTED_MODULE_8__["default"].loading({
+                vant_es_toast__WEBPACK_IMPORTED_MODULE_9__["default"].loading({
                   message: '下单中...',
                   forbidClick: true
                 });
 
                 data.loading = true;
                 _context.next = 7;
-                return (0,_api_api__WEBPACK_IMPORTED_MODULE_3__.storeOrder)({
+                return (0,_api_api__WEBPACK_IMPORTED_MODULE_4__.storeOrder)({
                   product_id: route.query.product_id,
                   product_sku: route.query.sku,
                   count: data.count,
@@ -118,10 +121,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 result = _context.sent;
                 data.loading = false;
 
-                vant_es_toast__WEBPACK_IMPORTED_MODULE_8__["default"].clear();
+                vant_es_toast__WEBPACK_IMPORTED_MODULE_9__["default"].clear();
 
                 id = result.id;
-                (0,_api_order__WEBPACK_IMPORTED_MODULE_6__.addOrder)(id);
+                (0,_api_order__WEBPACK_IMPORTED_MODULE_7__.addOrder)(id);
                 window.location.href = "/api/pay?order_id=".concat(result.id);
 
               case 13:
@@ -152,24 +155,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
 
-    var disableAlipay = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
-      console.log("process.env.MIX_DISABLE_ALIPAY", "1");
-      return (0,_api_common__WEBPACK_IMPORTED_MODULE_5__.stringToBoolean)("1");
+    var disableAlipay = (0,vue__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
+      return lodash__WEBPACK_IMPORTED_MODULE_2___default().get(window._setting_, 'disable_alipay', (0,_api_common__WEBPACK_IMPORTED_MODULE_6__.stringToBoolean)("1"));
     });
-    var disableWechat = (0,vue__WEBPACK_IMPORTED_MODULE_2__.computed)(function () {
-      console.log("process.env.MIX_DISABLE_WECHAT", "0");
-      return (0,_api_common__WEBPACK_IMPORTED_MODULE_5__.stringToBoolean)("0");
+    var disableWechat = (0,vue__WEBPACK_IMPORTED_MODULE_3__.computed)(function () {
+      return lodash__WEBPACK_IMPORTED_MODULE_2___default().get(window._setting_, 'disable_wechat', (0,_api_common__WEBPACK_IMPORTED_MODULE_6__.stringToBoolean)("0"));
     });
-    console.log("disableAlipay", disableAlipay);
-    console.log("disableWechat", disableWechat);
-    return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_2__.toRefs)(data)), {}, {
+    (0,vue__WEBPACK_IMPORTED_MODULE_3__.onMounted)(function () {
+      data.payment = disableWechat.value ? 'alipay' : 'wechat';
+    });
+    return _objectSpread(_objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_3__.toRefs)(data)), {}, {
       disableAlipay: disableAlipay,
       disableWechat: disableWechat,
       onSubmit: onSubmit,
       handleLocation: handleLocation,
       chosenLocation: chosenLocation,
       price: price,
-      hour: Math.floor((0,_api_common__WEBPACK_IMPORTED_MODULE_5__.getRandomArbitrary)(1, 24)),
+      hour: Math.floor((0,_api_common__WEBPACK_IMPORTED_MODULE_6__.getRandomArbitrary)(1, 24)),
       query: _objectSpread(_objectSpread({}, route.query), {}, {
         sku: Object.values(sku).join('/')
       })
@@ -386,7 +388,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "left-arrow": "",
     title: "创建订单",
     onClickLeft: _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.$router.back();
+      return _ctx.$router.push({
+        path: '/'
+      });
     })
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -621,11 +625,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "getProductDetail": () => (/* binding */ getProductDetail),
+/* harmony export */   "getSetting": () => (/* binding */ getSetting),
 /* harmony export */   "getProductList": () => (/* binding */ getProductList),
 /* harmony export */   "getOrderList": () => (/* binding */ getOrderList),
 /* harmony export */   "searchOrderByPhone": () => (/* binding */ searchOrderByPhone),
 /* harmony export */   "storeOrder": () => (/* binding */ storeOrder),
 /* harmony export */   "outPayOrder": () => (/* binding */ outPayOrder),
+/* harmony export */   "getOrderById": () => (/* binding */ getOrderById),
+/* harmony export */   "requestReturn": () => (/* binding */ requestReturn),
+/* harmony export */   "shipReturn": () => (/* binding */ shipReturn),
+/* harmony export */   "cancelReturn": () => (/* binding */ cancelReturn),
 /* harmony export */   "storeComplaint": () => (/* binding */ storeComplaint)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -670,19 +679,15 @@ var getProductDetail = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var getProductList = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(page) {
+var getSetting = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list', {
-              params: {
-                page: page
-              }
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/setting/');
 
           case 2:
             result = _context2.sent;
@@ -696,21 +701,20 @@ var getProductList = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function getProductList(_x2) {
+  return function getSetting() {
     return _ref2.apply(this, arguments);
   };
 }();
-var getOrderList = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id, page) {
+var getProductList = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/list', {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/product/list', {
               params: {
-                order_id: id,
                 page: page
               }
             });
@@ -727,21 +731,22 @@ var getOrderList = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function getOrderList(_x3, _x4) {
+  return function getProductList(_x2) {
     return _ref3.apply(this, arguments);
   };
 }();
-var searchOrderByPhone = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(phone) {
+var getOrderList = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id, page) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/searchByPhone', {
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/list', {
               params: {
-                phone: phone
+                order_id: id,
+                page: page
               }
             });
 
@@ -757,19 +762,23 @@ var searchOrderByPhone = /*#__PURE__*/function () {
     }, _callee4);
   }));
 
-  return function searchOrderByPhone(_x5) {
+  return function getOrderList(_x3, _x4) {
     return _ref4.apply(this, arguments);
   };
 }();
-var storeOrder = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(data) {
+var searchOrderByPhone = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(phone) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/searchByPhone', {
+              params: {
+                phone: phone
+              }
+            });
 
           case 2:
             result = _context5.sent;
@@ -783,21 +792,19 @@ var storeOrder = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function storeOrder(_x6) {
+  return function searchOrderByPhone(_x5) {
     return _ref5.apply(this, arguments);
   };
 }();
-var outPayOrder = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(id) {
+var storeOrder = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(data) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             _context6.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
-              order_id: id
-            });
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/store', data);
 
           case 2:
             result = _context6.sent;
@@ -811,19 +818,21 @@ var outPayOrder = /*#__PURE__*/function () {
     }, _callee6);
   }));
 
-  return function outPayOrder(_x7) {
+  return function storeOrder(_x6) {
     return _ref6.apply(this, arguments);
   };
 }();
-var storeComplaint = /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(data) {
+var outPayOrder = /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(id) {
     var result;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
             _context7.next = 2;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/outPay', {
+              order_id: id
+            });
 
           case 2:
             result = _context7.sent;
@@ -837,8 +846,142 @@ var storeComplaint = /*#__PURE__*/function () {
     }, _callee7);
   }));
 
-  return function storeComplaint(_x8) {
+  return function outPayOrder(_x7) {
     return _ref7.apply(this, arguments);
+  };
+}();
+var getOrderById = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(id) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get(BASE_URL + 'api/order/getById', {
+              params: {
+                order_id: id
+              }
+            });
+
+          case 2:
+            result = _context8.sent;
+            return _context8.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function getOrderById(_x8) {
+    return _ref8.apply(this, arguments);
+  };
+}();
+var requestReturn = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/request', data);
+
+          case 2:
+            result = _context9.sent;
+            return _context9.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function requestReturn(_x9) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+var shipReturn = /*#__PURE__*/function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            _context10.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/shipReturn', data);
+
+          case 2:
+            result = _context10.sent;
+            return _context10.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context10.stop();
+        }
+      }
+    }, _callee10);
+  }));
+
+  return function shipReturn(_x10) {
+    return _ref10.apply(this, arguments);
+  };
+}();
+var cancelReturn = /*#__PURE__*/function () {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee11(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee11$(_context11) {
+      while (1) {
+        switch (_context11.prev = _context11.next) {
+          case 0:
+            _context11.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/order/return/cancel', data);
+
+          case 2:
+            result = _context11.sent;
+            return _context11.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context11.stop();
+        }
+      }
+    }, _callee11);
+  }));
+
+  return function cancelReturn(_x11) {
+    return _ref11.apply(this, arguments);
+  };
+}();
+var storeComplaint = /*#__PURE__*/function () {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee12(data) {
+    var result;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            _context12.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post(BASE_URL + 'api/complaint/store', data);
+
+          case 2:
+            result = _context12.sent;
+            return _context12.abrupt("return", result.data);
+
+          case 4:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  }));
+
+  return function storeComplaint(_x12) {
+    return _ref12.apply(this, arguments);
   };
 }();
 
@@ -1017,7 +1160,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mergeOrder": () => (/* binding */ mergeOrder),
 /* harmony export */   "orderList": () => (/* binding */ orderList),
 /* harmony export */   "orderIdStr": () => (/* binding */ orderIdStr),
-/* harmony export */   "orderDelete": () => (/* binding */ orderDelete)
+/* harmony export */   "orderDelete": () => (/* binding */ orderDelete),
+/* harmony export */   "buttonText": () => (/* binding */ buttonText),
+/* harmony export */   "statusList": () => (/* binding */ statusList),
+/* harmony export */   "returnStatusList": () => (/* binding */ returnStatusList)
 /* harmony export */ });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
@@ -1076,6 +1222,33 @@ var orderDelete = function orderDelete(id) {
   });
   _common__WEBPACK_IMPORTED_MODULE_1__.database.commit();
 };
+var buttonText = {
+  1: '去支付',
+  2: '退货/退款',
+  3: '去支付',
+  4: '退款中',
+  5: '已发货',
+  6: '订单已取消'
+};
+var statusList = {
+  1: '未支付',
+  2: '支付成功',
+  3: '支付失败',
+  4: '退货/退款中',
+  5: '已发货',
+  6: '已取消'
+};
+var returnStatusList = {
+  1: '申请退货退款中',
+  2: '退货退款同意-待发货',
+  3: '退货退款同意-已发货',
+  4: '申请退款',
+  5: '同意退款',
+  6: '取消退款',
+  7: '换货/换款',
+  8: '同意换货/换款-待发货',
+  9: '同意换货/换款-已发货'
+};
 
 /***/ }),
 
@@ -1096,7 +1269,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nut-navbar[data-v-1c9b6068] {\n  margin-bottom: 0;\n}\n.payment[data-v-1c9b6068] {\n  margin-top: 15px;\n}\n.order-create[data-v-1c9b6068] {\n  padding-bottom: 100px;\n}\n.card-product[data-v-1c9b6068] {\n  background-color: #fff;\n  margin: 0;\n}\n.card-product .card-product_title[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_sku[data-v-1c9b6068] {\n  display: inline-block;\n  font-size: 15px;\n  background-color: #FAFAFA;\n  color: #ABABAB;\n  padding: 3px 8px;\n  margin: 5px 0;\n}\n.card-product .van-card__price-integer[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_text[data-v-1c9b6068] {\n  font-size: 15px;\n  margin: 7px 0;\n}\n.card-product .card-product_text.red[data-v-1c9b6068] {\n  color: #D78161;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags[data-v-1c9b6068] {\n  color: #CF8062;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags span[data-v-1c9b6068] {\n  border: 1px solid #CF8062;\n  border-radius: 3px;\n  display: inline-block;\n  padding: 2px 5px;\n  margin-right: 8px;\n}\n.location_title strong[data-v-1c9b6068] {\n  font-size: 15px;\n}\n.location_label[data-v-1c9b6068] {\n  font-size: 14px;\n  color: #333;\n}\n.nav_title[data-v-1c9b6068] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.van-submit-bar[data-v-1c9b6068] {\n  padding: 10px 0;\n}\n.van-submit-bar__text[data-v-1c9b6068] {\n  text-align: left;\n}\n.order-title[data-v-1c9b6068] {\n  margin-top: 15px;\n  background-color: #fff;\n  font-size: 16px;\n  padding: 15px 20px;\n  color: #333;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nut-navbar[data-v-1c9b6068] {\n  margin-bottom: 0;\n}\n.payment[data-v-1c9b6068] {\n  margin-top: 15px;\n}\n.order-create[data-v-1c9b6068] {\n  padding-bottom: 100px;\n}\n.card-product[data-v-1c9b6068] {\n  background-color: #fff;\n  margin: 0;\n}\n.card-product .card-product_title[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_sku[data-v-1c9b6068] {\n  display: inline-block;\n  font-size: 15px;\n  background-color: #FAFAFA;\n  color: #ABABAB;\n  padding: 3px 8px;\n  margin: 5px 0;\n}\n.card-product .van-card__price-integer[data-v-1c9b6068] {\n  font-size: 16px;\n}\n.card-product .card-product_text[data-v-1c9b6068] {\n  font-size: 15px;\n  margin: 7px 0;\n}\n.card-product .card-product_text.red[data-v-1c9b6068] {\n  color: #D78161;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags[data-v-1c9b6068] {\n  color: #CF8062;\n  font-size: 14px;\n}\n.card-product .card-product_text.tags span[data-v-1c9b6068] {\n  border: 1px solid #CF8062;\n  border-radius: 3px;\n  display: inline-block;\n  padding: 2px 5px;\n  margin-right: 8px;\n}\n.nav_title[data-v-1c9b6068] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.van-submit-bar[data-v-1c9b6068] {\n  padding: 10px 0;\n}\n.van-submit-bar__text[data-v-1c9b6068] {\n  text-align: left;\n}\n.order-title[data-v-1c9b6068] {\n  margin-top: 15px;\n  background-color: #fff;\n  font-size: 16px;\n  padding: 15px 20px;\n  color: #333;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

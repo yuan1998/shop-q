@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderReturn;
 use App\Models\PayChannel;
 use App\Payable\HuPiPay;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -81,6 +83,87 @@ class OrderController extends Controller
             ]);
     }
 
+    public function orderById(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        $item = Order::query()
+            ->where('order_id', $orderId)
+            ->first();
+
+        return response()
+            ->json([
+                'status' => 0,
+                'data' => $item,
+                'msg' => '获取订单成功!'
+            ]);
+    }
+
+    public function requestReturn(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        if (!($order = Order::query()->where('order_id', $orderId)->first())) {
+            return response()->json([
+                'status' => 1,
+                'errMsg' => '错误的订单号,请确认订单号'
+            ]);
+        }
+
+        $returnReason = $request->get('return_reason');
+        $returnStatus = $request->get('return_status');
+        $order->return_status = $returnStatus;
+        $order->status = Order::PAY_OUTING;
+        $order->return_at = Carbon::now()->toDateTimeString();
+        $order->return_reason = $returnReason;
+        $order->save();
+
+        return response()
+            ->json([
+                'status' => 0,
+                'msg' => '退款申请成功,请等待审核',
+            ]);
+    }
+
+    public function shipReturnProduct(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        if (!($order = Order::query()->where('order_id', $orderId)->first())) {
+            return response()->json([
+                'status' => 1,
+                'errMsg' => '错误的订单号,请确认订单号'
+            ]);
+        }
+        $returnStatus = $request->get('return_status');
+        $logistics = $request->get('logistics');
+        $order->return_logistics_number = $logistics;
+        $order->return_status = $returnStatus;
+        $order->save();
+
+        return response()
+            ->json([
+                'status' => 0,
+                'msg' => '提交成功,请耐心等待',
+            ]);
+    }
+
+    public function cancelReturn(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $orderId = $request->get('order_id');
+        if (!($order = Order::query()->where('order_id', $orderId)->first())) {
+            return response()->json([
+                'status' => 1,
+                'errMsg' => '错误的订单号,请确认订单号'
+            ]);
+        }
+        $order->return_status = OrderReturn::ONLY_RETURN_DISAGREE;
+        $order->save();
+
+        return response()
+            ->json([
+                'status' => 0,
+                'msg' => '提交成功!',
+            ]);
+    }
+
     public function getPhoneOrderList(Request $request): \Illuminate\Http\JsonResponse
     {
         $phone = $request->get('phone');
@@ -105,7 +188,6 @@ class OrderController extends Controller
                 'msg' => '查询成功'
             ]);
     }
-
 
     public function orderPay(Request $request)
     {

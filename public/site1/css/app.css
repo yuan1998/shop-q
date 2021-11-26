@@ -26,4 +26,14 @@ body {
   box-shadow: 0 8px 12px #F9F9F9;
   overflow: hidden;
 }
+.mt-15 {
+  margin-top: 15px;
+}
+.location_title strong {
+  font-size: 15px;
+}
+.location_label {
+  font-size: 14px;
+  color: #333;
+}
 

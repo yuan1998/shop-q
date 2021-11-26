@@ -4,6 +4,8 @@ const Checkout = () => import("./components/Checkout/Index");
 const Detail = () => import("./components/Product/Detail");
 const OrderIndex = () => import("./components/Order/Index");
 const OrderCreate = () => import("./components/Order/Create");
+const OrderDetail = () => import("./components/Order/Detail");
+const OrderReturnList = () => import("./components/Order/Return/ReturnList");
 const LocationIndex = () => import("./components/Location/Index");
 const LocationCreate = () => import("./components/Location/Create");
 const ComplaintIndex = () => import("./components/Complaint/Index");
@@ -20,6 +22,12 @@ export default [
     },
     {
         path: '/order/create', component: OrderCreate
+    },
+    {
+        path: '/order/detail', component: OrderDetail
+    },
+    {
+        path: '/order/return', component: OrderReturnList
     },
 
     {

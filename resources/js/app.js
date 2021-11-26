@@ -29,6 +29,7 @@ import {
     ImagePreview,
     Toast,
     Card,
+    Dialog,
     Switch,
     Search,
     SubmitBar,
@@ -55,6 +56,7 @@ app.use(router)
     .use(Row)
     .use(Col)
     .use(Image)
+    .use(Dialog)
     .use(Sticky)
     .use(List)
     .use(Toast)

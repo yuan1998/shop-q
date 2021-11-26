@@ -3,6 +3,7 @@
 
 namespace App\Admin\Forms;
 
+use App\Helper;
 use Dcat\Admin\Contracts\LazyRenderable;
 use Dcat\Admin\Traits\LazyWidget;
 use Dcat\Admin\Widgets\Form;
@@ -21,11 +22,8 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
      */
     public function handle(array $input)
     {
-        $input['layout']['horizontal_menu'] = in_array('horizontal_menu', $input['layout']['body_class'], true);
 
-        foreach (Arr::dot($input) as $k => $v) {
-            $this->update($k, $v);
-        }
+        $this->update($input);
 
         return $this->response()->success('设置成功');
     }
@@ -35,27 +33,11 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
      */
     public function form()
     {
-        $this->text('name')->required()->help('网站名称');
-        $this->text('logo')->required()->help('logo设置');
-        $this->text('logo-mini', 'Logo mini')->required();
-        $this->radio('lang', '语言')->required()->options(['en' => 'English', 'zh_CN' => '简体中文']);
-        $this->radio('layout.color', '主题')
-            ->required()
-            ->help('主题颜色，支持自定义！')
-            ->options($this->colors);
-
-        $this->radio('layout.sidebar_style', '菜单样式')
-            ->options(['light' => 'Light', 'primary' => 'Primary'])
-            ->help('切换菜单栏样式');
-
-        $this->checkbox('layout.body_class', '菜单布局')
-            ->options([
-                'horizontal_menu' => '水平 (Horizontal)',
-                'sidebar-separate' => 'sidebar-separate',
-            ])
-            ->help('切换菜单布局');
-//        $this->switch('https', '启用HTTPS');
-        $this->switch('helpers.enable', '开发工具');
+        $this->text('web_title', '网站名称')->required()->help('网站名称');
+        $this->text('customer_phone', '客服电话')->required()->help('客服电话');
+        $this->text('customer_wechat', '客服微信')->required()->help('客服微信');
+        $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
+        $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
     }
 
     /**
@@ -81,19 +63,18 @@ JS;
      *
      * @return array
      */
-    public function default()
+    public function default(): array
     {
-        return user_admin_config();
+        return Helper::site_1_config();
     }
 
     /**
      * 更新配置.
      *
-     * @param string $key
-     * @param string $value
+     * @param array $inputs
      */
-    protected function update($key, $value)
+    protected function update(array $inputs)
     {
-
+        Helper::site_1_config($inputs);
     }
 }

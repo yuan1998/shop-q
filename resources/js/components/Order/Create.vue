@@ -1,6 +1,6 @@
 <template>
     <div class="order-create">
-        <van-nav-bar fixed placeholder left-arrow title="创建订单" @click-left="$router.back()">
+        <van-nav-bar fixed placeholder left-arrow title="创建订单" @click-left="$router.push({path:'/'})">
             <template #title>
                 <div class="nav_title">
                     <van-image
@@ -182,9 +182,9 @@
 
 <script>
 
-
+import lodash from 'lodash';
 import {useRoute, useRouter} from "vue-router";
-import {computed, reactive, toRefs} from "vue";
+import {computed, onMounted, reactive, toRefs} from "vue";
 import {storeOrder} from "../../api/api";
 import {Toast} from 'vant'
 import {getChosenLocation} from "../../api/location";
@@ -258,15 +258,18 @@ export default {
             }
         }
         const disableAlipay = computed(() => {
-            console.log("process.env.MIX_DISABLE_ALIPAY",process.env.MIX_DISABLE_ALIPAY);
-            return stringToBoolean(process.env.MIX_DISABLE_ALIPAY);
+            return lodash.get(window._setting_, 'disable_alipay', stringToBoolean(process.env.MIX_DISABLE_ALIPAY))
+
         })
         const disableWechat = computed(() => {
-            console.log("process.env.MIX_DISABLE_WECHAT",process.env.MIX_DISABLE_WECHAT);
-            return stringToBoolean(process.env.MIX_DISABLE_WECHAT);
+            return lodash.get(window._setting_, 'disable_wechat', stringToBoolean(process.env.MIX_DISABLE_WECHAT))
         });
-        console.log("disableAlipay",disableAlipay);
-console.log("disableWechat",disableWechat);
+
+        onMounted(() => {
+            data.payment = disableWechat.value ? 'alipay' : 'wechat';
+        });
+
+
         return {
             ...toRefs(data),
             disableAlipay,
@@ -342,18 +345,6 @@ console.log("disableWechat",disableWechat);
             }
         }
     }
-}
-
-
-.location_title {
-    strong {
-        font-size: 15px;
-    }
-}
-
-.location_label {
-    font-size: 14px;
-    color: #333;
 }
 
 

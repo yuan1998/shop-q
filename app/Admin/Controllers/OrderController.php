@@ -7,9 +7,11 @@ use App\Admin\Forms\OrderLogisticNumber;
 use App\Admin\Renderable\OrderProfile;
 use App\Admin\Renderable\ProductTable;
 use App\Admin\Repositories\Order;
+use App\Models\LogisticsType;
 use App\Models\Order as OrderModel;
 use App\Models\OrderReturn;
 use App\Models\Product;
+use Carbon\Carbon;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -32,7 +34,8 @@ class OrderController extends AdminController
             $grid->export(new OrderExporter());
 
             $grid->disableCreateButton();
-            $grid->disableEditButton();
+            $grid->disableDeleteButton();
+//            $grid->disableEditButton();
 
             $grid->column('id')->display(function () {
                 return $this->_index + 1;
@@ -52,24 +55,13 @@ class OrderController extends AdminController
                 })
                 ->style("color:red;");
 
-//            $statusField = $grid->column('status')
-//                ->display(function ($val) {
-//                    $returnStatus = $this->return_status;
-//
-//                    if ($returnStatus) {
-//                        return data_get(OrderReturn::$outStatus, $returnStatus);
-//                    } else {
-//                        return data_get(OrderModel::$payStatus, $val);
-//                    }
-//                });
-//
-//            $statusField->modal(function () {
-//                return OrderProfile::make()->payload([
-//                    'id' => $this->id,
-//                ]);
-//            });
             $grid->column('status')
-                ->select(\App\Models\Order::$payStatus, true);
+                ->display(function ($val) {
+                    $status = $this->return_status ? data_get(\App\Models\OrderReturn::$outStatus, $this->return_status)
+                        : data_get(\App\Models\Order::$payStatus, $val);
+                    return "<a href='orders/{$this->id}/edit'>$status</a>";
+                });
+
 
             $grid->column('pay_method')
                 ->using(\App\Models\Order::$paymentName);
@@ -100,11 +92,58 @@ class OrderController extends AdminController
                 });
 
             $grid->column('created_at');
+            $grid->column('return_at');
 
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('order_id');
-                $filter->equal('status')->select(\App\Models\Order::$payStatus);
-                $filter->like('custom_info', '收货人/收货人电话');
+                $filter->like('order_id');
+
+                $filter->where('status', function ($query) {
+                    if (is_numeric($this->input)) {
+                        if ($this->input == 4) {
+                            $query->where('return_status', '<>', 0);
+                        } else {
+                            $query->where('status', $this->input);
+                        }
+                    }
+                })->select(\App\Models\Order::$payStatus)->config([
+                    'placeholder' => ['id' => '', 'text' => '全部数据',],
+                ]);
+                $filter->equal('return_status')
+                    ->select(OrderReturn::$outStatus)->config([
+                        'placeholder' => ['id' => '', 'text' => '全部数据',],
+                    ]);
+
+                $filter->group('custom_info', function ($group) {
+                    $group->like('模糊');
+                    $group->equal('精准');
+                }, '收货人/收货人电话');
+
+                $filter->equal('logistic_number');
+                $filter->between('created_at', '创建时间')->datetime([
+                    'startOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 00:00:00',
+                    ],
+                    'endOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 23:59:59',
+                    ],
+                ]);
+                $filter->between('pay_date', '创建时间')->datetime([
+                    'startOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 00:00:00',
+                    ],
+                    'endOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 23:59:59',
+                    ],
+                ]);
+
+                $filter->between('return_at', '退货/款时间')->datetime([
+                    'startOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 00:00:00',
+                    ],
+                    'endOptions' => [
+                        'defaultCurrent' => Carbon::today()->toDateString() . ' 23:59:59',
+                    ],
+                ]);
             });
         });
     }
@@ -143,20 +182,106 @@ class OrderController extends AdminController
     {
         return Form::make(new Order(), function (Form $form) {
             $form->display('id');
-            $form->text('pay_date');
-            $form->text('product_id');
-            $form->text('snapshot');
-            $form->text('product_sku');
-            $form->text('custom_info');
-            $form->text('status');
-            $form->text('pay_method');
-            $form->text('pay_info');
-            $form->text('price');
-            $form->text('order_id');
-            $form->text('logistic_number');
+            $form->hidden('pay_date');
+            $form->hidden('product_id');
+            $form->hidden('snapshot');
+            $form->hidden('product_sku');
+            $form->display('pay_method');
+            $form->display('pay_info');
+            $form->display('price');
+            $form->hidden('order_id');
 
-            $form->display('created_at');
-            $form->display('updated_at');
+            $model = $form->model();
+
+            $form->radio('status')
+                ->options(\App\Models\Order::$payStatus)
+                ->when([\App\Models\Order::SHIP], function (Form $form) {
+                    $form->text('logistic_number')
+                        ->rules("required_if:status," . \App\Models\Order::SHIP, [
+                            'required_if' => ':attribute 不能为空'
+                        ]);
+                })
+                ->when([0, 1, 2, 3, 5], function (Form $form) {
+
+                    $form->embeds('custom_info', function ($form) {
+
+                        $form->text('收货人')->required();
+                        $form->text('收货人电话')->required();
+                        $form->text('收货人地址')->required();
+                    })
+                        ->saving(function ($v) {
+                            return json_encode($v);
+                        })
+                        ->rules('required_if:status,0,1,2,3,5', [
+                            'required_if' => ':attribute 不能为空'
+                        ]);
+
+                })
+                ->when([4], function (Form $form) {
+                    $form->textarea('return_reason')
+                        ->rules('required_if:status,4', [
+                            'required_if' => ':attribute 不能为空'
+                        ]);
+
+                    $form->radio('return_status')
+                        ->options(OrderReturn::$outStatus)
+                        ->when([
+                            OrderReturn::RETURN_AGREE_WAIT_SHIP,
+                            OrderReturn::RETURN_AGREE_SHIP,
+                            OrderReturn::EXCHANGE_REQUEST,
+                            OrderReturn::EXCHANGE_REQUEST_WAIT_SHIP,
+                            OrderReturn::EXCHANGE_REQUEST_SHIP,
+                        ], function (Form $form) {
+                            $statusId = implode(',', [
+                                OrderReturn::RETURN_AGREE_WAIT_SHIP,
+                                OrderReturn::RETURN_AGREE_SHIP,
+                                OrderReturn::EXCHANGE_REQUEST,
+                                OrderReturn::EXCHANGE_REQUEST_WAIT_SHIP,
+                                OrderReturn::EXCHANGE_REQUEST_SHIP,
+                            ]);
+                            $form->textarea('return_location')
+                                ->rules(
+                                    'required_if:return_status,' . $statusId,
+                                    [
+                                        'required_if' => ':attribute 不能为空'
+                                    ]
+                                );
+                        })
+                        ->when([
+                            OrderReturn::RETURN_AGREE_SHIP,
+                            OrderReturn::EXCHANGE_REQUEST_SHIP,
+                        ], function (Form $form) {
+
+                            $statusId = implode(',', [
+                                OrderReturn::RETURN_AGREE_SHIP,
+                                OrderReturn::EXCHANGE_REQUEST_SHIP,
+                            ]);
+                            $form->text('return_logistics_number')
+                                ->rules(
+                                    'required_if:return_status,' . $statusId,
+                                    [
+                                        'required_if' => ':attribute 不能为空'
+                                    ]
+                                );
+                        })
+                        ->rules('required_if:status,4', [
+                            'required_if' => ':attribute 不能为空'
+                        ]);
+                })
+                ->rules('required', [
+                    'required' => ':attribute 不能为空'
+                ]);
+
+            $form->saving(function (Form $form) {
+                if (!$form->return_status) {
+                    $form->return_status = 0;
+                } else {
+                    if ($form->status != \App\Models\Order::PAY_OUTING) {
+                        $form->return_status = 0;
+                    }
+                }
+
+            });
         });
     }
 }

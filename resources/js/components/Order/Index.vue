@@ -25,7 +25,15 @@
                             <br>
                             可以点击下方文字或者右上角的查询图标手动输入收货人电话
                             <br>
-                            <span style="color: #4aa0e6;" @click="onClickRight">获取订单</span></p>
+                            <span style="color: #4aa0e6;" @click="onClickRight">获取订单</span>
+                        </p>
+                        <p>
+                            官方客服电话: {{ setting.customer_phone }}
+                        </p>
+                        <p>
+                            官方客服微信: {{ setting.customer_wechat }}
+                        </p>
+
                     </div>
                 </template>
             </van-list>
@@ -49,7 +57,7 @@
 import {existsOrder, mergeOrder, orderDelete, orderIdStr, truncateOrder} from "../../api/order";
 import {getOrderList, searchOrderByPhone} from "../../api/api";
 import {onMounted, reactive, toRefs} from "vue";
-import {Toast} from 'vant';
+import {Toast, Dialog} from 'vant';
 import OrderItem from "./OrderItem";
 
 export default {
@@ -118,9 +126,23 @@ export default {
 
         const deleteOrder = (id) => {
             console.log("id", id);
-            data.list = data.list.filter((item) => item.order_id !== id);
-            orderDelete(id);
-            pullOrderId();
+            Dialog.confirm({
+                title: '删除订单',
+                message: '是否要删除订单',
+                beforeClose: async (action) => {
+
+                    if (action === 'confirm') {
+                        data.list = data.list.filter((item) => item.order_id !== id);
+                        orderDelete(id);
+                        await pullOrderId();
+                        Toast.success('订单删除成功.')
+                    }
+
+                    return true;
+                }
+            });
+
+
         }
 
         return {
@@ -129,6 +151,7 @@ export default {
             onClickRight,
             onCancel,
             deleteOrder,
+            setting: window._setting_,
         }
     }
 }
