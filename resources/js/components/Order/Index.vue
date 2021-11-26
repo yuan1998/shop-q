@@ -79,7 +79,6 @@ export default {
 
         const pullOrderId = async () => {
             let id = orderIdStr();
-            console.log("id", id);
 
             if (id) {
                 data.listLoading = true;
@@ -117,8 +116,9 @@ export default {
                 let result = await searchOrderByPhone(searchValue);
                 mergeOrder(result.data);
                 Toast.success('获取订单中成功');
+                data.currentPage = 1;
                 data.finished = false;
-                pullOrderId();
+                await pullOrderId();
             }
 
             data.show = false;
