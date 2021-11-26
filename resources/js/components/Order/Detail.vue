@@ -41,7 +41,7 @@
 
                 <div class="order-detail_order_info mt-15">
                     <van-cell-group title="" size="large">
-                        <van-cell  size="large" title="发货单号" :label="order.logistic_number">
+                        <van-cell size="large" title="发货单号" :label="order.logistic_number">
                             <template #value>
                                 <van-button type="default" @click="checkLogistic">
                                     查快递
@@ -88,12 +88,14 @@
                     <van-button type="default" @click="deleteOrder(order.order_id)">
                         删除订单
                     </van-button>
-                    <van-button v-if="!order.return_status || order.return_status == 6" type="default" @click="returnOrder">
-                        申请退货退款
-                    </van-button>
-                    <van-button v-else type="default" @click="handleCancelReturn">
-                        取消退货/退款
-                    </van-button>
+                    <template v-if="order.status != 1">
+                        <van-button v-if="!order.return_status || order.return_status == 6" type="default" @click="returnOrder">
+                            申请退货退款
+                        </van-button>
+                        <van-button v-else type="default" @click="handleCancelReturn">
+                            取消退货/退款
+                        </van-button>
+                    </template>
                     <ShipDialog
                         v-if="showShipButton"
                         :order_id="order.order_id"
@@ -103,7 +105,7 @@
                     <van-button v-if="order.status === 1" type="default" @click="toPay">
                         去支付
                     </van-button>
-                    <van-button v-if="showComplaintButton" type="default"  @click="handleComplaintClick">
+                    <van-button v-if="showComplaintButton" type="default" @click="handleComplaintClick">
                         投诉
                     </van-button>
                 </div>
@@ -265,7 +267,7 @@ export default {
         }
         const checkLogistic = () => {
             let {logistic_number} = data.order;
-            console.log("log",logistic_number);
+            console.log("log", logistic_number);
             if (logistic_number) {
                 window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${logistic_number}&coname=px&callbackurl=${window.location.href}`
             } else {
@@ -280,6 +282,10 @@ export default {
         const showComplaintButton = computed(() => {
             let status = data.order.status;
             return [2, 5].includes(status);
+        })
+        const showReturnButton = computed(() => {
+            let {status, return_status} = data.order;
+            return status != 1 && !return_status && return_status != 6;
         })
 
         const handleComplaintClick = () => {
@@ -309,7 +315,7 @@ export default {
             returnInfoText,
             showShipButton,
             showComplaintButton,
-
+            showReturnButton,
         }
     }
 }
