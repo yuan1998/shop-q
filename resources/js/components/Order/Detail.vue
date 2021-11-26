@@ -25,12 +25,12 @@
                             <van-icon name="location-o" color="#767676" size="25" style="margin-right: 20px;"/>
                         </template>
                         <template #title>
-                            <div class="location_title"><strong>哈哈哈</strong> 13112344321
+                            <div class="location_title"><strong>{{ order.custom_info['收货人'] }}</strong> {{ order.custom_info['收货人电话']  }}
                             </div>
                         </template>
                         <template #label>
                             <div class="location_label">
-                                专业咨询预约挂号,专业咨询预约挂号,专业咨询预约挂号
+                                {{order.custom_info['收货人地址']}}
                             </div>
                         </template>
                     </van-cell>
