@@ -6,6 +6,8 @@ return [
     'customer_phone' => '13112344321',
     // 客服微信
     'customer_wechat' => 'test123',
+    // 迅虎API
+    'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
     // 禁止微信
     'disable_wechat' => false,
     // 禁止支付宝

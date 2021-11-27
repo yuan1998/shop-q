@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import lodash from 'lodash'
 import {existsOrder, mergeOrder, orderDelete, orderIdStr, truncateOrder} from "../../api/order";
 import {getOrderList, searchOrderByPhone} from "../../api/api";
 import {onMounted, reactive, toRefs} from "vue";
@@ -85,13 +86,13 @@ export default {
                 let result = await getOrderList(id, !data.currentPage ? 1 : data.currentPage + 1);
 
                 data.listLoading = false;
-                data.list = data.list.concat(result.data.data.map((item) => {
+                data.list = lodash.uniqBy(data.list.concat(result.data.data.map((item) => {
                     return {
                         ...item,
                         custom_info: JSON.parse(item.custom_info),
                         snapshot: [].concat(JSON.parse(item.snapshot)),
                     }
-                }));
+                })),'order_id');
                 data.currentPage = result.data.current_page;
 
                 if (result.data.last_page <= result.data.current_page) {
@@ -116,7 +117,6 @@ export default {
                 let result = await searchOrderByPhone(searchValue);
                 mergeOrder(result.data);
                 Toast.success('获取订单中成功');
-                data.currentPage = 1;
                 data.finished = false;
                 await pullOrderId();
             }

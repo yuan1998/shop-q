@@ -2,6 +2,7 @@
 
 namespace App\Payable;
 
+use App\Helper;
 use App\Models\Order;
 use App\Models\PayChannel;
 use Illuminate\Support\Facades\Log;
@@ -142,7 +143,8 @@ class HuPiPay
          * 个人支付宝/微信官方支付，支付网关：https://api.xunhupay.com
          * 微信支付宝代收款，需提现，支付网关：https://pay.wordpressopen.com
          */
-        $url = 'https://api.diypc.com.cn/payment/do.html';
+        $url = Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
+        dd($url);
 //        $url = 'https://api.vrmrgame.com/payment/do.html';
 
         try {
