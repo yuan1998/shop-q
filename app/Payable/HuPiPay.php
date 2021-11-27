@@ -144,7 +144,6 @@ class HuPiPay
          * 微信支付宝代收款，需提现，支付网关：https://pay.wordpressopen.com
          */
         $url = Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
-        dd($url);
 //        $url = 'https://api.vrmrgame.com/payment/do.html';
 
         try {
