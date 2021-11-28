@@ -5,6 +5,24 @@
         </div>
         <van-tabs v-model:active="activeName" sticky>
             <van-tab title="精选" name="a">
+                <van-swipe class="image_swiper"
+                           :autoplay="3000"
+                           v-if="banners && banners.length"
+                           indicator-color="#262626"
+                >
+                    <van-swipe-item v-for="banner in banners"
+                                    :key="banner.id"
+                    >
+                        <van-image
+                            height="100%"
+                            width="100%"
+                            fit="cover"
+                            :src="`/storage/${banner.image}`"
+                            @click="handleClickSwiper(banner)"
+                        />
+                    </van-swipe-item>
+                </van-swipe>
+
                 <van-list
                     v-model:loading="loading"
                     :finished="finished"
@@ -17,18 +35,16 @@
                         </van-col>
                     </van-row>
                 </van-list>
-
             </van-tab>
-            <!--            <van-tab title="商品" name="b">内容 2</van-tab>-->
         </van-tabs>
     </div>
 </template>
 <script>
-import {reactive, ref, toRefs} from "vue";
-import {getProductList} from "../../api/api";
+import {onMounted, reactive, ref, toRefs} from "vue";
+import {getBannerList, getProductList} from "../../api/api";
+import {Toast} from 'vant'
 import lodash from 'lodash'
 import ProductItem from '../Product/Item'
-
 
 const listMethod = async (page) => {
     let result = await getProductList(page);
@@ -44,22 +60,29 @@ const listMethod = async (page) => {
     }
 }
 
-
 export default {
     components: {
         ProductItem
-    },
-    mounted() {
-        // this.cs();
     },
     setup() {
         let data = reactive({
             loading: false,
             finished: false,
             list: [],
+            banners: [],
             currentPage: null,
+            activeName: 'a'
         })
 
+        onMounted(async () => {
+            await getBanner();
+        })
+
+        const getBanner = async () => {
+            let result = await getBannerList();
+            data.banners = result.data;
+
+        }
 
         const onLoad = async () => {
             let d = await listMethod(data.currentPage ? data.currentPage + 1 : 1);
@@ -69,14 +92,16 @@ export default {
             if (d.current_page >= d.last_page) {
                 data.finished = true;
             }
-
         }
 
-        const activeName = ref('a');
+        const handleClickSwiper = (banner) => {
+            window.location.href = banner.url;
+        }
+
         return {
             ...toRefs(data),
             onLoad,
-            activeName
+            handleClickSwiper,
         };
     },
 }
@@ -89,6 +114,11 @@ export default {
         padding: 20px;
     }
 
+    .image_swiper {
+        margin-top: 15px;
+        height: 60vw;
+        max-height: 450px;
+    }
 }
 
 

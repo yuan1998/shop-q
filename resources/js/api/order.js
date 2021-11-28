@@ -38,8 +38,8 @@ export const mergeOrder = (ids) => {
     database.commit();
 }
 
-export const orderList = (page = 1, pageSize = 15) => {
-    return database.query(table, {}, pageSize, (page - 1) * pageSize, ["ID", "DESC"])
+export const orderList = () => {
+    return database.query(table, {}, null, null, ["order_id", "DESC"])
 }
 
 export const orderIdStr = () => {

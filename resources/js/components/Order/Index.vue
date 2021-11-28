@@ -18,6 +18,7 @@
                            v-for="item in list"
                            :key="item.id"
                            @delete-row="deleteOrder"/>
+
                 <template #finished>
                     <div style="font-size: 16px;">
                         <p>Q: 为什么没有或者缺失了我的订单?</p>
@@ -57,7 +58,7 @@
 import lodash from 'lodash'
 import {existsOrder, mergeOrder, orderDelete, orderIdStr, truncateOrder} from "../../api/order";
 import {getOrderList, searchOrderByPhone} from "../../api/api";
-import {onMounted, reactive, toRefs} from "vue";
+import {onMounted, provide, reactive, toRefs} from "vue";
 import {Toast, Dialog} from 'vant';
 import OrderItem from "./OrderItem";
 
@@ -77,25 +78,30 @@ export default {
             currentPage: null,
         });
 
-
-        const pullOrderId = async () => {
+        const pullOrderId = async (page) => {
+            page = page || !data.currentPage ? 1 : data.currentPage + 1;
             let id = orderIdStr();
 
             if (id) {
                 data.listLoading = true;
-                let result = await getOrderList(id, !data.currentPage ? 1 : data.currentPage + 1);
+                let result = await getOrderList(id, page);
+                let currentPage = result.data.current_page;
 
                 data.listLoading = false;
-                data.list = lodash.uniqBy(data.list.concat(result.data.data.map((item) => {
+                let items = result.data?.data?.map((item) => {
                     return {
                         ...item,
                         custom_info: JSON.parse(item.custom_info),
                         snapshot: [].concat(JSON.parse(item.snapshot)),
+                        currentPage,
                     }
-                })),'order_id');
-                data.currentPage = result.data.current_page;
+                });
 
-                if (result.data.last_page <= result.data.current_page) {
+                let collection = lodash.uniqBy(data.list.concat(items), 'order_id');
+                data.list = lodash.sortBy(collection, 'id').reverse();
+                data.currentPage = currentPage;
+
+                if (result.data.last_page <= currentPage) {
                     data.finished = true;
                 }
             } else {
@@ -118,32 +124,29 @@ export default {
                 mergeOrder(result.data);
                 Toast.success('获取订单中成功');
                 data.finished = false;
-                await pullOrderId();
+                await pullOrderId(1);
             }
 
             data.show = false;
         };
 
-        const deleteOrder = (id) => {
-            console.log("id", id);
+        const deleteOrder = (id, page = 1) => {
             Dialog.confirm({
                 title: '删除订单',
                 message: '是否要删除订单',
                 beforeClose: async (action) => {
-
                     if (action === 'confirm') {
                         data.list = data.list.filter((item) => item.order_id !== id);
                         orderDelete(id);
-                        await pullOrderId();
+                        await pullOrderId(page);
                         Toast.success('订单删除成功.')
                     }
 
                     return true;
                 }
             });
-
-
         }
+        provide('order-index', {deleteOrder});
 
         return {
             ...toRefs(data),

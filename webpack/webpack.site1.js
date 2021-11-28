@@ -1,4 +1,4 @@
-let mix  = require('laravel-mix');
+let mix = require('laravel-mix');
 
 mix
     .setPublicPath('public/site1')
@@ -11,6 +11,15 @@ mix
     .webpackConfig({
         output: {
             publicPath: 'site1/',
+        },
+        externals: {
+            'vue': 'Vue',
+            'vue-router': 'VueRouter',
+            'localstoragedb': 'localStorageDB',
+            'lodash': '_',
+            '@amap/amap-jsapi-loader': 'AMapLoader',
+            'axios': "axios",
+            'vant': "vant",
         }
     })
 ;

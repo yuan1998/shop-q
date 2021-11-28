@@ -1,6 +1,5 @@
-require('./bootstrap');
-window.Vue = require('vue');
-window.VueRouter = require('vue-router');
+let Vue = require('vue');
+let VueRouter = require('vue-router');
 import routes from "./router"
 import axios from "axios"
 import {

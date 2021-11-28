@@ -28,6 +28,12 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => 'banner'
+], function () {
+    Route::get('list', 'BannerController@list');
+});
+
+Route::group([
     'prefix' => 'complaint'
 ], function () {
     Route::post('store', 'ComplaintController@store');

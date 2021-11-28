@@ -53,7 +53,7 @@ JS;
     {
         $this->script();
 
-        $text = admin_trans_label('Save order');
+        $text = admin_trans_label('保存顺序');
 
         return <<<HTML
 <button type="button" class="btn btn-primary btn-custom grid-save-order-btn" style="margin-left:8px;display:none;">

@@ -9,7 +9,7 @@
             <strong>¥{{ item.price }}</strong>
         </div>
         <div v-if="!hideAction" class="actions">
-            <van-button type="default" size="small" @click="deleteOrder(item.order_id)">
+            <van-button type="default" size="small" @click="deleteOrder(item.order_id,item.currentPage)">
                 删除订单
             </van-button>
             <van-button type="default" size="small" @click="handleStatusClick()">
@@ -35,23 +35,21 @@
 import {Toast} from "vant";
 import {outPayOrder} from "../../api/api";
 import ProductItem from "./ProductItem";
-import {reactive} from "vue";
+import {inject, reactive} from "vue";
 import {useRouter} from "vue-router";
 import {buttonText, orderDelete, statusList} from "../../api/order";
 
 export default {
     name: '',
-    props: ['product','hideAction','hideTotal'],
+    props: ['product', 'hideAction', 'hideTotal'],
     components: {
         ProductItem
     },
-    // emits: ['delete-row'],
-    setup(props, {emit}) {
+    setup(props) {
         const router = useRouter();
-        const {product,hideAction,hideTotal} = props;
+        const {deleteOrder} = inject('order-index');
+        const {product, hideAction, hideTotal} = props;
         const item = reactive(product);
-
-
 
         const toPay = (id) => {
             Toast.loading('获取支付信息...');
@@ -112,10 +110,6 @@ export default {
                     order_id: id
                 }
             })
-        }
-
-        const deleteOrder = (id) => {
-            emit('delete-row', id);
         }
 
         return {

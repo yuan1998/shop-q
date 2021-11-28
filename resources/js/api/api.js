@@ -11,6 +11,7 @@ export const getProductDetail = async (id) => {
 
     return result.data;
 }
+
 export const getSetting = async () => {
     let result = await axios.get(BASE_URL + 'api/setting/')
     return result.data;
@@ -36,6 +37,17 @@ export const getOrderList = async (id, page) => {
 
     return result.data;
 }
+
+export const getBannerList = async (count = 5) => {
+    let result = await axios.get(BASE_URL + 'api/banner/list', {
+        params: {
+            count,
+        }
+    })
+
+    return result.data;
+}
+
 
 export const searchOrderByPhone = async (phone) => {
     let result = await axios.get(BASE_URL + 'api/order/searchByPhone', {
