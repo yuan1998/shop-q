@@ -33,23 +33,48 @@
                         </div>
                     </div>
                 </div>
-<!--                <van-image src="https://pic.imgdb.cn/item/6185e0e22ab3f51d915b2074.png"/>-->
                 <div class="product_info-title">
                     {{ data.title }}
                 </div>
-
                 <div class="product_info-list">
                     <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d111.jpg" alt="" class="mc-img">
                 </div>
-
             </div>
-            <div>
-                <img src="https://pic.imgdb.cn/item/6186641e2ab3f51d91102b26.png" alt="" class="mc-img">
+            <div class="product-reply_container">
+                <van-divider/>
+                <van-cell>
+                    <template #title>
+                        <strong style="font-size: 21px;">商品评论 ({{ data?.replies_count || 0 }})</strong>
+                    </template>
+                    <template #value>
+                        <div @click="$router.push({
+                        path: '/replies',
+                        query: {
+                            id: data.id
+                        }
+                        })">
+                            更多
+                            <van-icon name="arrow"/>
+                        </div>
+                    </template>
+                </van-cell>
+                <div class="product-reply_list">
+                    <ReplyItem
+                        v-if="data?.replies?.length"
+                        v-for="reply in data.replies"
+                        :key="reply.id"
+                        :reply="reply"
+                    />
+                    <template v-else>
+                        <div  class="empty">
+                            暂无评论
+                        </div>
+                    </template>
+                </div>
             </div>
-            <div  @click="$router.push({path: '/'})">
+            <div style="margin-top: 15px;" @click="$router.push({path: '/'})">
                 <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png" alt="" class="mc-img">
             </div>
-
 
             <div class="product_content">
                 <van-divider/>
@@ -93,15 +118,17 @@
 
 <script>
 import {Toast} from 'vant';
-import {onMounted, reactive, toRefs} from "vue";
+import {onMounted, provide, reactive, toRefs} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {getProductDetail} from "../../api/api";
 import Sku from './Sku';
+import ReplyItem from './Reply/Item'
 
 export default {
     name: 'product_detail',
     components: {
-        Sku
+        Sku,
+        ReplyItem
     },
     setup() {
         const route = useRoute();
@@ -111,31 +138,26 @@ export default {
             loading: true,
             show: false,
             id: '',
-            like : false,
+            like: false,
             data: {}
         });
 
-
         const productDetail = async (id) => {
             let result = await getProductDetail(id);
-            console.log("result", result);
             if (result.status === 0) {
                 let resultData = result.data;
                 let skus = JSON.parse(resultData.skus);
-                console.log("skus", skus);
                 data.data = {
                     ...resultData,
                     images: JSON.parse(resultData.images),
                     attributes: JSON.parse(resultData.attributes),
                     skus: skus,
                 }
-                console.log("data.data", data.data);
             }
         }
 
         onMounted(async () => {
             data.id = route.params.id;
-            console.log("data.id", data.id);
             await productDetail(data.id);
             data.loading = false;
         });
@@ -158,8 +180,10 @@ export default {
         const showSku = () => {
             data.show = true;
         }
+        const hideSku = () => {
+            data.show = false
+        }
         const buyProduct = (buyData) => {
-            console.log("data", buyData);
             let query = {
                 sku: JSON.stringify(buyData.select),
                 count: buyData.count,
@@ -178,6 +202,11 @@ export default {
         const handleClickMsg = () => {
             Toast('请返回抖音联系客服');
         }
+
+        provide('product', {
+            buyProduct,
+            hideSku
+        })
 
         return {
             ...toRefs(data),
@@ -272,6 +301,19 @@ export default {
         }
 
     }
+
+    .product-reply_container {
+        background-color: #fff;
+    }
+
+    .product-reply_list {
+        .empty {
+            font-size: 16px;
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+    }
 }
 
 .product_content {
@@ -341,8 +383,7 @@ export default {
         object-fit: cover;
     }
 }
-</style>
-<style lang="less">
+
 .price_text {
     flex: none;
     color: red;
@@ -359,7 +400,7 @@ export default {
         font-size: 22px;
         color: #b3b3b3;
         margin-left: 15px;
-        text-decoration:line-through;
+        text-decoration: line-through;
         font-weight: normal;
     }
 }

@@ -105,6 +105,10 @@ class HuPiPay
         return strripos($_SERVER['HTTP_USER_AGENT'], 'micromessenger');
     }
 
+    public static function networkUrl() {
+        return Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
+    }
+
     public static function payment($order, $payMethod, $request)
     {
 
@@ -124,7 +128,7 @@ class HuPiPay
             'trade_order_id' => $order->order_id, //必须的，网站订单ID，唯一的，匹配[a-zA-Z\d\-_]+
             'payment' => $request->get('payment', 'wechat'),//必须的，支付接口标识：wechat(微信接口)|alipay(支付宝接口)
             'type' => 'WAP',//固定值"WAP" H5支付必填
-            'wap_url' => env('HU_PI_PAY_HOME_URL'),//网站域名，H5支付必填
+            'wap_url' => $domain,//网站域名，H5支付必填
             'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
             'total_fee' => $order->price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
             'title' => '耐克球鞋', //必须的，订单标题，长度32或以内
@@ -143,7 +147,7 @@ class HuPiPay
          * 个人支付宝/微信官方支付，支付网关：https://api.xunhupay.com
          * 微信支付宝代收款，需提现，支付网关：https://pay.wordpressopen.com
          */
-        $url = Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
+        $url = static::networkUrl();
 
         try {
             $response = HuPiPay::http_post($url, json_encode($data));

@@ -4,19 +4,14 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Exporters\OrderExporter;
 use App\Admin\Forms\OrderLogisticNumber;
-use App\Admin\Renderable\OrderProfile;
-use App\Admin\Renderable\ProductTable;
+use App\Admin\Renderable\OrderProductTable;
 use App\Admin\Repositories\Order;
-use App\Models\LogisticsType;
-use App\Models\Order as OrderModel;
 use App\Models\OrderReturn;
-use App\Models\Product;
 use Carbon\Carbon;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
-use Dcat\Admin\Widgets\Card;
 
 class OrderController extends AdminController
 {
@@ -44,7 +39,7 @@ class OrderController extends AdminController
             $grid->column('snapshot', '订单商品')
                 ->expand(function (Grid\Displayers\Expand $expand) {
                     $expand->button('详情');
-                    return ProductTable::make()->payload([
+                    return OrderProductTable::make()->payload([
                         'id' => $this->id,
                     ]);
                 });

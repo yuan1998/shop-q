@@ -8,6 +8,8 @@ return [
     'customer_wechat' => 'test123',
     // 迅虎API
     'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
+    // mac169 API
+    'mac169_api' => 'https://api.mac169.com/payment/do.html',
     // 禁止微信
     'disable_wechat' => false,
     // 禁止支付宝

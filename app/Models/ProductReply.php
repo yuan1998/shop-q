@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class ProductReply extends Model
 {
     protected $fillable = [
@@ -14,6 +12,7 @@ class ProductReply extends Model
         'comment',
         'images',
     ];
+
 
     public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -44,6 +44,7 @@ Route::group([
 ], function () {
     Route::get('detail', 'ProductController@detail');
     Route::get('list', 'ProductController@list');
+    Route::get('replies', 'ProductController@productReplies');
 });
 
 Route::group([

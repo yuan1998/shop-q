@@ -704,6 +704,10 @@ var Detail = function Detail() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Product_Detail_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Product/Detail */ "./resources/js/components/Product/Detail.vue"));
 };
 
+var ProductReplyList = function ProductReplyList() {
+  return __webpack_require__.e(/*! import() */ "resources_js_components_Product_Reply_List_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Product/Reply/List */ "./resources/js/components/Product/Reply/List.vue"));
+};
+
 var OrderIndex = function OrderIndex() {
   return __webpack_require__.e(/*! import() */ "resources_js_components_Order_Index_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/Order/Index */ "./resources/js/components/Order/Index.vue"));
 };
@@ -766,6 +770,9 @@ var ComplaintIndex = function ComplaintIndex() {
 }, {
   path: '/complaint',
   component: ComplaintIndex
+}, {
+  path: '/replies',
+  component: ProductReplyList
 }]);
 
 /***/ }),
@@ -15843,7 +15850,7 @@ module.exports = localStorageDB;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_layouts_Home_vue":1,"resources_js_components_Success_Index_vue":1,"resources_js_components_Checkout_Index_vue":1,"resources_js_components_Product_Detail_vue":1,"resources_js_components_Order_Index_vue":1,"resources_js_components_Order_Create_vue":1,"resources_js_components_Order_Detail_vue":1,"resources_js_components_Order_Return_ReturnList_vue":1,"resources_js_components_Location_Index_vue":1,"resources_js_components_Location_Create_vue":1,"resources_js_components_Complaint_Index_vue":1}[chunkId]) return "js/app/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_layouts_Home_vue":1,"resources_js_components_Success_Index_vue":1,"resources_js_components_Checkout_Index_vue":1,"resources_js_components_Product_Detail_vue":1,"resources_js_components_Product_Reply_List_vue":1,"resources_js_components_Order_Index_vue":1,"resources_js_components_Order_Create_vue":1,"resources_js_components_Order_Detail_vue":1,"resources_js_components_Order_Return_ReturnList_vue":1,"resources_js_components_Location_Index_vue":1,"resources_js_components_Location_Create_vue":1,"resources_js_components_Complaint_Index_vue":1}[chunkId]) return "js/app/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

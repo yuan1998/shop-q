@@ -8,7 +8,6 @@ export const getProductDetail = async (id) => {
             id,
         }
     })
-
     return result.data;
 }
 
@@ -26,6 +25,17 @@ export const getProductList = async (page) => {
 
     return result.data;
 }
+
+export const getProductRepliesList = async (page,id) => {
+    let result = await axios.get(BASE_URL + 'api/product/replies', {
+        params: {
+            page,
+            id
+        }
+    })
+    return result.data;
+}
+
 
 export const getOrderList = async (id, page) => {
     let result = await axios.get(BASE_URL + 'api/order/list', {

@@ -2,50 +2,37 @@
 
 namespace App\Admin\Renderable;
 
-use App\Models\Order;
-use Dcat\Admin\Support\LazyRenderable;
-use Dcat\Admin\Widgets\Table;
-use Faker\Factory;
+use App\Models\Product;
+use Dcat\Admin\Grid;
+use Dcat\Admin\Grid\LazyRenderable;
+
 
 class ProductTable extends LazyRenderable
 {
-    public function render()
+
+
+    public function grid(): Grid
     {
-        $data = [];
-        $id = data_get($this->payload, 'id', '');
-        if (!$id || !($order = Order::query()
-                ->select([
-                    'snapshot'
-                ])
-                ->where('id', $id)
-                ->first()
-            )) {
-            return "<div>错误的订单号,请刷新页面</div>";
-        }
-        $snapshot = json_decode($order->snapshot, true);
+        // 获取外部传递的参数
+        $id = $this->id;
+        return Grid::make(new Product(), function (Grid $grid) {
+            $grid->scrollbarX();
+            $grid->column('id');
+            $grid->column('images')->display(function ($pictures) {
+                return collect(json_decode($pictures, true))->pluck('value');
 
-        if (!$snapshot)
-            return "<div>Empty</div>";
+            })->image('', 80, 80);
+            $grid->column('title','商品标题');
+            $grid->column('price','活动价');
+            $grid->column('origin_price','划线价');
+            $grid->quickSearch(['id', 'title']);
 
+            $grid->paginate(10);
+            $grid->disableActions();
 
-        $snapshot = array_key_exists('id', $snapshot) ? collect([])->sort()->push($snapshot) : collect($snapshot);
-
-        $data = $snapshot->map(function ($product) {
-            $sku = collect(json_decode($product['sku'], true))
-                ->map(function ($val, $key) {
-                    return "$key : $val";
-                })->join('<br/>');
-
-
-            return [
-                'title' => data_get($product, 'title'),
-                'sku' => $sku,
-                'price' => data_get($product, 'price'),
-                'count' => data_get($product, 'count'),
-            ];
-
+            $grid->filter(function (Grid\Filter $filter) {
+                $filter->like('title')->width(4);
+            });
         });
-
-        return Table::make(['商品', 'Sku', '价格', '数量'], $data);
     }
 }

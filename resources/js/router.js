@@ -2,6 +2,7 @@ const Home = () => import("./components/layouts/Home");
 const Success = () => import("./components/Success/Index");
 const Checkout = () => import("./components/Checkout/Index");
 const Detail = () => import("./components/Product/Detail");
+const ProductReplyList = () => import("./components/Product/Reply/List");
 const OrderIndex = () => import("./components/Order/Index");
 const OrderCreate = () => import("./components/Order/Create");
 const OrderDetail = () => import("./components/Order/Detail");
@@ -39,6 +40,10 @@ export default [
     {
         path: '/complaint', component: ComplaintIndex
     },
+    {
+        path: '/replies',
+        component: ProductReplyList
+    }
 
 
 ]

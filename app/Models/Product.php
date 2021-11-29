@@ -22,7 +22,7 @@ class Product extends Model
         'images',
         'attributes',
         'skus',
-        
+
         'origin_price',
     ];
 
@@ -31,8 +31,14 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'product_has_categories', 'product_id', 'category_id');
     }
 
+    public function replies(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ProductReply::class, 'order_id', 'id');
+    }
+
     public function attribute(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Attribute::class, 'id', 'attribute_id');
     }
+
 }

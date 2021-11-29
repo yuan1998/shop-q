@@ -1,7 +1,7 @@
 <template>
     <van-action-sheet v-model:show="show"
                       closeable
-                      @close="$emit('update:show',false)"
+                      @close="hideSku"
     >
         <div class="action-content">
             <div class="action-content_header">
@@ -59,15 +59,13 @@
 
 <script>
 
-import {onMounted, reactive, toRefs, computed} from "vue";
+import {onMounted, reactive, toRefs, computed, inject} from "vue";
 import {ImagePreview, Toast} from "vant";
 
 export default {
     name: 'sku',
     props: ['product', 'show'],
-    emits: ['update:show', 'buy'],
-
-    setup(props, {emit}) {
+    setup(props) {
         const {product} = props;
         const data = reactive({
             select: {},
@@ -75,7 +73,7 @@ export default {
             selectPhoto: null,
             skuArr: []
         });
-        console.log("product", product);
+        const {buyProduct, hideSku} = inject('product')
 
         onMounted(() => {
             let sku = JSON.parse(product.attribute.skus);
@@ -91,7 +89,6 @@ export default {
             sku.forEach((item) => {
                 data.select[item['name']] = '';
             })
-            console.log("data.select", data.select);
         });
 
         const selectSku = (key, item) => {
@@ -145,8 +142,10 @@ export default {
                 return;
             }
 
-            emit('buy', data);
+            buyProduct(data);
+            // emit('buy', data);
         }
+
 
 
         return {
@@ -157,6 +156,7 @@ export default {
             unSelectField,
             selectField,
             handleSubmit,
+            hideSku,
             ...toRefs(data)
         }
     }
