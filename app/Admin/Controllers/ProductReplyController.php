@@ -104,8 +104,14 @@ class ProductReplyController extends AdminController
             $form->saving(function (Form $form) {
                 $faker = \Faker\Factory::create();
                 if (!$form->input('thumb')) {
-                    $imagePath = $faker->image(storage_path('app/public/faker'), 300, 300, null, false);
-                    $form->input('thumb', "faker/$imagePath");
+                    $type = $faker->randomElement(['男', '女', '动漫男', '动漫女']);
+                    $result = file_get_contents("https://api.uomg.com/api/rand.avatar?sort={$type}&format=json");
+                    if ($imagePath = data_get(json_decode($result, true), 'imgurl')) {
+                        $form->input('thumb', $imagePath);
+                    } else {
+                        $imagePath = $faker->image(storage_path('app/public/faker'), 300, 300, null, false);
+                        $form->input('thumb', "faker/$imagePath");
+                    }
                 }
                 if (!$form->input('username')) {
                     $form->input('username', $faker->userName());
