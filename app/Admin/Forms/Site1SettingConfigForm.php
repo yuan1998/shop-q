@@ -34,6 +34,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
     public function form()
     {
         $this->text('web_title', '网站名称')->required()->help('网站名称');
+        $this->text('order_name', '订单标题')->required()->help('订单标题');
         $this->text('customer_phone', '客服电话')->required()->help('客服电话');
         $this->text('customer_wechat', '客服微信')->required()->help('客服微信');
         $this->text('xunhu_api', '迅虎网关')->required()->help('迅虎网关');

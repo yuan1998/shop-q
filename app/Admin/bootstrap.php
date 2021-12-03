@@ -25,13 +25,14 @@ use Dcat\Admin\Show;
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
+Admin::css('/css/admin.css');
 app('view')->prependNamespace('admin', resource_path('views/admin'));
 
 
 Admin::navbar(function (Navbar $navbar) {
     $method = config('admin.layout.horizontal_menu') ? 'left' : 'right';
 
-    if (! Dcat\Admin\Support\Helper::isAjaxRequest()) {
+    if (!Dcat\Admin\Support\Helper::isAjaxRequest()) {
         $navbar->$method(App\Admin\Actions\Site1SettingConfig::make()->render());
     }
 });

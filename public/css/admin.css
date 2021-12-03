@@ -1,0 +1,13 @@
+.layui-layer-wrap {
+    height: 100% !important;
+    width: auto !important;
+    object-fit: cover;
+}
+
+.layui-layer-content {
+    max-height: 80vh !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

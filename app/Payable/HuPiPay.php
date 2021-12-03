@@ -131,7 +131,7 @@ class HuPiPay
             'wap_url' => $domain,//网站域名，H5支付必填
             'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
             'total_fee' => $order->price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
-            'title' => '耐克球鞋', //必须的，订单标题，长度32或以内
+            'title' => Helper::site_1_config('order_name'), //必须的，订单标题，长度32或以内
             'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
             'notify_url' => $domain . '/api/pay/notify/hupi', //必须的，支付成功异步回调接口
             'return_url' => $domain . '/#success',//必须的，支付成功后的跳转地址

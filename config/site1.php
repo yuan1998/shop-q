@@ -10,6 +10,7 @@ return [
     'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
     // mac169 API
     'mac169_api' => 'https://api.mac169.com/payment/do.html',
+    'order_name' => '玲木优选',
     // 禁止微信
     'disable_wechat' => false,
     // 禁止支付宝
