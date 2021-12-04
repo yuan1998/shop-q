@@ -8,6 +8,8 @@ return [
     'customer_wechat' => 'test123',
     // 迅虎API
     'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
+    //
+    'xunhu_api_2' => 'https://api.xunhupay.com/payment/do.html',
     // mac169 API
     'mac169_api' => 'https://api.mac169.com/payment/do.html',
     'order_name' => '玲木优选',

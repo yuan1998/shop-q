@@ -38,6 +38,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->text('customer_phone', '客服电话')->required()->help('客服电话');
         $this->text('customer_wechat', '客服微信')->required()->help('客服微信');
         $this->text('xunhu_api', '迅虎网关')->required()->help('迅虎网关');
+        $this->text('xunhu_api_2', '迅虎网关2')->required()->help('迅虎网关2');
         $this->text('mac169_api', 'MAC169网关')->required()->help('MAC169网关');
         $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
