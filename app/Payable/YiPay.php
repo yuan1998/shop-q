@@ -11,5 +11,5 @@ use Illuminate\Support\Facades\Log;
 
 class YiPay extends BSYiPay
 {
-    public static $apiUrl = 'https://payweixin.czy94.top/submit.php';
+    public static $apiUrl = 'https://apipay.cmyzf.cn/submit.php';
 }
