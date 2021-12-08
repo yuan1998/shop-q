@@ -43,7 +43,7 @@ export default {
         const {reply} = props;
 
         const thumbUrl = computed(() => {
-            return /http(s)?\/\//.test(reply.thumb) ? reply.thumb : `/storage/${reply.thumb}`;
+            return /http(s)?:\/\//.test(reply.thumb) ? reply.thumb : `/storage/${reply.thumb}`;
         })
 
         const username = computed(() => {

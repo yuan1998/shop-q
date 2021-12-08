@@ -5,6 +5,7 @@ return [
         'order' => '订单',
     ],
     'fields' => [
+        'comment' => '备注',
         'pay_date' => '支付时间',
         'product_id' => '商品ID',
         'snapshot' => '商品快照',

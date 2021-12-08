@@ -1,7 +1,7 @@
 <template>
     <div class="product_container">
         <div class="header">
-            <van-image src="https://pic.imgdb.cn/item/619aefaa2ab3f51d9157501a.jpg"></van-image>
+            <van-image :src="img"></van-image>
         </div>
         <van-tabs v-model:active="activeName" sticky>
             <van-tab title="精选" name="a">
@@ -45,6 +45,7 @@ import {getBannerList, getProductList} from "../../api/api";
 import {Toast} from 'vant'
 import lodash from 'lodash'
 import ProductItem from '../Product/Item'
+import {settingKey} from "../../api/common";
 
 const listMethod = async (page) => {
     let result = await getProductList(page);
@@ -81,7 +82,6 @@ export default {
         const getBanner = async () => {
             let result = await getBannerList();
             data.banners = result.data;
-
         }
 
         const onLoad = async () => {
@@ -100,6 +100,7 @@ export default {
 
         return {
             ...toRefs(data),
+            img: settingKey('index_header_image', 'https://pic.imgdb.cn/item/619aefaa2ab3f51d9157501a.jpg'),
             onLoad,
             handleClickSwiper,
         };

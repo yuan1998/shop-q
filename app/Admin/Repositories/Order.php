@@ -28,6 +28,7 @@ class Order extends EloquentRepository
                 'custom_info',
                 'created_at',
                 'logistic_number',
+                'comment',
             ])
             ->orderBy('id', 'desc');
     }

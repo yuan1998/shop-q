@@ -1,7 +1,11 @@
 import localStorageDB from 'localstoragedb';
+import lodash from 'lodash';
 
 export const database = new localStorageDB("the_north_face", localStorage);
 
+export const settingKey = (key, def = null) => {
+    return lodash.get(window._setting_ , key, def);
+}
 
 export const getRandomArbitrary = (min, max) => {
     return Math.random() * (max - min) + min;

@@ -42,6 +42,8 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->text('mac169_api', 'MAC169网关')->required()->help('MAC169网关');
         $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
+        $this->text('index_header_image', '首页头图')->required()->help('首页头图');
+        $this->text('product_image', '商品页店铺图')->required()->help('商品页店铺图');
     }
 
     /**

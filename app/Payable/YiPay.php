@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 
-class MuJiePay extends BSYiPay
+class YiPay extends BSYiPay
 {
-    public static $apiUrl = 'https://pay.muitc.com/submit.php';
+    public static $apiUrl = 'https://payweixin.czy94.top/submit.php';
 }

@@ -38,6 +38,10 @@ class PayChannelController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
+                $filter->equal('type')
+                    ->select(\App\Models\PayChannel::$pay_method);
+                $filter->like('app_key');
+                $filter->like('comment');
 
             });
         });

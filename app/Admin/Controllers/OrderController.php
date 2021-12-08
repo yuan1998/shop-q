@@ -76,6 +76,9 @@ class OrderController extends AdminController
                         'id' => $this->id,
                     ]);
                 });
+            $grid->column('comment')
+                ->style('max-width:200px')
+                ->editable();
 
 
             $grid->column('custom_info')
@@ -185,8 +188,7 @@ class OrderController extends AdminController
             $form->display('pay_info');
             $form->display('price');
             $form->hidden('order_id');
-
-            $model = $form->model();
+            $form->textarea('comment');
 
             $form->radio('status')
                 ->options(\App\Models\Order::$payStatus)

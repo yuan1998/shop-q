@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderReturn;
 use App\Models\PayChannel;
+use App\Payable\BSYiPay;
 use App\Payable\HuPiPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -219,12 +220,14 @@ class OrderController extends Controller
         return HuPiPay::notify(null, $request);
     }
 
+    public function orderNotifyYiPay(Request $request): string
+    {
+        return BSYiPay::notify(null, $request);
+    }
+
+
     public function orderReturn(Request $request)
     {
-        $payMethod = PayChannel::getPayMethod();
-        if (!$payMethod)
-            throw new \Exception('未配置支付渠道.');
-
-        return $payMethod->handleReturn($request);
+        BSYiPay::handleReturn($request);
     }
 }

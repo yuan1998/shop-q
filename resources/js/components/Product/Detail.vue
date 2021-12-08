@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div style="margin-top: 15px;" @click="$router.push({path: '/'})">
-                <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png" alt="" class="mc-img">
+                <img :src="img" alt="" class="mc-img">
             </div>
 
             <div class="product_content">
@@ -123,6 +123,7 @@ import {useRoute, useRouter} from "vue-router";
 import {getProductDetail} from "../../api/api";
 import Sku from './Sku';
 import ReplyItem from './Reply/Item'
+import {settingKey} from "../../api/common";
 
 export default {
     name: 'product_detail',
@@ -162,16 +163,6 @@ export default {
             data.loading = false;
         });
 
-        const send = () => {
-
-        }
-
-        const onClickIcon = () => {
-
-        }
-        const onClickButton = () => {
-
-        }
         const routerToOrder = () => {
             router.push({
                 path: '/order',
@@ -196,9 +187,7 @@ export default {
                 path: '/order/create',
                 query,
             })
-
         }
-
         const handleClickMsg = () => {
             Toast('请返回抖音联系客服');
         }
@@ -210,9 +199,7 @@ export default {
 
         return {
             ...toRefs(data),
-            send,
-            onClickButton,
-            onClickIcon,
+            img : settingKey('product_image','https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png'),
             showSku,
             buyProduct,
             routerToOrder,

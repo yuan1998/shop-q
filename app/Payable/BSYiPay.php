@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class BSYiPay
 {
+    public static $apiUrl = 'https://www.cshswl.top/submit.php';
 
     public static $payment = [
         'wechat' => 'wxpay',
@@ -43,15 +44,15 @@ class BSYiPay
     public static function createPay($data)
     {
         $str = http_build_query($data);
-
-        $pay_url = "https://www.cshswl.top/submit.php?{$str}";
+        $url = static::$apiUrl;
+        $pay_url = "{$url}?{$str}";
         header("Location: $pay_url");
         exit;
     }
 
     public static function payment($order, $payMethod, $request)
     {
-        $domain = env('APP_URL');
+        $domain = $request->getSchemeAndHttpHost();;
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
@@ -59,14 +60,15 @@ class BSYiPay
 
         $orderId = "{$order->order_id}A{$str}";
 
+        $name = Helper::site_1_config('order_name');
         $data = [
             'money' => $order->price,
-            'name' => '耐克球鞋',
-            'notify_url' => $domain . '/api/pay/notify',
+            'name' => $name,
+            'notify_url' => $domain . '/api/pay/notify/yiPay',
             'out_trade_no' => $orderId,
             'pid' => $appid,
             'return_url' => $domain . '/api/pay/return',
-            'sitename' => env('MU_JIE_PAY_HOME_NAME'),
+            'sitename' => $name,
             'type' => static::getPayment($order->pay_method),
         ];
         $data['sign'] = static::signStr($data, $appsecret);
@@ -87,8 +89,6 @@ class BSYiPay
 
         //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
         $preStr = Helper::createLinkString($para_sort);
-
-
         $isSgin = Helper::md5Verify($preStr, data_get($para_temp, 'sign'), $payment->app_secret);
 
         Log::info('notify回调测试 : $verifyNotify', [
@@ -98,7 +98,7 @@ class BSYiPay
         return $isSgin;
     }
 
-    public static function notify($payMethod, $request): string
+    public static function notify($payMethod = null, $request = null): string
     {
         $params = $request->all();
         $orderData = explode('A', data_get($params, 'out_trade_no', ''));
@@ -106,8 +106,22 @@ class BSYiPay
         Log::info('notify回调测试 : $id', [
             'id' => $id
         ]);
+        $order = Order::query()
+            ->where('order_id', $id)
+            ->first();
+
+        if (!$order) {
+            Log::info('notify 测试: 订单不存在', [
+                $params
+            ]);
+
+            return 'failed';
+        }
+
         Log::info('notify回调测试 : $params', $params);
         Log::info('notify回调测试 : $orderData', $orderData);
+        $payMethod = $payMethod ?? $order->getPayment();
+
         if ($orderData) {
             $verifyNotify = static::verifyNotify($params, $payMethod);
 
@@ -136,7 +150,7 @@ class BSYiPay
     public static function handleReturn($request)
     {
         $params = $request->all();
-        $domain = env('APP_URL');
+        $domain = $request->getSchemeAndHttpHost();
 
         Log::info('return回调测试 : $params', $params);
         if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
