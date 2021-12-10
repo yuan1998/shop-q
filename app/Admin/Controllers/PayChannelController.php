@@ -78,6 +78,7 @@ class PayChannelController extends AdminController
             $form->display('id');
             $form->text('app_key')->required();
             $form->text('app_secret')->required();
+            $form->text('api_url','网关地址');
             $form->text('comment');
             $form->select('type')
                 ->options(\App\Models\PayChannel::$pay_method)->required();

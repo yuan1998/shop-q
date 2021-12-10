@@ -41,10 +41,10 @@ class BSYiPay
         return Helper::md5Sign($preStr, $key);
     }
 
-    public static function createPay($data)
+    public static function createPay($data,$url = null)
     {
         $str = http_build_query($data);
-        $url = static::$apiUrl;
+        $url = $url ?: static::$apiUrl;
         $pay_url = "{$url}?{$str}";
         header("Location: $pay_url");
         exit;
@@ -74,9 +74,7 @@ class BSYiPay
         $data['sign'] = static::signStr($data, $appsecret);
         $data['sign_type'] = 'MD5';
 
-//        dd($data, $data['sign']);
-
-        return static::createPay($data);
+        static::createPay($data,data_get($payMethod , 'api_url'));
     }
 
     public static function verifyNotify($para_temp, $payment): bool

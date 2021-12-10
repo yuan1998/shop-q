@@ -44,6 +44,7 @@ class PayChannel extends Model
     protected $fillable = [
         'app_key',
         'app_secret',
+        'api_url',
         'type',
         'enable',
         'alipay_enable',
