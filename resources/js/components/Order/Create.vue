@@ -8,13 +8,12 @@
                         height="30px"
                         fit="cover"
                         round
-                        src="https://api.qicaiyun.top/sjtx/api.php?lx=c1"
+                        src="https://api.uomg.com/api/rand.avatar?sort=%E7%94%B7&format=images"
                         style="margin-right:10px;"
                     />
                     {{ hour }}小时前给出五星好评
                 </div>
             </template>
-
         </van-nav-bar>
         <div class="order-create_location">
             <van-cell v-if="chosenLocation"
@@ -44,15 +43,12 @@
                       class="van-cell--center van-cell--clickable van-cell--borderless van-contact-card van-contact-card--add"
                       @click="handleLocation"
             />
-
         </div>
-
         <div>
             <div class="order-title">
                 订单商品
             </div>
             <van-card class="card-product"
-
                       :thumb="`/storage/${query.image}`"
             >
                 <template #price>
@@ -124,9 +120,8 @@
         </div>
 
         <div class="payment">
-
             <van-radio-group v-model="payment">
-                <van-cell-group>
+                <van-cell-group class="flex" :class="reversePayment && 'reverse'">
                     <van-cell v-if="!disableWechat" clickable @click="payment = 'wechat'">
                         <template #title>
                             <div style="display:flex;align-items: center;">
@@ -155,13 +150,10 @@
                             <van-radio name="alipay" checked-color="#F93E5B"/>
                         </template>
                     </van-cell>
-
                 </van-cell-group>
             </van-radio-group>
 
         </div>
-
-
         <van-submit-bar
             :loading="loading"
             :decimal-length="2"
@@ -189,7 +181,7 @@ import {storeOrder} from "../../api/api";
 import {Toast} from 'vant'
 import {getChosenLocation} from "../../api/location";
 import {getRandomArbitrary, stringToBoolean} from "../../api/common";
-import {addOrder, orderList} from "../../api/order";
+import {addOrder} from "../../api/order";
 
 export default {
     name: 'order_create',
@@ -197,6 +189,7 @@ export default {
         const route = useRoute();
         const router = useRouter();
         const chosenLocation = getChosenLocation();
+
 
         const data = reactive({
             loading: false,
@@ -210,7 +203,8 @@ export default {
             list: [],
         })
 
-        let sku = JSON.parse(route.query?.sku);
+        const reversePayment = !!lodash.get(window._setting_, 'payment_sort', false);
+        let sku = JSON.parse(route?.query?.sku || '');
         let price = computed(() => {
             return route.query.price * data.count;
         })
@@ -233,7 +227,7 @@ export default {
                 count: data.count,
                 price: price.value,
                 payment: data.payment,
-                'custom_info': JSON.stringify({
+                custom_info: JSON.stringify({
                     '收货人': chosenLocation.name,
                     '收货人电话': chosenLocation.phone,
                     '收货人地址': chosenLocation.detail
@@ -259,21 +253,24 @@ export default {
         }
         const disableAlipay = computed(() => {
             return lodash.get(window._setting_, 'disable_alipay', stringToBoolean(process.env.MIX_DISABLE_ALIPAY))
-
         })
         const disableWechat = computed(() => {
             return lodash.get(window._setting_, 'disable_wechat', stringToBoolean(process.env.MIX_DISABLE_WECHAT))
         });
 
         onMounted(() => {
-            data.payment = disableWechat.value ? 'alipay' : 'wechat';
+            if (disableWechat.value || disableAlipay.value) {
+                data.payment = disableWechat.value ? 'alipay' : 'wechat';
+            } else {
+                data.payment = reversePayment ? 'alipay' : 'wechat';
+            }
         });
-
 
         return {
             ...toRefs(data),
             disableAlipay,
             disableWechat,
+            reversePayment,
             onSubmit,
             handleLocation,
             chosenLocation,
@@ -296,6 +293,15 @@ export default {
 
 .payment {
     margin-top: 15px;
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+
+        &.reverse {
+            flex-direction: column-reverse;
+        }
+    }
 }
 
 .order-create {

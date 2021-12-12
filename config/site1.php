@@ -22,4 +22,6 @@ return [
     'disable_wechat' => false,
     // 禁止支付宝
     'disable_alipay' => false,
+    // 默认支付倒转
+    'payment_sort' => false,
 ];
