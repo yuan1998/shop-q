@@ -12,6 +12,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Widgets\Card;
 
 class OrderController extends AdminController
 {
@@ -30,7 +31,29 @@ class OrderController extends AdminController
 
             $grid->disableCreateButton();
             $grid->disableDeleteButton();
-//            $grid->disableEditButton();
+
+            $grid->header(function ($collection) use ($grid) {
+                $query = \App\Models\Order::query();
+
+                // 拿到表格筛选 where 条件数组进行遍历
+                $grid->model()->getQueries()->unique()->each(function ($value) use (&$query) {
+                    if (in_array($value['method'], ['paginate', 'get', 'orderBy', 'orderByDesc'], true)) {
+                        return;
+                    }
+
+                    $query = call_user_func_array([$query, $value['method']], $value['arguments'] ?? []);
+                });
+
+                // 查出统计数据
+                $count= $query->count();
+                $sum = $query->sum('price');
+                $value = "总订单数:{$count}";
+//                dd($count,$sum);
+
+                // 自定义组件
+                return new Card($value," 金额: {$sum} ");
+            });
+
 
             $grid->column('id')->display(function () {
                 return $this->_index + 1;

@@ -37,7 +37,7 @@
                     {{ data.title }}
                 </div>
                 <div class="product_info-list">
-                    <img src="https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d111.jpg" alt="" class="mc-img">
+                    <img src="https://pic.imgdb.cn/item/61b98edd2ab3f51d9145ed30.jpg" alt="" class="mc-img">
                 </div>
             </div>
             <div class="product-reply_container">
