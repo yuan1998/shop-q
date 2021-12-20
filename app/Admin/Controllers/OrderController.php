@@ -148,7 +148,7 @@ class OrderController extends AdminController
                         'defaultCurrent' => Carbon::today()->toDateString() . ' 23:59:59',
                     ],
                 ]);
-                $filter->between('pay_date', '创建时间')->datetime([
+                $filter->between('pay_date', '支付时间')->datetime([
                     'startOptions' => [
                         'defaultCurrent' => Carbon::today()->toDateString() . ' 00:00:00',
                     ],
