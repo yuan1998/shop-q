@@ -29,7 +29,6 @@ mix
         externals: {
             'vue': 'Vue',
             'vue-router': 'VueRouter',
-            '@nutui/nutui': 'nutui',
             'localstoragedb': 'localStorageDB',
             'lodash': '_',
             '@amap/amap-jsapi-loader': 'AMapLoader',

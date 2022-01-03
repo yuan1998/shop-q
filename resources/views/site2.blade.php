@@ -10,7 +10,6 @@
 
     <title>{{data_get($setting,'web_title' , env('APP_TITLE'))}}</title>
     <link rel="stylesheet" href="https://unpkg.zhimg.com/vant@3.2.7/lib/index.css">
-    <link rel="stylesheet" href="https://unpkg.zhimg.com/@nutui/nutui@next/dist/style.css" />
     <link rel="stylesheet" href="{{mix('/site2/css/app.css')}}">
     <script>
         window._setting_ = @json($setting);
@@ -22,7 +21,6 @@
 <script src="https://unpkg.zhimg.com/vue@3.2.10/dist/vue.global.prod.js"></script>
 <script src="https://unpkg.zhimg.com/vue-router@4.0.5/dist/vue-router.global.prod.js"></script>
 <script src="https://unpkg.zhimg.com/vant@3.2.7/lib/vant.js"></script>
-<script src="https://unpkg.zhimg.com/@nutui/nutui@next/dist/nutui.umd.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
 <script src="https://unpkg.zhimg.com/localstoragedb@2.3.2/localstoragedb.js"></script>
 <script src="https://unpkg.zhimg.com/lodash@4.17.21/lodash.js"></script>
