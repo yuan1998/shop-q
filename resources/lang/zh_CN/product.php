@@ -7,7 +7,7 @@ return [
     'fields' => [
         'title' => '标题',
         'price' => '价格',
-        'origin_price' => '价格',
+        'origin_price' => '划线价',
         'sales' => '销量',
         'description' => '描述',
         'categories' => '分类',
