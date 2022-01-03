@@ -7,7 +7,13 @@
         "watch-poll:site1": "cross-env process.env.section=site1 mix watch -- --watch-options-poll=1000",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod:site1": "npm run production:site1",
-        "production:site1": "cross-env process.env.section=site1 mix --production"
+        "production:site1": "cross-env process.env.section=site1 mix --production",
+        "dev:site2": "npm run development:site2",
+        "development:site2": "cross-env process.env.section=site2 mix",
+        "watch:site2": "cross-env process.env.section=site2 mix watch",
+        "watch-poll:site2": "cross-env process.env.section=site2 mix watch -- --watch-options-poll=1000",
+        "prod:site2": "npm run production:site2",
+        "production:site2": "cross-env process.env.section=site2 mix --production"
     },
     "devDependencies": {
         "@vue/compiler-sfc": "^3.0.7",
@@ -27,8 +33,10 @@
     },
     "dependencies": {
         "@amap/amap-jsapi-loader": "^1.0.1",
+        "@nutui/nutui": "^3.1.14",
         "@vant/area-data": "^1.1.3",
         "core-js": "^3.19.1",
+        "laravel-mix-bundle-analyzer": "^1.0.5",
         "less": "^4.1.2",
         "less-loader": "^10.2.0",
         "localstoragedb": "^2.3.2",

@@ -66,12 +66,12 @@ class Helper
         return $result;
     }
 
-    public static function site_1_config($key = null, $value = null)
+    public static function site_1_config($key = null, $value = null,$name = null)
     {
-        $name = 'site1';
+        $name = $name ?: env('SITE_NAME' , 'site1');
 
         if (! $config = Cache::get("admin.{$name}.config")) {
-            $config = config('site1');
+            $config = config($name);
         }
 
         if (is_array($key)) {

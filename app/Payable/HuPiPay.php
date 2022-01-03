@@ -147,7 +147,7 @@ class HuPiPay
          * 个人支付宝/微信官方支付，支付网关：https://api.xunhupay.com
          * 微信支付宝代收款，需提现，支付网关：https://pay.wordpressopen.com
          */
-        $url = static::networkUrl();
+        $url = $payMethod->api_url ?: static::networkUrl();
 
         try {
             $response = HuPiPay::http_post($url, json_encode($data));

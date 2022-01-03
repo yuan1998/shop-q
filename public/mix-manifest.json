@@ -1,6 +1,10 @@
 {
     "/site1/js/app.js": "/site1/js/app.js",
+    "/site1/js/manifest.js": "/site1/js/manifest.js",
+    "/site1/js/vendor.js": "/site1/js/vendor.js",
     "/site1/css/app.css": "/site1/css/app.css",
-    "/js/site1/app.js": "/js/site1/app.js",
-    "/css/site1/app.css": "/css/site1/app.css"
+    "/site2/js/app.js": "/site2/js/app.js",
+    "/site2/js/manifest.js": "/site2/js/manifest.js",
+    "/site2/js/vendor.js": "/site2/js/vendor.js",
+    "/site2/css/app.css": "/site2/css/app.css"
 }

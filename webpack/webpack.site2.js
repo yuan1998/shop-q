@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+const path = require('path')
 require('laravel-mix-bundle-analyzer');
 
 if (mix.inProduction()) {
@@ -8,21 +9,27 @@ if (mix.inProduction()) {
 }
 
 mix
-    .setPublicPath('public/site1')
+    .setPublicPath('public/site2')
     .extract(['@vant/area-data'])
-    .js('resources/js/site1/app.js', 'js/app.js')
+    .js('resources/js/site2/app.js', 'js/app.js')
     .vue()
     .less('resources/less/app.less', 'css/app.css')
     .options({
         processCssUrls: false
     })
+    .alias({
+        '@': path.join(__dirname, './resources/js'),
+        '@site1': path.join(__dirname, './resources/js/site1'),
+        '@site2': path.join(__dirname, './resources/js/site2'),
+    })
     .webpackConfig({
         output: {
-            publicPath: 'site1/',
+            publicPath: 'site2/',
         },
         externals: {
             'vue': 'Vue',
             'vue-router': 'VueRouter',
+            '@nutui/nutui': 'nutui',
             'localstoragedb': 'localStorageDB',
             'lodash': '_',
             '@amap/amap-jsapi-loader': 'AMapLoader',

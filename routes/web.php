@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $setting = \App\Helper::site_1_config();
-    return view('welcome', [
+    $siteName = env('SITE_NAME' ,'site1');
+    return view($siteName, [
         'setting' => $setting,
     ]);
 });
@@ -31,6 +32,5 @@ Route::group([
         $data = request()->all();
         dd('checkout', $data);
     });
-
 });
 
