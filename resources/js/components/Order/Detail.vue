@@ -25,12 +25,13 @@
                             <van-icon name="location-o" color="#767676" size="25" style="margin-right: 20px;"/>
                         </template>
                         <template #title>
-                            <div class="location_title"><strong>{{ order.custom_info['收货人'] }}</strong> {{ order.custom_info['收货人电话']  }}
+                            <div class="location_title"><strong>{{ order.custom_info['收货人'] }}</strong>
+                                {{ order.custom_info['收货人电话'] }}
                             </div>
                         </template>
                         <template #label>
                             <div class="location_label">
-                                {{order.custom_info['收货人地址']}}
+                                {{ order.custom_info['收货人地址'] }}
                             </div>
                         </template>
                     </van-cell>
@@ -125,6 +126,7 @@ import ShipDialog from "./Return/ShipDialog";
 import {buttonText, statusList, returnStatusList, orderDelete} from "../../api/order";
 import {Dialog, Toast} from "vant";
 import lodash from "lodash";
+import {settingKey} from "../../api/common";
 
 
 export default {
@@ -266,10 +268,15 @@ export default {
             getOrderDetail();
         }
         const checkLogistic = () => {
+            let url =  settingKey('logistic_url', `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=$logistic_number$&coname=px&callbackurl=${window.location.href}`);
             let {logistic_number} = data.order;
-            console.log("log", logistic_number);
+
             if (logistic_number) {
-                window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${logistic_number}&coname=px&callbackurl=${window.location.href}`
+                let phone = data.order.custom_info['收货人电话'];
+                url = url.replace('$phone$', phone)
+                    .replace('$logistic_number$', logistic_number);
+                console.log("url",url);
+                window.location.href = url;
             } else {
                 Toast('未发货,请耐心等待');
             }

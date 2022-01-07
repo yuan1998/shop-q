@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\Log;
 
 class YouLianPay
 {
-    public static $apiUrl = 'https://www.cshswl.top/submit.php';
+    public static $apiUrl = 'http://api.kjiax.com/payapi/pay/jspay3';
 
     public static $payment = [
-        'wechat' => 'wxpay',
-        'alipay' => 'alipay',
-        'qqpay' => 'qqpay',
-        'tenpay' => 'tenpay',
+        'wechat' => 'comm.mini.url',
+        'alipay' => 'alipay.comm.qrcode',
     ];
 
     public static function getPayment($method)
@@ -38,10 +36,10 @@ class YouLianPay
         $para_sort = Helper::argSort($para_filter);
         $preStr = Helper::createLinkString($para_sort);
 
-        return Helper::md5Sign($preStr, $key);
+        return Helper::md5Sign($preStr, "&signkey=$key");
     }
 
-    public static function createPay($data,$url = null)
+    public static function createPay($data, $url = null)
     {
         $str = http_build_query($data);
         $url = $url ?: static::$apiUrl;
@@ -50,31 +48,57 @@ class YouLianPay
         exit;
     }
 
+    public static function getPaymentApi($pay)
+    {
+        return $pay === 'comm.mini.url' ? 'http://api.kjiax.com/payapi/mini/mini_url' : 'http://api.kjiax.com/payapi/pay/qrcode';
+    }
+
+    public static function getPaymentParams($order,$payMethod) {
+
+
+    }
+
     public static function payment($order, $payMethod, $request)
     {
-        $domain = $request->getSchemeAndHttpHost();;
+        $payment = static::getPayment($order->pay_method);
+        $domain = $request->getSchemeAndHttpHost();
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
         $str = str_shuffle(time());
 
-        $orderId = "{$order->order_id}A{$str}";
+        $orderId = "{$order->order_id}";
 
-        $name = Helper::site_1_config('order_name');
         $data = [
+            'service' => $payment,
+            'apikey' => $appid,
             'money' => $order->price,
-            'name' => $name,
-            'notify_url' => $domain . '/api/pay/notify/yiPay',
-            'out_trade_no' => $orderId,
-            'pid' => $appid,
-            'return_url' => $domain . '/api/pay/return',
-            'sitename' => $name,
-            'type' => static::getPayment($order->pay_method),
+            'nonce_str' => $str,
+            'url_link' => '1',
+            'notify_url' =>  $domain . '/api/pay/notify/youLianPay',
+            'mch_orderid' => $orderId,
         ];
         $data['sign'] = static::signStr($data, $appsecret);
-        $data['sign_type'] = 'MD5';
+        $apiUrl = static::getPaymentApi($payment);
 
-        static::createPay($data,data_get($payMethod , 'api_url'));
+        try {
+            $client = new Client();
+            $response = $client->request('post', $apiUrl, [
+                'form_params' => $data,
+            ]);
+            $body = $response->getBody()->getContents();
+            $responseData = json_decode($body, true);
+            $pay_url = data_get($responseData,  $payment === 'comm.mini.url' ? 'url' : 'qr_code');
+
+            if ($pay_url) {
+                header("Location: $pay_url");
+                exit;
+            }
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo "errcode:{$e->getCode()},errmsg:{$e->getMessage()}";
+        }
+
+
     }
 
     public static function verifyNotify($para_temp, $payment): bool
@@ -99,8 +123,7 @@ class YouLianPay
     public static function notify($payMethod = null, $request = null): string
     {
         $params = $request->all();
-        $orderData = explode('A', data_get($params, 'out_trade_no', ''));
-        $id = data_get($orderData, '0');
+        $id = data_get($params, 'trade_no', '');
         Log::info('notify回调测试 : $id', [
             'id' => $id
         ]);
@@ -113,32 +136,24 @@ class YouLianPay
                 $params
             ]);
 
-            return 'failed';
+            return 'fail';
         }
 
         Log::info('notify回调测试 : $params', $params);
-        Log::info('notify回调测试 : $orderData', $orderData);
         $payMethod = $payMethod ?? $order->getPayment();
 
-        if ($orderData) {
-            $verifyNotify = static::verifyNotify($params, $payMethod);
+        if (static::verifyNotify($params, $payMethod)) {
+            if (data_get($params, 'paystatus') != '2') {
+                Log::info('notify回调测试 : $order', [
+                    $order
+                ]);
 
-            if ($verifyNotify) {
-                if (data_get($params, 'trade_status') === 'TRADE_SUCCESS') {
-                    $order = Order::query()
-                        ->where('order_id', $id)
-                        ->first();
-                    Log::info('notify回调测试 : $order', [
-                        $order
-                    ]);
-
-                    if ($order && $order->status === Order::UN_PAY) {
-                        Log::info('支付成功;', []);
-                        $order->status = Order::PAY_SUCCESS;
-                        $order->pay_info = json_encode($params);
-                        $order->save();
-                        return 'success';
-                    }
+                if ($order->status === Order::UN_PAY) {
+                    Log::info('支付成功;', []);
+                    $order->status = Order::PAY_SUCCESS;
+                    $order->pay_info = json_encode($params);
+                    $order->save();
+                    return 'success';
                 }
             }
         }

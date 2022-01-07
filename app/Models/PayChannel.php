@@ -9,6 +9,7 @@ use App\Payable\Mac169Pay;
 use App\Payable\MuJiePay;
 use App\Payable\XunHuPay;
 use App\Payable\YiPay;
+use App\Payable\YouLianPay;
 
 class PayChannel extends Model
 {
@@ -20,6 +21,7 @@ class PayChannel extends Model
     const BSYi = 'BS_YI_PAY';
     const ChangLian = 'CHANG_LIAN_PAY';
     const YiPay = 'YI_PAY';
+    const YouLianPay = 'YOU_LIAN_PAY';
 
     public static $pay_method = [
         self::HiPi => '虎皮支付',
@@ -29,9 +31,11 @@ class PayChannel extends Model
         self::MuJie => '木皆支付',
         self::BSYi => 'BS易支付',
         self::ChangLian => '畅联支付',
+        self::YouLianPay => '友联支付',
     ];
 
     public static $pay_model = [
+        self::YouLianPay => YouLianPay::class,
         self::HiPi => HuPiPay::class,
         self::XunHu => XunHuPay::class,
         self::Mac169 => Mac169Pay::class,

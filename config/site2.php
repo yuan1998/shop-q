@@ -6,6 +6,7 @@ return [
     'customer_phone' => '13112344321',
     // 客服微信
     'customer_wechat' => 'test123',
+    'logistic_url' => 'http://taoxiezhijia.dh.cx/d3fea/$phone$',
     // 迅虎API
     'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
     //

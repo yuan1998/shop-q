@@ -37,6 +37,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->text('order_name', '订单标题')->required()->help('订单标题');
         $this->text('customer_phone', '客服电话')->required()->help('客服电话');
         $this->text('customer_wechat', '客服微信')->required()->help('客服微信');
+        $this->text('logistic_url', '快递链接')->help('快递链接');
         $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
         $this->switch('payment_sort', '默认支付倒转')->help('默认支付倒转');

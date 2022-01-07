@@ -54,6 +54,7 @@ Route::group([
     Route::any('notify', 'OrderController@orderNotify');
     Route::any('notify/hupi', 'OrderController@orderNotifyHupi');
     Route::any('notify/yiPay', 'OrderController@orderNotifyYiPay');
+    Route::any('notify/youLianPay', 'OrderController@orderNotifyYouLianPay');
     Route::any('return', 'OrderController@orderReturn');
 });
 

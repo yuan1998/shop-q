@@ -7,6 +7,7 @@ use App\Models\OrderReturn;
 use App\Models\PayChannel;
 use App\Payable\BSYiPay;
 use App\Payable\HuPiPay;
+use App\Payable\YouLianPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -223,6 +224,11 @@ class OrderController extends Controller
     public function orderNotifyYiPay(Request $request): string
     {
         return BSYiPay::notify(null, $request);
+    }
+
+    public function orderNotifyYouLianPay(Request $request): string
+    {
+        return YouLianPay::notify(null, $request);
     }
 
 

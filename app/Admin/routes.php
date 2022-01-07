@@ -22,4 +22,5 @@ Route::group([
     $router->resource('complaint', 'ComplaintController');
     $router->resource('product_reply', 'ProductReplyController');
     $router->resource('banners', 'BannerController');
+    $router->resource('black_list', 'BlackListController');
 });

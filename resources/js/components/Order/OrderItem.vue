@@ -38,6 +38,7 @@ import ProductItem from "./ProductItem";
 import {inject, reactive} from "vue";
 import {useRouter} from "vue-router";
 import {buttonText, orderDelete, statusList} from "../../api/order";
+import {settingKey} from "../../api/common";
 
 export default {
     name: '',
@@ -88,7 +89,14 @@ export default {
 
         const handleLogisticClick = () => {
             if (item.logistic_number) {
-                window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${item.logistic_number}&coname=px&callbackurl=${window.location.href}`
+                let url =  settingKey('logistic_url', `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=$logistic_number$&coname=px&callbackurl=${window.location.href}`);
+                let phone = item.custom_info['收货人电话'];
+                console.log("phone",phone);
+                url = url.replace('$phone$', phone)
+                    .replace('$logistic_number$', item.logistic_number);
+                console.log("url",url);
+                window.location.href = url;
+                // window.location.href = `https://m.kuaidi100.com/app/query/?com=shunfeng&nu=${item.logistic_number}&coname=px&callbackurl=${window.location.href}`
             } else {
                 Toast('未发货,请耐心等待');
             }
