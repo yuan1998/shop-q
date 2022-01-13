@@ -137,6 +137,7 @@ const onClickLink = () => Toast('修改地址');
 
     .cart-content {
         flex: auto;
+        overflow: hidden;
     }
 
     .cart-checkbox {
