@@ -27,11 +27,11 @@ class OrderProductTable extends LazyRenderable
         if (!$snapshot)
             return "<div>Empty</div>";
 
-
         $snapshot = array_key_exists('id', $snapshot) ? collect([])->sort()->push($snapshot) : collect($snapshot);
 
         $data = $snapshot->map(function ($product) {
-            $sku = collect(json_decode($product['sku'], true))
+            $sku = is_array($product['sku']) ? $product['sku'] : json_decode($product['sku'], true);
+            $sku = collect($sku)
                 ->map(function ($val, $key) {
                     return "$key : $val";
                 })->join('<br/>');

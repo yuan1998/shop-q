@@ -19,6 +19,7 @@ Route::group([
 ], function () {
     Route::post('outPay', 'OrderController@outPay');
     Route::post('store', 'OrderController@store');
+    Route::post('store/products', 'OrderController@storeProducts');
     Route::get('list', 'OrderController@orderList');
     Route::get('getById', 'OrderController@orderById');
     Route::get('searchByPhone', 'OrderController@getPhoneOrderList');

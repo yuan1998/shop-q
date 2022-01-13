@@ -1,7 +1,7 @@
 <template>
     <div class="product_item">
         <div class="product_thumb">
-            <van-image width="80" height="80" fit="cover" :src="'/storage/' + image"/>
+            <van-image width="80" height="80" fit="cover" :src="image"/>
         </div>
         <div class="product_content">
             <div class="product_info">
@@ -14,9 +14,6 @@
                     </div>
                 </div>
                 <div class="product_text">
-                    <!--                    <span>-->
-                    <!--                        7天无理由退货-->
-                    <!--                    </span>-->
                 </div>
             </div>
             <div class="product_price">
@@ -34,14 +31,23 @@
 
 <script>
 import lodash from 'lodash';
+import {jsonTo} from "../../api/common";
+import {computed} from "vue";
 
 export default {
     name: 'order_product_item',
     props: ['product'],
     setup(props) {
         const {product} = props;
-        const image = lodash.get(JSON.parse(product.images), '0.value');
-        const sku = lodash.values(JSON.parse(product.sku)).join('/')
+
+        const image = computed(() => {
+            let image = product.image || lodash.get(jsonTo(product.images), '0.value');
+            if (!image) return 'https://pic.imgdb.cn/item/61dfa5a22ab3f51d91286796.jpg';
+            return /http(s)?\:\/\//.test(image) ? image :
+                (/\/storage\//.test(image)  ? image : `/storage/${image}`)
+        });
+
+        const sku = lodash.values(jsonTo(product.sku)).join('/')
 
         return {
             product,

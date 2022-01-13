@@ -185,7 +185,9 @@ export default {
             };
             router.push({
                 path: '/order/create',
-                query,
+                query: {
+                    p: JSON.stringify([query]),
+                },
             })
         }
         const handleClickMsg = () => {

@@ -21,6 +21,14 @@ export const toQueryString = (obj) => {
     return parts.join("&");
 }
 
+export const jsonTo = (obj) => {
+    try {
+        return JSON.parse(obj);
+    }catch (e){
+        return obj;
+    }
+}
+
 export const storageGet = (key) => {
     let value = localStorage.getItem(key);
     return value ? JSON.parse(value) : null;
@@ -29,6 +37,7 @@ export const storageGet = (key) => {
 export const storageSet = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value));
 }
+
 export const stringToBoolean = (string) => {
     switch (string.toLowerCase().trim()) {
         case "true":

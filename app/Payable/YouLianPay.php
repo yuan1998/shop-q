@@ -53,7 +53,8 @@ class YouLianPay
         return $pay === 'comm.mini.url' ? 'http://api.kjiax.com/payapi/mini/mini_url' : 'http://api.kjiax.com/payapi/pay/qrcode';
     }
 
-    public static function getPaymentParams($order,$payMethod) {
+    public static function getPaymentParams($order, $payMethod)
+    {
 
 
     }
@@ -75,7 +76,7 @@ class YouLianPay
             'money' => $order->price,
             'nonce_str' => $str,
             'url_link' => '1',
-            'notify_url' =>  $domain . '/api/pay/notify/youLianPay',
+            'notify_url' => $domain . '/api/pay/notify/youLianPay',
             'mch_orderid' => $orderId,
         ];
         $data['sign'] = static::signStr($data, $appsecret);
@@ -88,16 +89,16 @@ class YouLianPay
             ]);
             $body = $response->getBody()->getContents();
             $responseData = json_decode($body, true);
-            $pay_url = data_get($responseData,  $payment === 'comm.mini.url' ? 'url' : 'qr_code');
+            $pay_url = data_get($responseData, $payment === 'comm.mini.url' ? 'url' : 'qr_code');
 
             if ($pay_url) {
                 header("Location: $pay_url");
-                exit;
             }
+            dd($responseData);
+            exit;
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             echo "errcode:{$e->getCode()},errmsg:{$e->getMessage()}";
         }
-
 
     }
 

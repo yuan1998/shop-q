@@ -75,6 +75,47 @@ class Order extends Model
         return "$date$r1$nextId$r2";
     }
 
+    public static function generateProductsOrder($data)
+    {
+        $product = collect(data_get($data, 'product'));
+
+        if ($product->isEmpty())
+            throw new \Exception('错误的商品,商品不能为空.');
+
+        $productId = $product->pluck('id')->unique();
+
+        $productModel = Product::query()
+            ->whereIn('id', $productId)
+            ->get()
+            ->groupBy('id');
+
+        $payment = data_get($data, 'payment', 'wechat');
+        $payChannel = PayChannel::getPayMethod($payment);
+
+        $totalPrice = 0;
+        $product = $product->map(function ($row) use ($productModel, &$totalPrice) {
+            $id = data_get($row, 'id');
+            $row['price'] = data_get($productModel,"$id.price" ,$row['price']);
+            $totalPrice += $row['price'] * $row['count'];
+            return $row;
+        });
+
+        $arr = [
+            'snapshot' => $product->toJson(),
+            'product_id' => $productId->join(','),
+            'pay_method' => $payment,
+            'custom_info' => data_get($data, 'custom_info'),
+            'order_id' => static::generateOrderId(),
+            'status' => static::UN_PAY,
+            'price' => $totalPrice,
+            'pay_channel_id' => $payChannel->id,
+        ];
+
+        return Order::create($arr);
+
+
+    }
+
     public static function generateOrder($data)
     {
         $productId = data_get($data, 'product_id');

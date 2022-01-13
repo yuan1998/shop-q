@@ -44,6 +44,33 @@ class OrderController extends Controller
             ]);
     }
 
+    public function storeProducts(Request $request) {
+        $data = $request->only([
+            'product',
+            'custom_info',
+            'payment',
+        ]);
+
+        try {
+            $order = Order::generateProductsOrder($data);
+        } catch (\Exception $exception) {
+            $msg = $exception->getMessage();
+            return response()
+                ->json([
+                    'status' => 1,
+                    'errMsg' => $msg,
+                ])
+                ->setStatusCode(400);
+        }
+
+        return response()
+            ->json([
+                'status' => 0,
+                'id' => $order->order_id,
+                'msg' => '创建订单成功!'
+            ]);
+    }
+
     public function outPay(Request $request): \Illuminate\Http\JsonResponse
     {
         $orderId = $request->get('order_id');
@@ -181,7 +208,6 @@ class OrderController extends Controller
                 ->get()
                 ->pluck('order_id');
         }
-
 
         return response()
             ->json([

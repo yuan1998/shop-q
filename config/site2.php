@@ -6,6 +6,7 @@ return [
     'customer_phone' => '13112344321',
     // 客服微信
     'customer_wechat' => 'test123',
+
     'logistic_url' => 'http://taoxiezhijia.dh.cx/d3fea/$phone$',
     // 迅虎API
     'xunhu_api' => 'https://api.vrmrgame.com/payment/do.html',
@@ -15,6 +16,8 @@ return [
     'mac169_api' => 'https://api.mac169.com/payment/do.html',
     // 首页店铺图
     'index_header_image' => 'https://pic.imgdb.cn/item/61d2ae732ab3f51d91583a6e.png',
+    // 订单页面头图
+    'order_header_image' => 'https://pic.imgdb.cn/item/61dfabf22ab3f51d912caef4.jpg',
     // 商品页店铺图
     'product_image' => '',
     // 创建的支付订单名

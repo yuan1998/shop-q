@@ -66,11 +66,13 @@ class OrderExporter extends BaseExporter implements WithHeadings, WithCustomValu
             $custom = json_decode($row['custom_info'], true);
 
             foreach ($snapshot as $product) {
+                $sku = is_array($product['sku']) ? $product['sku'] : json_decode($product['sku'], true);
+
                 array_push($result, [
                     data_get($row, 'order_id'),
                     data_get($product, 'title'),
                     data_get($product, 'price'),
-                    collect(json_decode(data_get($product, 'sku'), true))->map(function ($value, $key) {
+                    collect($sku)->map(function ($value, $key) {
                         return "$key : $value";
                     })->join(''),
                     data_get($product, 'count', 1),

@@ -52,6 +52,8 @@
                 </van-list>
             </van-tab>
         </van-tabs>
+        <CopyRight/>
+        <Tabbar/>
     </div>
 </template>
 <script>
@@ -60,6 +62,8 @@ import {getBannerList, getProductList} from "../../../api/api.js";
 import {Toast} from 'vant'
 import lodash from 'lodash'
 import ProductItem from '../../../components/Product/Item.vue'
+import Tabbar from './Tabbar.vue'
+import CopyRight from './CopyRight.vue'
 import {settingKey} from "../../../api/common.js";
 
 const listMethod = async (page) => {
@@ -78,7 +82,9 @@ const listMethod = async (page) => {
 
 export default {
     components: {
-        ProductItem
+        ProductItem,
+        Tabbar,
+        CopyRight
     },
     setup() {
         let data = reactive({

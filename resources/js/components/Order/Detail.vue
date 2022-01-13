@@ -120,7 +120,7 @@
 
 import {useRoute, useRouter} from "vue-router";
 import {cancelReturn, getOrderById} from "../../api/api";
-import {computed, onMounted, reactive, toRefs} from "vue";
+import {computed, onMounted, provide, reactive, toRefs} from "vue";
 import OrderItem from "./OrderItem";
 import ShipDialog from "./Return/ShipDialog";
 import {buttonText, statusList, returnStatusList, orderDelete} from "../../api/order";
@@ -303,6 +303,10 @@ export default {
                 }
             })
         }
+
+        provide('order-index',{
+            deleteOrder
+        })
 
         return {
             ...toRefs(data),

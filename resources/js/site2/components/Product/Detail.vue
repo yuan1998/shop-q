@@ -1,11 +1,11 @@
 <template>
     <div class="product_detail">
         <van-skeleton :row="20" :loading="loading">
-            <van-nav-bar fixed placeholder left-arrow title="商品详细" @click-left="">
-                <template #right>
-                    <van-icon @click="routerToOrder" name="cart-o" size="18"/>
-                </template>
-            </van-nav-bar>
+            <van-nav-bar fixed placeholder left-arrow title="商品详细" @click-left="$router.back()"/>
+            <van-icon class="cart-icon-btn"
+                      @click="routerToCart"
+                      color="#ee0a24"
+                      name="cart" size="38"/>
             <div class="product_images">
                 <van-swipe :autoplay="3000" lazy-render class="product-image_swiper">
                     <van-swipe-item v-for="(image , index) in data.images" :key="index">
@@ -71,14 +71,12 @@
                         </template>
                     </div>
                 </div>
-
             </div>
             <div class="product_shop" v-if="img">
                 <div class="product_info-border" @click="$router.push({path: '/'})">
                     <img :src="img" alt="" class="mc-img">
                 </div>
             </div>
-
 
             <div class="product_content">
                 <van-divider/>
@@ -92,37 +90,19 @@
                     <div v-html="data.description"></div>
                 </div>
             </div>
-            <Sku @buy="buyProduct" :product="data" v-model:show="show"/>
+            <Sku :action="skuAction" :product="data" v-model:show="show"/>
 
-            <div class="product_actions">
-                <div class="product_actions_icon" @click="$router.push({path: '/'})">
-                    <van-icon size="20" color="#ee0a24" name="shop-o"/>
-                    <div class="icon-text">
-                        店铺
-                    </div>
-                </div>
-                <div class="product_actions_icon" @click="handleClickMsg">
-                    <van-icon size="20" color="#ee0a24" name="chat-o"/>
-                    <div class="icon-text">
-                        客服
-                    </div>
-                </div>
-                <div class="product_actions_icon" @click="like = !like">
-                    <van-icon size="20" :color="like ? '#ED0829' :'#ee0a24'" :name="like ?'star': 'star-o'"/>
-                    <div class="icon-text">
-                        收藏
-                    </div>
-                </div>
+            <van-action-bar>
+                <van-action-bar-icon icon="shop-o" text="店铺" color="#ee0a24" @click="$router.push({path: '/'})"/>
+                <van-action-bar-icon icon="chat-o" text="客服" @click="handleClickMsg"/>
+                <van-action-bar-icon :icon="like ?'star': 'star-o'"
+                                     :text="like ? '已收藏' : '收藏'"
+                                     :color="like ? '#ED0829' :'#ee0a24'"
+                                     @click="like = !like"/>
+                <van-action-bar-button type="warning" @click="showSku('cart')" text="加入购物车"/>
+                <van-action-bar-button type="danger" @click="showSku('buy')" text="立即购买"/>
+            </van-action-bar>
 
-                <van-button class="product_actions-button" @click="showSku"
-                            round
-                            size="large"
-                            color="linear-gradient(to right, #ff6034, #ee0a24)"
-
-                >
-                    立即购买
-                </van-button>
-            </div>
         </van-skeleton>
     </div>
 </template>
@@ -135,6 +115,7 @@ import {getProductDetail} from "../../../api/api";
 import Sku from './Sku';
 import ReplyItem from '../../../components/Product/Reply/Item'
 import {settingKey} from "../../../api/common";
+import {addProduct} from "../../../api/cart";
 
 export default {
     name: 'product_detail',
@@ -151,7 +132,8 @@ export default {
             show: false,
             id: '',
             like: false,
-            data: {}
+            data: {},
+            skuAction: 'cart',
         });
 
         const productDetail = async (id) => {
@@ -168,52 +150,70 @@ export default {
             }
         }
 
-        onMounted(async () => {
-            data.id = route.params.id;
-            await productDetail(data.id);
-            data.loading = false;
-        });
-
-        const routerToOrder = () => {
+        const routerToCart = () => {
             router.push({
-                path: '/order',
+                path: '/cart',
             })
         }
-        const showSku = () => {
+        const showSku = (action = 'buy') => {
             data.show = true;
+            data.skuAction = action;
         }
         const hideSku = () => {
             data.show = false
         }
-        const buyProduct = (buyData) => {
-            let query = {
-                sku: JSON.stringify(buyData.select),
-                count: buyData.count,
+
+        const productData = (queryData) => {
+            return {
+                sku: JSON.stringify(queryData.select),
+                count: queryData.count,
                 product_id: data.id,
-                image: data.data?.images[0]?.value,
+                image: queryData.selectPhoto || data.data?.images[0]?.value,
                 title: data.data.title,
-                price: data.data.price
+                price: data.data.price,
             };
+        }
+
+        const buyProduct = (buyData) => {
+            let query = productData(buyData);
             router.push({
                 path: '/order/create',
-                query,
+                query: {
+                    p: JSON.stringify([query]),
+                },
             })
         }
+
+        const cartProduct = (data) => {
+            let query = productData(data);
+            addProduct(query);
+            Toast('已添加到购物车')
+            hideSku();
+        }
+
         const handleClickMsg = () => {
             Toast('请返回抖音联系客服');
         }
 
         provide('product', {
             buyProduct,
+            cartProduct,
             hideSku
         })
+
+        onMounted(async () => {
+            data.id = route.params.id;
+            await productDetail(data.id);
+            data.loading = false;
+        });
+
 
         return {
             ...toRefs(data),
             img: settingKey('product_image', 'https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png'),
             showSku,
             buyProduct,
-            routerToOrder,
+            routerToCart,
             handleClickMsg
         }
     }
@@ -221,6 +221,12 @@ export default {
 </script>
 
 <style scoped lang="less">
+.cart-icon-btn {
+    position: fixed;
+    top: 30vh;
+    right: 14px;
+    z-index: 1;
+}
 
 .product_detail {
     padding-bottom: 80px;

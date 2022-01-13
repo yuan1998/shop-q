@@ -69,6 +69,11 @@ export const searchOrderByPhone = async (phone) => {
     return result.data;
 }
 
+export const storeProductsOrder = async (data) => {
+    let result = await axios.post(BASE_URL + 'api/order/store/products', data);
+    return result.data;
+}
+
 export const storeOrder = async (data) => {
     let result = await axios.post(BASE_URL + 'api/order/store', data);
     return result.data;

@@ -50,6 +50,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
                 $this->text('product_image', '商品页店铺图')->required()->help('商品页店铺图');
             case "site2" :
                 $this->text('index_header_image', '首页头图')->required()->help('首页头图');
+                $this->text('order_header_image', '订单页面头图')->help('订单页面头图');
                 $this->text('product_image', '商品页店铺图')->help('商品页店铺图');
         }
     }

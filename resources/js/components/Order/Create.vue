@@ -48,43 +48,9 @@
             <div class="order-title">
                 订单商品
             </div>
-            <van-card class="card-product"
-                      :thumb="`/storage/${query.image}`"
-            >
-                <template #price>
-                    <div>
-                        <span class="van-card__price-currency">¥</span>
-                        <span class="van-card__price-integer">{{ query.price }}</span>
-                    </div>
-                </template>
-                <template #title>
-                    <div class="card-product_title">
-                        {{ query.title }}
-                    </div>
-                </template>
-                <template #desc>
-                    <div class="card-product_sku">
-                        {{ query.sku }}
-                    </div>
-                    <div class="card-product_text">
-                        最晚48小时发货
-                    </div>
-                    <div class="card-product_text red">
-                        库存紧张
-                    </div>
-                    <div class="card-product_text tags">
-                    <span>
-                        正品保障
-                    </span>
-                        <!--                    <span>-->
-                        <!--                        7天无理由-->
-                        <!--                    </span>-->
-                    </div>
-                </template>
-                <template #num>
-                    <van-stepper v-model="count"/>
-                </template>
-            </van-card>
+            <CreateProductItem v-for="(product,index) in productData"
+                               :product="product"/>
+
             <van-cell>
                 <template #title>
                     <div class="card-product_info_title">
@@ -160,7 +126,7 @@
         >
             <template #default>
                 <div class="van-submit-bar__text">
-                    <span class="van-submit-bar__price">¥<span class="van-submit-bar__price-integer">{{ price }}</span>.00</span>
+                    <span class="van-submit-bar__price">¥<span class="van-submit-bar__price-integer">{{ price }}</span></span>
                 </div>
             </template>
             <template #button>
@@ -176,20 +142,24 @@
 
 import lodash from 'lodash';
 import {useRoute, useRouter} from "vue-router";
-import {computed, onMounted, reactive, toRefs} from "vue";
-import {storeOrder} from "../../api/api";
+import {computed, onMounted, reactive, ref, toRefs} from "vue";
+import {storeOrder, storeProductsOrder} from "../../api/api";
 import {Toast} from 'vant'
 import {getChosenLocation} from "../../api/location";
 import {getRandomArbitrary, stringToBoolean} from "../../api/common";
 import {addOrder} from "../../api/order";
+import CreateProductItem from './CreateProductItem';
+import {cartDelete} from "../../api/cart";
 
 export default {
     name: 'order_create',
+    components: {
+        CreateProductItem
+    },
     setup() {
         const route = useRoute();
         const router = useRouter();
         const chosenLocation = getChosenLocation();
-
 
         const data = reactive({
             loading: false,
@@ -202,11 +172,15 @@ export default {
             },
             list: [],
         })
+        const productData = ref([]);
 
         const reversePayment = !!lodash.get(window._setting_, 'payment_sort', false);
-        let sku = JSON.parse(route?.query?.sku || '');
         let price = computed(() => {
-            return route.query.price * data.count;
+            let total = 0;
+            productData.value.forEach((row) => {
+                total += row.price * row.count;
+            })
+            return total.toFixed(2);
         })
 
         const onSubmit = async () => {
@@ -219,13 +193,22 @@ export default {
                 message: '下单中...',
                 forbidClick: true,
             });
-            data.loading = true;
+            let isCart = [];
+            let product = productData.value.map((row) => {
+                row.ID && isCart.push(row.ID);
 
-            let result = await storeOrder({
-                product_id: route.query.product_id,
-                product_sku: route.query.sku,
-                count: data.count,
-                price: price.value,
+                return {
+                    id: row.product_id,
+                    sku: row.sku,
+                    image: row.image,
+                    title: row.title,
+                    price: row.price,
+                    count: row.count,
+                }
+            })
+            data.loading = true;
+            let result = await storeProductsOrder({
+                product,
                 payment: data.payment,
                 custom_info: JSON.stringify({
                     '收货人': chosenLocation.name,
@@ -236,6 +219,8 @@ export default {
             data.loading = false;
             Toast.clear();
             let id = result.id;
+            isCart.length && cartDelete(isCart);
+
             addOrder(id);
             window.location.href = `/api/pay?order_id=${result.id}`;
         }
@@ -264,6 +249,16 @@ export default {
             } else {
                 data.payment = reversePayment ? 'alipay' : 'wechat';
             }
+
+            let d = JSON.parse(route.query.p) || [];
+            productData.value = d.map((row) => {
+                try {
+                    row.sku = JSON.parse(row.sku);
+                } catch (e) {
+
+                }
+                return row;
+            })
         });
 
         return {
@@ -276,11 +271,7 @@ export default {
             chosenLocation,
             price,
             hour: Math.floor(getRandomArbitrary(1, 24)),
-            query: {
-                ...route.query,
-                sku: Object.values(sku).join('/'),
-
-            },
+            productData,
         }
     }
 }
@@ -306,51 +297,6 @@ export default {
 
 .order-create {
     padding-bottom: 100px;
-}
-
-.card-product {
-    background-color: #fff;
-    margin: 0;
-
-    .card-product_title {
-        font-size: 16px;
-    }
-
-    .card-product_sku {
-        display: inline-block;
-        font-size: 15px;
-        background-color: #FAFAFA;
-        color: #ABABAB;
-        padding: 3px 8px;
-        margin: 5px 0;
-    }
-
-    .van-card__price-integer {
-        font-size: 16px;
-    }
-
-    .card-product_text {
-        font-size: 15px;
-        margin: 7px 0;
-
-        &.red {
-            color: #D78161;
-            font-size: 14px;
-        }
-
-        &.tags {
-            color: #CF8062;
-            font-size: 14px;
-
-            span {
-                border: 1px solid #CF8062;
-                border-radius: 3px;
-                display: inline-block;
-                padding: 2px 5px;
-                margin-right: 8px;
-            }
-        }
-    }
 }
 
 
