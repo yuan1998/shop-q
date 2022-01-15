@@ -19,6 +19,7 @@ class Order extends EloquentRepository
         return Model::query()
             ->select([
                 'id',
+                'ip',
                 'order_id',
                 'price',
                 'status',

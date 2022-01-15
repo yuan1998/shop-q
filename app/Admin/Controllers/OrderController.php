@@ -6,6 +6,7 @@ use App\Admin\Exporters\OrderExporter;
 use App\Admin\Forms\OrderLogisticNumber;
 use App\Admin\Renderable\OrderProductTable;
 use App\Admin\Repositories\Order;
+use App\Admin\RowActions\BlockPhoneAndIp;
 use App\Models\OrderReturn;
 use Carbon\Carbon;
 use Dcat\Admin\Form;
@@ -114,6 +115,8 @@ class OrderController extends AdminController
 
             $grid->column('created_at');
             $grid->column('return_at');
+
+            $grid->actions(new BlockPhoneAndIp());
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->like('order_id');

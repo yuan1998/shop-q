@@ -17,6 +17,8 @@ class BlackListController extends AdminController
      */
     protected function grid()
     {
+//        dd(request()->ip());
+//        dd(\App\Models\BlackList::config('ip'));
         return Grid::make(new BlackList(), function (Grid $grid) {
             $grid->column('id')->sortable(null, 'desc');
             $grid->column('add_type')->using(\App\Models\BlackList::$addTypeList);

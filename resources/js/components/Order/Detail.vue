@@ -89,7 +89,7 @@
                     <van-button type="default" @click="deleteOrder(order.order_id)">
                         删除订单
                     </van-button>
-                    <template v-if="order.status != 1">
+                    <template v-if="order.status != 1 && order.status != 6">
                         <van-button v-if="!order.return_status || order.return_status == 6" type="default" @click="returnOrder">
                             申请退货退款
                         </van-button>

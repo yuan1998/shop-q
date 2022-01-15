@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helper;
+use App\Http\Middleware\RestrictIpAddressMiddleware;
 use Illuminate\Support\Facades\DB;
 
 class Order extends Model
@@ -30,6 +31,7 @@ class Order extends Model
     ];
 
     protected $fillable = [
+        'ip',
         'pay_date',
         'product_id',
         'snapshot',
@@ -75,8 +77,25 @@ class Order extends Model
         return "$date$r1$nextId$r2";
     }
 
+    public static function validateCustomPhone($data)
+    {
+        $customInfo = is_array($data['custom_info']) ? $data['custom_info'] : json_decode($data['custom_info'], true);
+        $phone = data_get($customInfo, '收货人电话');
+        if (!$phone)
+            throw new \Exception('错误的信息,收货人信息错误.');
+
+        if (BlackList::phoneIsBlock($phone)) {
+            RestrictIpAddressMiddleware::setBlock();
+            return false;
+        }
+        return true;
+    }
+
     public static function generateProductsOrder($data)
     {
+        if (!static::validateCustomPhone($data))
+            throw new \Exception('下单失败，请刷新页面.');
+
         $product = collect(data_get($data, 'product'));
 
         if ($product->isEmpty())
@@ -95,7 +114,7 @@ class Order extends Model
         $totalPrice = 0;
         $product = $product->map(function ($row) use ($productModel, &$totalPrice) {
             $id = data_get($row, 'id');
-            $row['price'] = data_get($productModel,"$id.price" ,$row['price']);
+            $row['price'] = data_get($productModel, "$id.price", $row['price']);
             $totalPrice += $row['price'] * $row['count'];
             return $row;
         });
@@ -108,16 +127,18 @@ class Order extends Model
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,
             'price' => $totalPrice,
+            'ip' => request()->ip(),
             'pay_channel_id' => $payChannel->id,
         ];
 
         return Order::create($arr);
-
-
     }
 
     public static function generateOrder($data)
     {
+        if (!static::validateCustomPhone($data))
+            throw new \Exception('请刷新页面.');
+
         $productId = data_get($data, 'product_id');
         if (!$productId || !($product = Product::find($productId)))
             throw new \Exception('错误的商品ID,请在正确的页面下单.');
@@ -138,6 +159,7 @@ class Order extends Model
             'status' => static::UN_PAY,
             'price' => data_get($data, 'price'),
             'pay_channel_id' => $payChannel->id,
+            'ip' => request()->ip(),
         ];
 
         return Order::create($arr);

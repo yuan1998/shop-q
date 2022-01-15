@@ -207,22 +207,39 @@ export default {
                 }
             })
             data.loading = true;
-            let result = await storeProductsOrder({
-                product,
-                payment: data.payment,
-                custom_info: JSON.stringify({
-                    '收货人': chosenLocation.name,
-                    '收货人电话': chosenLocation.phone,
-                    '收货人地址': chosenLocation.detail
-                })
-            });
+            try {
+                let result = await storeProductsOrder({
+                    product,
+                    payment: data.payment,
+                    custom_info: JSON.stringify({
+                        '收货人': chosenLocation.name,
+                        '收货人电话': chosenLocation.phone,
+                        '收货人地址': chosenLocation.detail
+                    })
+                });
+                let id = result.id;
+                if (id) {
+                    Toast.loading({
+                        message: '下单成功跳转支付...',
+                        forbidClick: true,
+                    });
+                    isCart.length && cartDelete(isCart);
+                    addOrder(id);
+                    window.location.href = `/api/pay?order_id=${result.id}`;
+                }
+            } catch (e) {
+                console.log("e.response", e.response);
+                let msg = lodash.get(e,'response.data.errMsg','发生未知错误');
+                Toast.fail(msg);
+                if (msg === "下单失败，请刷新页面.") {
+                    window.location.href = '/404';
+                }
+            }
+
             data.loading = false;
             Toast.clear();
-            let id = result.id;
-            isCart.length && cartDelete(isCart);
 
-            addOrder(id);
-            window.location.href = `/api/pay?order_id=${result.id}`;
+
         }
         const handleLocation = () => {
             if (chosenLocation) {

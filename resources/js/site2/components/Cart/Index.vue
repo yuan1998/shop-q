@@ -126,7 +126,6 @@ const onClickLink = () => Toast('修改地址');
 .cart-list {
     display: flex;
     flex-direction: column;
-
 }
 
 .cart-item {
