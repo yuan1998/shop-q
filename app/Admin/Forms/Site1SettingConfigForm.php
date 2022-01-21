@@ -47,6 +47,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
                 $this->text('xunhu_api_2', '迅虎网关2')->required()->help('迅虎网关2');
                 $this->text('mac169_api', 'MAC169网关')->required()->help('MAC169网关');
                 $this->text('index_header_image', '首页头图')->required()->help('首页头图');
+                $this->text('product_info_image', '商品信息')->required()->help('商品信息(7天无理由部位)');
                 $this->text('product_image', '商品页店铺图')->required()->help('商品页店铺图');
                 break;
             case "site2" :
