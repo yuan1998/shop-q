@@ -3,7 +3,7 @@
         <router-link :to="'/detail/' +id">
             <div class="product_cover">
                 <van-image
-                    style="height:40vw;max-height: 400px;"
+                    style="height:40vw;max-height: 400px;width: 100%;"
                     fit="cover"
                     :src="`/storage/${image}`"
                 />

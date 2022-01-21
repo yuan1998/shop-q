@@ -41,7 +41,7 @@ class BSYiPay
         return Helper::md5Sign($preStr, $key);
     }
 
-    public static function createPay($data,$url = null)
+    public static function createPay($data, $url = null)
     {
         $str = http_build_query($data);
         $url = $url ?: static::$apiUrl;
@@ -50,15 +50,22 @@ class BSYiPay
         exit;
     }
 
+    public static function generateOrderId($order_id)
+    {
+        $str = str_shuffle(time());
+        return "{$order_id}A{$str}";
+    }
+
     public static function payment($order, $payMethod, $request)
     {
         $domain = $request->getSchemeAndHttpHost();;
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
-        $str = str_shuffle(time());
+        $orderId = static::generateOrderId($order->order_id);
+//        $str = str_shuffle(time());
 
-        $orderId = "{$order->order_id}A{$str}";
+//        $orderId = "{$order->order_id}A{$str}";
 
         $name = Helper::site_1_config('order_name');
         $data = [
@@ -74,7 +81,7 @@ class BSYiPay
         $data['sign'] = static::signStr($data, $appsecret);
         $data['sign_type'] = 'MD5';
 
-        static::createPay($data,data_get($payMethod , 'api_url'));
+        static::createPay($data, data_get($payMethod, 'api_url'));
     }
 
     public static function verifyNotify($para_temp, $payment): bool
