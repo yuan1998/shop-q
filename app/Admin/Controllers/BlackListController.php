@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Grid\Tools\ImportBlackList;
 use App\Admin\Repositories\BlackList;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -19,7 +20,24 @@ class BlackListController extends AdminController
     {
 //        dd(request()->ip());
 //        dd(\App\Models\BlackList::config('ip'));
-        return Grid::make(new BlackList(), function (Grid $grid) {
+        return Grid::make(BlackList::indexQuery(), function (Grid $grid) {
+            $grid->export([
+                'type' => '屏蔽类型',
+                'value' => '值',
+                'remark' => '备注',
+                'created_at' => '创建时间',
+            ])->rows(function ($rows) {
+                foreach ($rows as $index => &$row) {
+                    $row['type'] = data_get(\App\Models\BlackList::$typeList,$row['type']);
+                    $row['add_type'] = data_get(\App\Models\BlackList::$addTypeList,$row['add_type']);
+                }
+
+                return $rows;
+            })->filename('黑名单数据');
+
+
+            $grid->tools(new ImportBlackList());
+
             $grid->column('id')->sortable(null, 'desc');
             $grid->column('add_type')->using(\App\Models\BlackList::$addTypeList);
             $grid->column('type')->using(\App\Models\BlackList::$typeList);

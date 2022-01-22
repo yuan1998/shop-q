@@ -63,9 +63,7 @@ class BSYiPay
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
         $orderId = static::generateOrderId($order->order_id);
-//        $str = str_shuffle(time());
 
-//        $orderId = "{$order->order_id}A{$str}";
 
         $name = Helper::site_1_config('order_name');
         $data = [

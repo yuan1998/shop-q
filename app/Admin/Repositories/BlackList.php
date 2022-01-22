@@ -13,4 +13,10 @@ class BlackList extends EloquentRepository
      * @var string
      */
     protected $eloquentClass = Model::class;
+
+    public static function indexQuery()
+    {
+        return Model::query()
+            ->orderBy('id', 'desc');
+    }
 }

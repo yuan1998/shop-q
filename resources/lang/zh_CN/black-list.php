@@ -1,8 +1,8 @@
-<?php 
+<?php
 return [
     'labels' => [
-        'BlackList' => 'BlackList',
-        'black-list' => 'BlackList',
+        'BlackList' => '黑名单',
+        'black-list' => '黑名单',
     ],
     'fields' => [
         'add_type' => '添加方式',
