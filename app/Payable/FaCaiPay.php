@@ -27,7 +27,7 @@ class FaCaiPay
     public static function getPayment($method)
     {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        $device = (strstr($userAgent,'iPhone') || strstr($userAgent,'iPad') )? 'IOS' : 'ANDROID';
+        $device = (strstr($userAgent, 'iPhone') || strstr($userAgent, 'iPad')) ? 'IOS' : 'ANDROID';
 
         $type = $method ?? 'alipay';
         if (!in_array($type, array_keys(static::$payment))) {
@@ -59,8 +59,8 @@ class FaCaiPay
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
 
-        $returnUrl = $domain . '/api/pay/return/faCaiPay';
-        $notifyUrl = $domain . '/api/pay/notify/faCaiPay';
+        $returnUrl = "{$domain}/api/pay/return/faCaiPay";
+        $notifyUrl = "{$domain}/#/success";
         $data = [
             'pay_bankcode' => $payment,
             'pay_memberid' => $appid,
@@ -129,7 +129,7 @@ class FaCaiPay
         Log::info('notify回调测试 : $params', $params);
         $payMethod = $payMethod ?? $order->getPayment();
 
-        if (static::verifyNotify(array_merge($params,[
+        if (static::verifyNotify(array_merge($params, [
             'pay_time' => urlencode($params['pay_time'])
         ]), $payMethod)) {
             if (data_get($params, 'returncode') === '00') {
