@@ -19,7 +19,7 @@ class FaCaiPay
             'alipay' => '911',
         ],
         "ANDROID" => [
-            'wechat' => '808',
+            'wechat' => '909',
             'alipay' => '909',
         ]
     ];
