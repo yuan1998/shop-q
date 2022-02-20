@@ -129,7 +129,9 @@ class FaCaiPay
         Log::info('notify回调测试 : $params', $params);
         $payMethod = $payMethod ?? $order->getPayment();
 
-        if (static::verifyNotify($params, $payMethod)) {
+        if (static::verifyNotify(array_merge($params,[
+            'pay_time' => urlencode($params['pay_time'])
+        ]), $payMethod)) {
             if (data_get($params, 'returncode') === '00') {
                 Log::info('notify回调测试 : $order', [
                     $order
