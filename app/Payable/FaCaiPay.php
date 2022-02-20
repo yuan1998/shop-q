@@ -60,7 +60,7 @@ class FaCaiPay
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
 
 
-        $returnUrl = "{$domain}/#success";
+        $returnUrl = "{$domain}/#/success";
         $notifyUrl = "{$domain}/api/pay/notify/faCaiPay";
         $data = [
             'pay_bankcode' => $payment,

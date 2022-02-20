@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/','OrderController@orderNotifyFaCaiPay');
+
 Route::group([
     'middleware' => [
         RestrictIpAddressMiddleware::class,
@@ -27,6 +30,7 @@ Route::group([
         ]);
     });
 });
+
 
 Route::get('/whereismyip', function () {
     $ip = request()->ip();

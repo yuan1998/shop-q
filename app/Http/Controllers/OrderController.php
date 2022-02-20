@@ -260,6 +260,8 @@ class OrderController extends Controller
 
     public function orderNotifyFaCaiPay(Request $request): string
     {
+        dd(123);
+
         return FaCaiPay::notify(null, $request);
     }
 
