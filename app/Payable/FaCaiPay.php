@@ -30,7 +30,7 @@ class FaCaiPay
         $device = (strstr($userAgent, 'iPhone') || strstr($userAgent, 'iPad')) ? 'IOS' : 'ANDROID';
 
         $type = $method ?? 'alipay';
-        if (!in_array($type, array_keys(static::$payment))) {
+        if (!in_array($type, array_keys(BSYiPay::$payment))) {
             $type = 'alipay';
         }
         return data_get(static::$payment, "$device.$type");
@@ -53,6 +53,7 @@ class FaCaiPay
     public static function payment($order, $payMethod, $request)
     {
         $payment = static::getPayment($order->pay_method);
+//        dd($payment);
 
         $domain = $request->getSchemeAndHttpHost();
         $appid = data_get($payMethod, 'app_key');//测试账户，
