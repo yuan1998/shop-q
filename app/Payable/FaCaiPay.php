@@ -98,7 +98,7 @@ class FaCaiPay
 
         //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
         $preStr = Helper::createLinkString($para_sort);
-        $isSgin = Helper::md5Verify($preStr, strtolower(data_get($para_temp, 'sign')), $payment->app_secret);
+        $isSgin = Helper::md5Verify($preStr, strtolower(data_get($para_temp, 'sign')), "&key=$payment->app_secret");
 
         Log::info('notify回调测试 : $verifyNotify', [
             '$isSgin' => $isSgin,
