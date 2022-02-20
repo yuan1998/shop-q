@@ -41,6 +41,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
         $this->switch('payment_sort', '默认支付倒转')->help('默认支付倒转');
+
         switch(env('SITE_NAME','site1')) {
             case 'site1' :
                 $this->text('index_header_image', '首页头图')->required()->help('首页头图');
