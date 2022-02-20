@@ -24,16 +24,25 @@ class FaCaiPay
         ]
     ];
 
+    public static function getDevicePayment($device)
+    {
+        $name = $device === 'IOS' ? '发财IOS' : '发财安卓';
+
+        return array_merge(data_get(static::$payment, $device), Helper::site_1_config("$name"));
+
+    }
+
     public static function getPayment($method)
     {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $device = (strstr($userAgent, 'iPhone') || strstr($userAgent, 'iPad')) ? 'IOS' : 'ANDROID';
+        $devicePayment = static::getDevicePayment($device);
 
         $type = $method ?? 'alipay';
         if (!in_array($type, array_keys(BSYiPay::$payment))) {
             $type = 'alipay';
         }
-        return data_get(static::$payment, "$device.$type");
+        return data_get($devicePayment, "$type");
     }
 
     public static function signStr($data, $key): string

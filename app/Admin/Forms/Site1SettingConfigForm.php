@@ -42,7 +42,8 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
         $this->switch('payment_sort', '默认支付倒转')->help('默认支付倒转');
 
-        switch(env('SITE_NAME','site1')) {
+
+        switch (env('SITE_NAME', 'site1')) {
             case 'site1' :
                 $this->text('index_header_image', '首页头图')->required()->help('首页头图');
                 $this->text('product_info_image', '商品信息')->required()->help('商品信息(7天无理由部位)');
@@ -54,6 +55,20 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
                 $this->text('product_image', '商品页店铺图')->help('商品页店铺图');
                 break;
         }
+
+        $this->divider();
+        $this->embeds('发财IOS', function ($form) {
+
+            $form->text('wechat','微信')->required();
+            $form->text('alipay','支付宝')->required();
+        });
+         $this->embeds('发财安卓', function ($form) {
+
+            $form->text('wechat','微信')->required();
+            $form->text('alipay','支付宝')->required();
+        });
+
+
     }
 
     /**

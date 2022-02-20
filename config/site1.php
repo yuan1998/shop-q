@@ -28,4 +28,12 @@ return [
     'disable_alipay' => false,
     // 默认支付倒转
     'payment_sort' => false,
+    "发财IOS" => [
+        'wechat' => '808',
+        'alipay' => '911',
+    ],
+    "发财安卓" => [
+        'wechat' => '909',
+        'alipay' => '909',
+    ],
 ];

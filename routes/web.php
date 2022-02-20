@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/','OrderController@orderNotifyFaCaiPay');
+//Route::post('/','OrderController@orderNotifyFaCaiPay');
 
 Route::group([
     'middleware' => [
