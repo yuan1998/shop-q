@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderReturn;
 use App\Models\PayChannel;
 use App\Payable\BSYiPay;
+use App\Payable\FaCaiPay;
 use App\Payable\HuPiPay;
 use App\Payable\YouLianPay;
 use Carbon\Carbon;
@@ -257,9 +258,18 @@ class OrderController extends Controller
         return YouLianPay::notify(null, $request);
     }
 
+    public function orderNotifyFaCaiPay(Request $request): string
+    {
+        return FaCaiPay::notify(null, $request);
+    }
 
     public function orderReturn(Request $request)
     {
         BSYiPay::handleReturn($request);
+    }
+
+    public function orderReturnFaCaiPay(Request $request)
+    {
+        FaCaiPay::handleReturn($request);
     }
 }
