@@ -53,6 +53,8 @@ class WanQiaoPay
 
         Log::info('notify回调测试 : $verifyNotify', [
             '$isSgin' => $isSgin,
+            '$para_temp' =>$para_temp,
+            'key' =>$payment->app_secret
         ]);
 
         return $isSgin;
@@ -143,7 +145,6 @@ class WanQiaoPay
         Log::info('notify回调测试 : $params', $params);
         Log::info('notify回调测试 : $orderData', $orderData);
         $payMethod = $payMethod ?? $order->getPayment();
-
 
         if (static::verifyNotify($params, $payMethod)) {
             if (data_get($params, 'status') === '10001') {
