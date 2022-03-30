@@ -13,4 +13,10 @@ class PayChannel extends EloquentRepository
      * @var string
      */
     protected $eloquentClass = Model::class;
+
+    public static function indexQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return Model::query()
+            ->orderBy('id','desc');
+    }
 }

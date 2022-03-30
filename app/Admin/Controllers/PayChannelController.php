@@ -18,7 +18,7 @@ class PayChannelController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new PayChannel(), function (Grid $grid) {
+        return Grid::make(PayChannel::indexQuery(), function (Grid $grid) {
             $grid->quickCreate(function (Grid\Tools\QuickCreate $create) {
                 $create->text('app_key')->required();
                 $create->text('app_secret')->required();

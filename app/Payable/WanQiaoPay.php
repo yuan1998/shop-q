@@ -39,25 +39,23 @@ class WanQiaoPay
         return $str;
     }
 
-    /**
-     * @Note   验证签名
-     * @param $data
-     * @param $orderStatus
-     * @return bool
-     */
-    public static function verifySign($data, $secret)
+    public static function verifyNotify($para_temp, $payment): bool
     {
-        // 验证参数中是否有签名
-        if (!isset($data['sign']) || !$data['sign']) {
-            return false;
-        }
-        // 要验证的签名串
-        $sign = $data['sign'];
-        unset($data['sign']);
-        // 生成新的签名、验证传过来的签名
-        $sign2 = static::getSign($secret, $data);
+        //除去待签名参数数组中的空值和签名参数
+        $para_filter = Helper::paraFilter($para_temp);
 
-        return $sign2;
+        //对待签名参数数组排序
+        $para_sort = Helper::argSort($para_filter);
+
+        //把数组所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+        $preStr = Helper::createLinkString($para_sort);
+        $isSgin = Helper::md5Verify($preStr, data_get($para_temp, 'sign'), $payment->app_secret);
+
+        Log::info('notify回调测试 : $verifyNotify', [
+            '$isSgin' => $isSgin,
+        ]);
+
+        return $isSgin;
     }
 
     public static function payment($order, $payMethod, $request)
@@ -82,7 +80,7 @@ class WanQiaoPay
             'channel' => $pay_type,
         ];
 
-        $data['sign'] = static::signStr($data,$appsecret);
+        $data['sign'] = static::signStr($data, $appsecret);
 
         $data['return_type'] = 1;
         $data['param'] = 1;
@@ -122,54 +120,45 @@ class WanQiaoPay
         }
     }
 
-    public static function notify($payMethod, $request): string
+    public static function notify($payMethod = null, $request): string
     {
+        $params = $request->all();
+        $orderData = explode('A', data_get($params, 'out_trade_no', ''));
+        $id = data_get($orderData, '0');
+        Log::info('notify回调测试 : $id', [
+            'id' => $id
+        ]);
+        $order = Order::query()
+            ->where('order_id', $id)
+            ->first();
 
-//        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
-        $appsecret = data_get($payMethod, 'app_secret');//测试账户，
+        if (!$order) {
+            Log::info('notify 测试: 订单不存在', [
+                $params
+            ]);
 
-        $data = $request->all();
-        Log::info('notify 测试 $data', $data);
-        if (data_get($data, 'member_id') !== data_get($payMethod, 'app_key')) {
-            exit('error:member_id');
+            return 'failed';
         }
 
-        $params = [
-            'order_sn' => data_get($data, 'order_sn'),
-            'sys_order_sn' => data_get($data, 'sys_order_sn'),
-            'status' => data_get($data, 'status'),
-            'member_id' => data_get($data, 'member_id'),
-            'amount' => data_get($data, 'amount'),
-            'sign' => data_get($data, 'sign'),
-        ];
-        $signV = static::verifySign($params, $appsecret);
-        Log::info('notify 测试 $signV', [
-            $signV
-        ]);
-        if (data_get($data, 'sign') == $signV) {
-            if (data_get($data, 'status') === '10001') {
-                $orderData = explode('A', data_get($params, 'order_sn', ''));
+        Log::info('notify回调测试 : $params', $params);
+        Log::info('notify回调测试 : $orderData', $orderData);
+        $payMethod = $payMethod ?? $order->getPayment();
 
-                $id = data_get($orderData, '0');
-                Log::info('notify 测试 $id', [
-                    $id
-                ]);
 
-                $order = Order::query()
-                    ->where('order_id', $id)
-                    ->first();
+        if (static::verifyNotify($params, $payMethod)) {
+            if (data_get($params, 'status') === '10001') {
 
                 if ($order->status != Order::PAY_SUCCESS) {
                     $order->status = Order::PAY_SUCCESS;
-                    $order->pay_info = json_encode($data);
+                    $order->pay_info = json_encode($params);
                     $order->save();
                 }
             }
-        } else {
-            exit('error:sign');
+            return 'success';
         }
 
-        return 'success';
+
+        return 'failed';
 
     }
 }
