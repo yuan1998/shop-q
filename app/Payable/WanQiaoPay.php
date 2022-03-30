@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\PayChannel;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 
 class WanQiaoPay
@@ -146,7 +147,7 @@ class WanQiaoPay
         Log::info('notify回调测试 : $orderData', $orderData);
         $payMethod = $payMethod ?? $order->getPayment();
 
-        if (static::verifyNotify($params, $payMethod)) {
+        if (static::verifyNotify(Arr::only($params,['order_sn','sys_order_sn','status','member_id','amount','sign']), $payMethod)) {
             if (data_get($params, 'status') === '10001') {
 
                 if ($order->status != Order::PAY_SUCCESS) {
