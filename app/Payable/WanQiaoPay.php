@@ -123,7 +123,7 @@ class WanQiaoPay
     public static function notify($payMethod = null, $request): string
     {
         $params = $request->all();
-        $orderData = explode('A', data_get($params, 'out_trade_no', ''));
+        $orderData = explode('A', data_get($params, 'order_sn', ''));
         $id = data_get($orderData, '0');
         Log::info('notify回调测试 : $id', [
             'id' => $id
