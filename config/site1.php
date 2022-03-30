@@ -21,6 +21,7 @@ return [
     //
     'product_info_image' => 'https://pic.imgdb.cn/item/61eabefc2ab3f51d91f5154c.png',
     // 创建的支付订单名
+    'wan_qiao_pay_code' => '1661',
     'order_name' => '玲木优选',
     // 禁止微信
     'disable_wechat' => false,

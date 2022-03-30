@@ -8,6 +8,7 @@ use App\Models\PayChannel;
 use App\Payable\BSYiPay;
 use App\Payable\FaCaiPay;
 use App\Payable\HuPiPay;
+use App\Payable\WanQiaoPay;
 use App\Payable\YouLianPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,7 +46,8 @@ class OrderController extends Controller
             ]);
     }
 
-    public function storeProducts(Request $request) {
+    public function storeProducts(Request $request)
+    {
         $data = $request->only([
             'product',
             'custom_info',
@@ -264,6 +266,11 @@ class OrderController extends Controller
         return FaCaiPay::notify(null, $request);
     }
 
+    public function orderNotifyWanQiaoPay(Request $request)
+    {
+        WanQiaoPay::notify(null, $request);
+    }
+
     public function orderReturn(Request $request)
     {
         BSYiPay::handleReturn($request);
@@ -273,4 +280,6 @@ class OrderController extends Controller
     {
         FaCaiPay::handleReturn($request);
     }
+
+
 }

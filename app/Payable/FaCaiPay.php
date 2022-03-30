@@ -29,7 +29,6 @@ class FaCaiPay
         $name = $device === 'IOS' ? '发财IOS' : '发财安卓';
 
         return array_merge(data_get(static::$payment, $device), Helper::site_1_config("$name"));
-
     }
 
     public static function getPayment($method)
@@ -62,12 +61,10 @@ class FaCaiPay
     public static function payment($order, $payMethod, $request)
     {
         $payment = static::getPayment($order->pay_method);
-//        dd($payment);
 
         $domain = $request->getSchemeAndHttpHost();
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
-
 
         $returnUrl = "{$domain}/#/success";
         $notifyUrl = "{$domain}/api/pay/notify/faCaiPay";
