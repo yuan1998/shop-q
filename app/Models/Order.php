@@ -32,6 +32,7 @@ class Order extends Model
 
     protected $fillable = [
         'ip',
+        'computed',
         'pay_date',
         'product_id',
         'snapshot',

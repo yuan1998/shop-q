@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Order::observe(OrderObserver::class);
+        Order::observe(OrderObserver::class);
         BlackList::observe(BlackListObserver::class);
     }
 }

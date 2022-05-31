@@ -59,7 +59,7 @@ class OrderController extends AdminController
             $grid->column('id')->display(function () {
                 return $this->_index + 1;
             });
-            $grid->column('order_id');
+            $grid->column('order_id')->help('请输入5-20个字符');
             $grid->column('snapshot', '订单商品')
                 ->expand(function (Grid\Displayers\Expand $expand) {
                     $expand->button('详情');

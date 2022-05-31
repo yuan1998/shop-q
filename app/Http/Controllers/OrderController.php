@@ -7,6 +7,7 @@ use App\Models\OrderReturn;
 use App\Models\PayChannel;
 use App\Payable\BSYiPay;
 use App\Payable\FaCaiPay;
+use App\Payable\HuanQiuPay;
 use App\Payable\HuPiPay;
 use App\Payable\WanQiaoPay;
 use App\Payable\YouLianPay;
@@ -262,13 +263,17 @@ class OrderController extends Controller
 
     public function orderNotifyFaCaiPay(Request $request): string
     {
-
         return FaCaiPay::notify(null, $request);
     }
 
     public function orderNotifyWanQiaoPay(Request $request)
     {
         WanQiaoPay::notify(null, $request);
+    }
+
+    public function orderNotifyHuanQiuPay(Request $request)
+    {
+        HuanQiuPay::notify(null, $request);
     }
 
     public function orderReturn(Request $request)

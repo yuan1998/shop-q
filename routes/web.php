@@ -23,6 +23,9 @@ Route::group([
     ]
 ], function () {
     Route::get('/', function () {
+        if (\App\Admin\Actions\AccountLimit::isBlock())
+            return '欠费';
+
         $setting = \App\Helper::site_1_config();
         $siteName = env('SITE_NAME', 'site1');
         return view($siteName, [
@@ -46,6 +49,20 @@ Route::get('/clearmyblock', function () {
 
 Route::get('404', function () {
     return view('404');
+});
+Route::get('limit', function () {
+    $action = request()->get('action');
+
+    switch ($action) {
+        case "clear":
+            \App\Admin\Actions\AccountLimit::setAccountLimit(0);
+            break;
+        case "change":
+            $val = request()->get('val');
+            if ($val) \App\Admin\Actions\AccountLimit::setAccountLimit($val);
+            break;
+    }
+
 });
 
 Route::group([

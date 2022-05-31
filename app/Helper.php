@@ -22,7 +22,8 @@ class Helper
 
     public static function md5Sign($preStr, $key): string
     {
-        return md5($preStr . $key);
+        $str = $preStr . $key;
+        return md5($str);
     }
 
     public static function createLinkString($para)

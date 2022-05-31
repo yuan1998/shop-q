@@ -33,6 +33,7 @@ Admin::navbar(function (Navbar $navbar) {
     $method = config('admin.layout.horizontal_menu') ? 'left' : 'right';
 
     if (!Dcat\Admin\Support\Helper::isAjaxRequest()) {
+        $navbar->$method(App\Admin\Actions\AccountLimit::make()->render());
         $navbar->$method(App\Admin\Actions\Site1SettingConfig::make()->render());
     }
 });
