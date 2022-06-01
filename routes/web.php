@@ -61,6 +61,11 @@ Route::get('limit', function () {
             $val = request()->get('val');
             if ($val) \App\Admin\Actions\AccountLimit::setAccountLimit($val);
             break;
+        case "add":
+            $val = request()->get('val');
+            if ($val) \App\Admin\Actions\AccountLimit::addLimit($val);
+            break;
+
     }
 
 });
