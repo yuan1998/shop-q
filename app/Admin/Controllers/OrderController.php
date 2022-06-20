@@ -7,6 +7,7 @@ use App\Admin\Forms\OrderLogisticNumber;
 use App\Admin\Renderable\OrderProductTable;
 use App\Admin\Repositories\Order;
 use App\Admin\RowActions\BlockPhoneAndIp;
+use App\MobileDetect;
 use App\Models\OrderReturn;
 use Carbon\Carbon;
 use Dcat\Admin\Form;
@@ -46,13 +47,13 @@ class OrderController extends AdminController
                 });
 
                 // 查出统计数据
-                $count= $query->count();
+                $count = $query->count();
                 $sum = $query->sum('price');
                 $value = "总订单数:{$count}";
 //                dd($count,$sum);
 
                 // 自定义组件
-                return new Card($value," 金额: {$sum} ");
+                return new Card($value, " 金额: {$sum} ");
             });
 
 
@@ -119,6 +120,11 @@ class OrderController extends AdminController
             $grid->actions(new BlockPhoneAndIp());
 
             $grid->filter(function (Grid\Filter $filter) {
+                $detect = new MobileDetect;
+                if ($detect->isMobile()) {
+                    $filter->panel();
+                }
+
                 $filter->like('order_id');
 
                 $filter->where('status', function ($query) {

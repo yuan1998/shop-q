@@ -105,7 +105,8 @@ class HuPiPay
         return strripos($_SERVER['HTTP_USER_AGENT'], 'micromessenger');
     }
 
-    public static function networkUrl() {
+    public static function networkUrl()
+    {
         return Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
     }
 
@@ -174,7 +175,7 @@ class HuPiPay
             if ($result['errcode'] != 0) {
                 throw new \Exception($result['errmsg'], $result['errcode']);
             }
-
+            Log::info('debug : hupi 支付结果:', $result);
             $pay_url = $result['url'];
             header("Location: $pay_url");
             exit;
