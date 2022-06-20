@@ -192,6 +192,7 @@ export default {
             Toast.loading({
                 message: '下单中...',
                 forbidClick: true,
+                duration: 0
             });
             let isCart = [];
             let product = productData.value.map((row) => {
@@ -222,6 +223,7 @@ export default {
                     Toast.loading({
                         message: '下单成功跳转支付...',
                         forbidClick: true,
+                        duration: 0
                     });
                     isCart.length && cartDelete(isCart);
                     addOrder(id);
