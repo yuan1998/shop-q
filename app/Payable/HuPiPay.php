@@ -6,6 +6,7 @@ use App\Helper;
 use App\Models\Order;
 use App\Models\PayChannel;
 use Illuminate\Support\Facades\Log;
+use function Psy\debug;
 
 class HuPiPay
 {
@@ -19,7 +20,7 @@ class HuPiPay
         $siteurl = $protocol . $_SERVER['HTTP_HOST'];
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60 * 10);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_REFERER, $siteurl);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -112,7 +113,6 @@ class HuPiPay
 
     public static function payment($order, $payMethod, $request)
     {
-
         $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
         $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
 //        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
@@ -151,16 +151,11 @@ class HuPiPay
         $url = $payMethod->api_url ?: static::networkUrl();
 
         try {
+            Log::info('debug 请求支付:开始请求', ['url' => $url]);
             $response = HuPiPay::http_post($url, json_encode($data));
 
-            /**
-             * 支付回调数据
-             * @var array(
-             *      order_id, //支付系统订单ID
-             *      url //支付跳转地址
-             *  )
-             */
             $result = $response ? json_decode($response, true) : null;
+            Log::info('debug 请求支付:请求结果', ['url' => $result]);
 
 
             if (!$result) {
@@ -175,7 +170,6 @@ class HuPiPay
             if ($result['errcode'] != 0) {
                 throw new \Exception($result['errmsg'], $result['errcode']);
             }
-            Log::info('debug : hupi 支付结果:', $result);
             $pay_url = $result['url'];
             header("Location: $pay_url");
             exit;
