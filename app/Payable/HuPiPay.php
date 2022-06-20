@@ -5,6 +5,7 @@ namespace App\Payable;
 use App\Helper;
 use App\Models\Order;
 use App\Models\PayChannel;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use function Psy\debug;
 
@@ -18,8 +19,8 @@ class HuPiPay
 
         $protocol = (!empty ($_SERVER ['HTTPS']) && $_SERVER ['HTTPS'] !== 'off' || $_SERVER ['SERVER_PORT'] == 443) ? "https://" : "http://";
         $siteurl = $protocol . $_SERVER['HTTP_HOST'];
-        $proxy = '47.104.65.130';
-        $proxyPort = '8889';
+        $proxy = env('PROXY_HOST', '');
+        $proxyPort = env('PROXY_PROT', '');
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_TIMEOUT, 60 * 10);
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -157,8 +158,17 @@ class HuPiPay
         try {
             Log::info('debug 请求支付:开始请求', ['url' => $url]);
             $response = HuPiPay::http_post($url, json_encode($data));
-
             $result = $response ? json_decode($response, true) : null;
+//            $client = new Client();
+//            $response = $client->post($url, [
+//                'form_params' => $data,
+//                'verify' => false,
+//                'proxy' => env('PROXY_TEST','')
+//            ]);
+//            $result = $response->getBody()->getContents();
+//            $result = json_decode($result, true);
+
+
             Log::info('debug 请求支付:开始请求', ['url' => $result]);
 
 
