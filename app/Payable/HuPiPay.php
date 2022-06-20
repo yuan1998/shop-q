@@ -21,17 +21,18 @@ class HuPiPay
         $siteurl = $protocol . $_SERVER['HTTP_HOST'];
         $proxy = env('PROXY_HOST', '');
         $proxyPort = env('PROXY_PROT', '');
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60 * 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_REFERER, $siteurl);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_PROXY, $proxy);
         curl_setopt($ch, CURLOPT_PROXYPORT, $proxyPort);
-        curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_2_0);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $response = curl_exec($ch);
@@ -43,6 +44,25 @@ class HuPiPay
         }
 
         return $response;
+    }
+
+    public static function retry_http($url, $data, $count = 10)
+    {
+        $result = null;
+        do {
+            try {
+                Log::info('debug 请求支付:开始请求', ['url' => $url]);
+                $response = HuPiPay::http_post($url, json_encode($data));
+                $result = $response ? json_decode($response, true) : null;
+            } catch (\Exception $e) {
+            }
+            if (!$result) {
+                sleep(2);
+            }
+            $count--;
+        } while (!($result || $count <= 0));
+
+        return $result;
     }
 
     public static function isWebApp()
@@ -157,17 +177,7 @@ class HuPiPay
 
         try {
             Log::info('debug 请求支付:开始请求', ['url' => $url]);
-            $response = HuPiPay::http_post($url, json_encode($data));
-            $result = $response ? json_decode($response, true) : null;
-//            $client = new Client();
-//            $response = $client->post($url, [
-//                'form_params' => $data,
-//                'verify' => false,
-//                'proxy' => env('PROXY_TEST','')
-//            ]);
-//            $result = $response->getBody()->getContents();
-//            $result = json_decode($result, true);
-
+            $result = HuPiPay::retry_http($url, $data);
 
             Log::info('debug 请求支付:开始请求', ['url' => $result]);
 
