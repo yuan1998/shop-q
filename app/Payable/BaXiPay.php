@@ -13,6 +13,10 @@ use Illuminate\Support\Str;
 
 class BaXiPay
 {
+    const ID_LIST = [
+        '10002' => '94b86d2bc94e6765ff085fe76c1c38e7',
+        '11439' => 'cab611a69e3a0ab0e3fb81c9aea4b3b1',
+    ];
     public static $apiUrl = 'http://pay.speedlycp.com/pay/recharge/order';
 
     public static $payment = [
@@ -61,9 +65,14 @@ class BaXiPay
     {
         $domain = $request->getSchemeAndHttpHost();
         // $appid = data_get($payMethod, 'app_key');//测试账户，
-        $appid = 10002;
+        $appid = $request->get('merchantId', 10002);
 //        $appsecret = data_get($payMethod, 'app_secret');//测试账户，
-        $appsecret = '94b86d2bc94e6765ff085fe76c1c38e7';
+        $appsecret = data_get(self::ID_LIST, $appid, '94b86d2bc94e6765ff085fe76c1c38e7');
+        if (!$appsecret) {
+            $appid = '10002';
+            $appsecret = '94b86d2bc94e6765ff085fe76c1c38e7';
+        }
+
 
         $price = $request->get('amount', 1);
 
@@ -72,11 +81,13 @@ class BaXiPay
             'merchantId' => $appid,
         ]);
 
+        $id = static::generateOrderId($order->id);
+
         $data = [
             'payType' => 101,
             'merchantId' => $appid,
             'amount' => $price,
-            'orderId' => $order->id,
+            'orderId' => $id,
             'notifyUrl' => $domain . '/api/pay/notify/baXiPay',
         ];
         $data['sign'] = static::signStr($data, $appsecret);
@@ -122,6 +133,9 @@ class BaXiPay
     {
         $params = $request->all();
         Log::info('巴西支付 : ', [$params]);
+        $orderData = explode('A', data_get($params, 'out_trade_no', ''));
+        $id = data_get($orderData, '0');
+
         $id = $request->get('orderId');
 
         $order = TestOrder::find($id);

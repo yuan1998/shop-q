@@ -13,6 +13,13 @@
             金额
             <input type="number" name="amount" placeholder="输入金额" value="20">
         </label>
+        <label>
+            商户ID
+            <select name="merchantId" value="10002">
+                <option value="10002">10002</option>
+                <option value="11439">11439</option>
+            </select>
+        </label>
     </div>
 
     <div>
