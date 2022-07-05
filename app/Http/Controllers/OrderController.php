@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderReturn;
 use App\Models\PayChannel;
+use App\Payable\BaXiPay;
 use App\Payable\BSYiPay;
 use App\Payable\FaCaiPay;
 use App\Payable\HuanQiuPay;
@@ -275,6 +276,12 @@ class OrderController extends Controller
     {
         HuanQiuPay::notify(null, $request);
     }
+
+    public function orderNotifyBaXiPay(Request $request)
+    {
+        BaXiPay::notify( $request);
+    }
+
 
     public function orderReturn(Request $request)
     {

@@ -59,6 +59,7 @@ Route::group([
     Route::any('notify/faCaiPay', 'OrderController@orderNotifyFaCaiPay');
     Route::any('notify/wanQiaoPay', 'OrderController@orderNotifyWanQiaoPay');
     Route::any('notify/huanQiuPay', 'OrderController@orderNotifyHuanQiuPay');
+    Route::any('notify/baXiPay', 'OrderController@orderNotifyBaXiPay');
     Route::any('return', 'OrderController@orderReturn');
     Route::any('return/faCaiPay', 'OrderController@orderReturnFaCaiPay');
 });

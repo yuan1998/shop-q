@@ -47,6 +47,15 @@ Route::get('/clearmyblock', function () {
     return '清除成功';
 });
 
+
+Route::get('test_pay', function () {
+    return view('pay.test');
+});
+
+Route::post('test_pay', function () {
+    \App\Payable\BaXiPay::payment(request());
+});
+
 Route::get('404', function () {
     return view('404');
 });
