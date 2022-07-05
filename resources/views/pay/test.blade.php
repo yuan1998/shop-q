@@ -15,9 +15,9 @@
         </label>
         <label>
             商户ID
-            <select name="merchantId" value="10002">
-                <option value="10002">10002</option>
-                <option value="11439">11439</option>
+            <select name="merchantId" value="10055">
+                <option value="10055">10055</option>
+                <option value="10176">10176</option>
             </select>
         </label>
     </div>

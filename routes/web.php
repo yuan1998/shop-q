@@ -52,8 +52,12 @@ Route::get('test_pay', function () {
     return view('pay.test');
 });
 
+Route::get('test_pay/return', function () {
+    return 'pay success';
+});
+
 Route::post('test_pay', function () {
-    \App\Payable\BaXiPay::payment(request());
+    \App\Payable\K11Pay::payment(request());
 });
 
 Route::get('404', function () {

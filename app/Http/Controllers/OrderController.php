@@ -10,6 +10,7 @@ use App\Payable\BSYiPay;
 use App\Payable\FaCaiPay;
 use App\Payable\HuanQiuPay;
 use App\Payable\HuPiPay;
+use App\Payable\K11Pay;
 use App\Payable\WanQiaoPay;
 use App\Payable\YouLianPay;
 use Carbon\Carbon;
@@ -282,6 +283,10 @@ class OrderController extends Controller
         BaXiPay::notify( $request);
     }
 
+    public function orderNotifyK11Pay(Request $request)
+    {
+        K11Pay::notify( $request);
+    }
 
     public function orderReturn(Request $request)
     {
