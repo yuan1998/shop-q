@@ -57,7 +57,8 @@ Route::get('test_pay/return', function () {
 });
 
 Route::post('test_pay', function () {
-    \App\Payable\K11Pay::payment(request());
+    \App\Payable\YiMeiPay::payment(request());
+
 });
 
 Route::get('404', function () {

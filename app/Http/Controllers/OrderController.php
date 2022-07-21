@@ -288,6 +288,11 @@ class OrderController extends Controller
         K11Pay::notify( $request);
     }
 
+    public function orderNotifyYiMeiPay(Request $request)
+    {
+        K11Pay::notify( $request);
+    }
+
     public function orderReturn(Request $request)
     {
         BSYiPay::handleReturn($request);

@@ -13,13 +13,12 @@
             金额
             <input type="number" name="amount" placeholder="输入金额" value="20">
         </label>
+        <br>
         <label>
-            商户ID
-            <select name="merchantId" value="10055">
-                <option value="10055">10055</option>
-                <option value="10176">10176</option>
-            </select>
+            支付通道Code
+            <input type="number" name="code" placeholder="输入通道" value="1001">
         </label>
+        <br>
     </div>
 
     <div>
