@@ -25,6 +25,33 @@
         <button type="submit">Pay</button>
     </div>
 </form>
+<script>
+    (function() {
+        'use strict';
+        function getQueryParams(qs) {
+            qs = qs.split('+').join(' ');
 
+            var params = {},
+                tokens,
+                re = /[?&]?([^=]+)=([^&]*)/g;
+
+            while (tokens = re.exec(qs)) {
+                params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+            }
+
+            return params;
+        }
+
+        var query = getQueryParams(document.location.search);
+        for (const [key ,value] of Object.entries(query)) {
+
+            let el = document.querySelector(`[name=${key}]`);
+            console.log("el",el);
+            console.log("key",key,`[name=${key}]`);
+            if (el) el.value = value;
+        }
+        console.log("query",query);
+    })();
+</script>
 </body>
 </html>
