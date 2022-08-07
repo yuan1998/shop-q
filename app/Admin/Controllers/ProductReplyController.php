@@ -10,6 +10,7 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Faker\Generator;
+use Illuminate\Support\Facades\Storage;
 
 class ProductReplyController extends AdminController
 {
@@ -103,15 +104,22 @@ class ProductReplyController extends AdminController
             $form->display('updated_at');
             $form->saving(function (Form $form) {
                 $faker = \Faker\Factory::create();
+
                 if (!$form->input('thumb')) {
-                    $type = $faker->randomElement(['男', '女', '动漫男', '动漫女']);
-                    $result = file_get_contents("https://api.uomg.com/api/rand.avatar?sort={$type}&format=json");
-                    if ($imagePath = data_get(json_decode($result, true), 'imgurl')) {
-                        $form->input('thumb', $imagePath);
-                    } else {
-                        $imagePath = $faker->image(storage_path('app/public/faker'), 300, 300, null, false);
+                    $result = file_get_contents("https://picsum.photos/200");
+                    $imagePath = '';
+                    if ($result) {
+                        $path = 'faker/' . sha1(time()) . "_avatar.jpg";
+                        if (Storage::disk('public')->put($path, $result))
+                            $imagePath = $path;
+
+                    }
+                    if (!$imagePath) {
+
+                        $imagePath = $faker->image(storage_path('app/public/faker'), 200, 200, null, false);
                         $form->input('thumb', "faker/$imagePath");
                     }
+                    $form->input('thumb', $imagePath);
                 }
                 if (!$form->input('username')) {
                     $form->input('username', $faker->userName());
