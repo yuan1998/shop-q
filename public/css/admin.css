@@ -11,3 +11,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.dialog-table.dialog-table-container {
+    width: 100% !important;
+}

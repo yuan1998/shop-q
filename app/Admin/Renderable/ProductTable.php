@@ -20,7 +20,6 @@ class ProductTable extends LazyRenderable
             $grid->column('id');
             $grid->column('images')->display(function ($pictures) {
                 return collect(json_decode($pictures, true))->pluck('value');
-
             })->image('', 80, 80);
             $grid->column('title','商品标题');
             $grid->column('price','活动价');
