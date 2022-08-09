@@ -12,6 +12,7 @@ use App\Payable\MaPay;
 use App\Payable\MuJiePay;
 use App\Payable\WanQiaoPay;
 use App\Payable\XunHuPay;
+use App\Payable\YiMeiPay;
 use App\Payable\YiPay;
 use App\Payable\YouLianPay;
 
@@ -30,6 +31,7 @@ class PayChannel extends Model
     const FaCaiPay = 'Fa_Cai_Pay';
     const WanQiaoPay = 'Wan_Qiao_Pay';
     const HuanQiuPay = 'Huan_Qiu_Pay';
+    const YiMeiPay = 'Yi_Mei_Pay';
 
     public static $pay_method = [
         self::HiPi => '虎皮支付',
@@ -44,6 +46,7 @@ class PayChannel extends Model
         self::MaPay => '码支付',
         self::WanQiaoPay => '万乔支付',
         self::HuanQiuPay => '环球支付',
+        self::YiMeiPay => '亿美支付',
     ];
 
     public static $pay_model = [
@@ -59,6 +62,7 @@ class PayChannel extends Model
         self::FaCaiPay => FaCaiPay::class,
         self::WanQiaoPay => WanQiaoPay::class,
         self::HuanQiuPay => HuanQiuPay::class,
+        self::YiMeiPay => YiMeiPay::class,
     ];
 
     protected $fillable = [

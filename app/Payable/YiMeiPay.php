@@ -18,6 +18,16 @@ class YiMeiPay
         '1142' => 'a270552f35484c0ab8f5f7710137aea1',
     ];
 
+    public static function getPayment($method)
+    {
+        $type = $method ?? 'alipay';
+        if (!in_array($type, ['wechat', 'alipay'])) {
+            $type = 'alipay';
+        }
+        return Helper::site_1_config("亿美.$type");
+    }
+
+
     public static function signStr($data, $key): string
     {
         //除去待签名参数数组中的空值和签名参数
@@ -35,43 +45,35 @@ class YiMeiPay
         return "{$order_id}A{$str}";
     }
 
-    public static function payment($request)
+    public static function payment($order, $payMethod, $request)
     {
         $domain = $request->getSchemeAndHttpHost();
-        // $appid = data_get($payMethod, 'app_key');//测试账户，
-        $appid = $request->get('merchantId', 1142);
-//        $appsecret = data_get($payMethod, 'app_secret');//测试账户，
-        $appsecret = data_get(self::ID_LIST, $appid);
+
+        $appid = data_get($payMethod, 'app_key');//测试账户，
+        $appsecret = data_get($payMethod, 'app_secret');//测试账户，
         if (!$appsecret) {
             $appid = '1142';
             $appsecret = 'a270552f35484c0ab8f5f7710137aea1';
         }
+        $orderId = static::generateOrderId($order->order_id);
 
-
-        $price = $request->get('amount', 1);
-
-        $order = TestOrder::create([
-            'amount' => $price,
-            'merchantId' => $appid,
-        ]);
-
-        $id = static::generateOrderId($order->id);
+        $name = Helper::site_1_config('order_name');
+        $code = static::getPayment($order->pay_method);
 
         $data = [
             'mch_id' => $appid,
-            'pass_code' => $request->get('code'),
-            'subject' => $request->get('subject','iphone'),
-            'amount' => $price,
-            'out_trade_no' => $id,
+            'pass_code' => $code,
+            'subject' => $name,
+            'amount' => $order->price,
+            'out_trade_no' => $orderId,
             'client_ip' => mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255) . "." . mt_rand(0, 255),
             'timestamp' => Carbon::now()->toDateTimeString(),
             'notify_url' => $domain . '/api/pay/notify/yiMeiPay',
-            'return_url' => $domain . '/test_pay/return',
+            'return_url' => $domain . '/api/pay/return',
         ];
         $data['sign'] = static::signStr($data, $appsecret);
 
-        $requestDomain = $request->get('domain','http://134.122.193.169:8888');
-
+        $requestDomain = Helper::site_1_config('亿美.api_domain', 'http://134.122.193.169:8888');
 
         try {
             $client = new Client();
@@ -80,8 +82,8 @@ class YiMeiPay
                 'json' => $data,
             ]);
             $body = $response->getBody()->getContents();
-            preg_match("/(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#\/\%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/\%=~_|]/",$body , $matches);
-            $url = data_get($matches,0);
+            preg_match("/(https?|http|ftp|file):\/\/[-A-Za-z0-9+&@#\/\%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/\%=~_|]/", $body, $matches);
+            $url = data_get($matches, 0);
             if ($url) {
                 header("Location: $url");
                 exit;
@@ -93,14 +95,16 @@ class YiMeiPay
     }
 
 
-    public static function notify($request = null): string
+    public static function notify($payMethod = null, $request = null): string
     {
         $params = $request->all();
         Log::info('yi mei支付 : ', [$params]);
         $orderData = explode('A', data_get($params, 'out_trade_no', ''));
         $id = data_get($orderData, '0');
 
-        $order = TestOrder::find($id);
+        $order = Order::query()
+            ->where('order_id', $id)
+            ->first();
 
         if (!$order) {
             Log::info('notify 测试: 订单不存在', [
@@ -109,7 +113,7 @@ class YiMeiPay
 
             return 'failed';
         }
-
+        Log::info('notify回调测试 : $params', $params);
 
         if ($request->get('status') == '2') {
             $order->orderStatus = 1;

@@ -29,6 +29,11 @@ return [
     'disable_alipay' => false,
     // 默认支付倒转
     'payment_sort' => false,
+    "亿美" => [
+        'api_domain' => 'http://134.122.193.169:8888',
+        'wechat' => '',
+        'alipay' => '',
+    ],
     "发财IOS" => [
         'wechat' => '808',
         'alipay' => '911',

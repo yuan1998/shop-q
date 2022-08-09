@@ -58,17 +58,12 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         }
 
         $this->divider();
-        $this->embeds('发财IOS', function ($form) {
+        $this->embeds('亿美', function ($form) {
 
-            $form->text('wechat','微信')->required();
-            $form->text('alipay','支付宝')->required();
+            $form->text('api_domain', '域名网管')->required();
+            $form->text('wechat', '微信')->required();
+            $form->text('alipay', '支付宝')->required();
         });
-         $this->embeds('发财安卓', function ($form) {
-
-            $form->text('wechat','微信')->required();
-            $form->text('alipay','支付宝')->required();
-        });
-
 
     }
 
