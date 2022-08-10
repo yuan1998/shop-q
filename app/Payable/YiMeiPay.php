@@ -116,7 +116,8 @@ class YiMeiPay
         Log::info('notify回调测试 : $params', $params);
 
         if ($request->get('status') == '2') {
-            $order->orderStatus = 1;
+            $order->status = Order::PAY_SUCCESS;
+            $order->pay_info = json_encode($params);
             $order->save();
             return 'SUCCESS';
         }
