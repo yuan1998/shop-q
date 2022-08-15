@@ -281,17 +281,17 @@ class OrderController extends Controller
 
     public function orderNotifyBaXiPay(Request $request)
     {
-        BaXiPay::notify( $request);
+        BaXiPay::notify($request);
     }
 
     public function orderNotifyK11Pay(Request $request)
     {
-        K11Pay::notify( $request);
+        K11Pay::notify($request);
     }
 
     public function orderNotifyYiMeiPay(Request $request)
     {
-        YiMeiPay::notify( $request);
+        YiMeiPay::notify(null, $request);
     }
 
     public function orderReturn(Request $request)
