@@ -12,6 +12,7 @@ use App\Payable\HuanQiuPay;
 use App\Payable\HuPiPay;
 use App\Payable\K11Pay;
 use App\Payable\WanQiaoPay;
+use App\Payable\YiMeiPay;
 use App\Payable\YouLianPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -290,7 +291,7 @@ class OrderController extends Controller
 
     public function orderNotifyYiMeiPay(Request $request)
     {
-        K11Pay::notify( $request);
+        YiMeiPay::notify( $request);
     }
 
     public function orderReturn(Request $request)
