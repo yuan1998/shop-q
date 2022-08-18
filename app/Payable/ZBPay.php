@@ -59,6 +59,7 @@ class ZBPay
         $name = Helper::site_1_config('order_name');
         $code = static::getPayment($order->pay_method);
 
+        Log::info('ZBPay 生产ID', [$orderId]);
         $data = [
             'channel' => $code,
             'mark' => $name,
