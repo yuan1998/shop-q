@@ -14,6 +14,7 @@ use App\Payable\K11Pay;
 use App\Payable\WanQiaoPay;
 use App\Payable\YiMeiPay;
 use App\Payable\YouLianPay;
+use App\Payable\ZBPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -292,6 +293,11 @@ class OrderController extends Controller
     public function orderNotifyYiMeiPay(Request $request)
     {
         YiMeiPay::notify(null, $request);
+    }
+
+    public function orderNotifyZBPay(Request $request)
+    {
+        ZBPay::notify(null, $request);
     }
 
     public function orderReturn(Request $request)

@@ -34,6 +34,10 @@ return [
         'wechat' => '',
         'alipay' => '',
     ],
+    "ZBPAY" => [
+        'wechat' => '001',
+        'alipay' => '002',
+    ],
     "发财IOS" => [
         'wechat' => '808',
         'alipay' => '911',
