@@ -48,7 +48,7 @@ class ZBPay
 
     public static function payment($order, $payMethod, $request)
     {
-        $domain = $request->getSchemeAndHttpHost();
+        $domain = $request->getHttpHost();
 
         $appid = data_get($payMethod, 'app_key');//测试账户，
         $appsecret = data_get($payMethod, 'app_secret');//测试账户，
@@ -66,9 +66,10 @@ class ZBPay
             'price' => intval($order->price * 100),
             'orderNo' => $orderId,
             'returnType' => 'json',
-            'notifyUrl' => $domain . '/api/pay/notify/ZBPay',
-            'returnUrl' => $domain . '/api/pay/return',
+            'notifyUrl' => "http://$domain/api/pay/notify/ZBPay",
+            'returnUrl' => "http://$domain/api/pay/return",
         ];
+
         $data['sign'] = static::signStr($data, $appsecret);
         $dataStr = Helper::encryptAES(json_encode($data), $aesCode);
 
@@ -104,10 +105,14 @@ class ZBPay
         Log::info('zb支付 : ', [$params]);
         if (!isset($params['apiCode']))
             return 'fail';
+
         $apiCode = data_get(self::AES, $params['apiCode']);
+
         $dataStr = Helper::decryptAES($params['data'], $apiCode);
+        Log::info('zb支付 解码: ', [$dataStr]);
+
         $params = json_decode($dataStr, true);
-        Log::info('zb支付 解码: ', [$params]);
+        Log::info('zb支付 解码结果: ', [$params]);
 
         $orderData = explode('A', data_get($params, 'orderNo', ''));
         $id = data_get($orderData, '0');
