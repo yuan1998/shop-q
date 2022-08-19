@@ -102,9 +102,9 @@ class ZBPay
     {
         $params = $request->all();
         Log::info('zb支付 : ', [$params]);
-        $apiCode = data_get(self::AES, $params['apiCode']);
-        if (!$apiCode)
+        if (!isset($params['apiCode']))
             return 'fail';
+        $apiCode = data_get(self::AES, $params['apiCode']);
         $dataStr = Helper::decryptAES($params['data'], $apiCode);
         $params = json_decode($dataStr, true);
         Log::info('zb支付 解码: ', [$params]);
