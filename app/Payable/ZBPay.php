@@ -114,7 +114,7 @@ class ZBPay
         $params = json_decode($dataStr, true);
         Log::info('zb支付 解码结果: ', [$params]);
 
-        $orderData = explode('A', data_get($params, 'orderNo', ''));
+        $orderData = explode('A', data_get($params, 'downstreamNo', ''));
         $id = data_get($orderData, '0');
 
         $order = Order::query()
