@@ -297,7 +297,7 @@ class OrderController extends Controller
 
     public function orderNotifyZBPay(Request $request)
     {
-        ZBPay::notify(null, $request);
+        return ZBPay::notify(null, $request);
     }
 
     public function orderReturn(Request $request)
