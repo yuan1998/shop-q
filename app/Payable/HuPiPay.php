@@ -51,10 +51,11 @@ class HuPiPay
         $result = null;
         do {
             try {
-                Log::info('debug 请求支付:开始请求', ['url' => $url]);
+                Log::info('debug 2 . 请求支付:开始请求', ['url' => $url]);
                 $response = HuPiPay::http_post($url, json_encode($data));
                 $result = $response ? json_decode($response, true) : null;
             } catch (\Exception $e) {
+                Log::info('hupi pay 支付失败', [$e->getMessage()]);
             }
             if (!$result) {
                 sleep(2);
