@@ -201,6 +201,7 @@ class HuPiPay
         } catch (\Exception $e) {
             echo "errcode:{$e->getCode()},errmsg:{$e->getMessage()}";
             //TODO:处理支付调用异常的情况
+            exit;
         }
     }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed-icon" @click="showDialog">
+    <div v-if="!!wechatNum" class="fixed-icon" @click="showDialog">
         <van-image width="40"
                    height="40"
                    src="https://pic.imgdb.cn/item/6297261a0947543129b15dd0.png"
@@ -27,7 +27,7 @@ import copy from 'copy-to-clipboard';
 export default {
     setup() {
         const show = ref(false);
-        const wechatNum = lodash.get(window._setting_, 'customer_wechat', '测试微信号123')
+        const wechatNum = lodash.get(window._setting_, 'customer_wechat')
         const copyWechat = () => {
             copy(wechatNum, {
                 debug: true,
