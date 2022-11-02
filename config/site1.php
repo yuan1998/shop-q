@@ -23,6 +23,8 @@ return [
     // 创建的支付订单名
     'wan_qiao_pay_code' => '1661',
     'order_name' => '玲木优选',
+    // 隐藏微信图标
+    'hidden_wechat_icon' => false,
     // 禁止微信
     'disable_wechat' => false,
     // 禁止支付宝
