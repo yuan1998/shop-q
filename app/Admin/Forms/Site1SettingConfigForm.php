@@ -44,6 +44,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
         $this->switch('payment_sort', '默认支付倒转')->help('默认支付倒转');
         $this->text('mac169_api', 'mac169网关')->help('mac169网关');
+        $this->text('xunhu_api', '迅虎网关')->help('迅虎网关');
 
 
         switch (env('SITE_NAME', 'site1')) {

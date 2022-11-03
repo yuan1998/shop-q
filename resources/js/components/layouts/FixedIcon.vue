@@ -16,7 +16,6 @@
         <div class="wechat-info">
             添加微信号联系客服
         </div>
-
     </van-dialog>
 </template>
 <script>
