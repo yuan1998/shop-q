@@ -9,7 +9,7 @@
     />
 
     <title>{{data_get($setting,'web_title' , env('APP_TITLE'))}}</title>
-    <link rel="stylesheet" href="https://unpkg.zhimg.com/vant@3.2.7/lib/index.css">
+    <link rel="stylesheet" href="{{asset('/css/vant.css')}}">
     <link rel="stylesheet" href="{{mix('/site1/css/app.css')}}">
     <script src="{{asset('/js/cdnError.js')}}"></script>
     <script>
@@ -19,12 +19,12 @@
 <body>
 <div id="app"></div>
 <script src="{{asset('/js/amap-jsapi-loader.min.js')}}"></script>
-<script src="https://unpkg.zhimg.com/vue@3.2.10/dist/vue.global.prod.js"></script>
-<script src="https://unpkg.zhimg.com/vue-router@4.0.5/dist/vue-router.global.prod.js"></script>
-<script src="https://unpkg.zhimg.com/vant@3.2.7/lib/vant.js"></script>
-<script src="https://unpkg.zhimg.com/axios@0.25.0/dist/axios.min.js"></script>
-<script src="{{asset('/js/localstoragedb.min.js')}}" asset="{{asset('/js/localstoragedb.min.js')}}"></script>
-<script src="https://unpkg.zhimg.com/lodash@4.17.21/lodash.js"></script>
+<script src="{{asset('/js/vue.global.prod.js')}}"></script>
+<script src="{{asset('/js/vue-router.global.prod.js')}}"></script>
+<script src="{{asset('/js/vant.js')}}"></script>
+<script src="{{asset('/js/axios.min.js')}}"></script>
+<script src="{{asset('/js/localstoragedb.min.js')}}"></script>
+<script src="{{asset('/js/lodash.js')}}"></script>
 <script src="{{asset('/site1/js/manifest.js')}}"></script>
 <script src="{{asset('/site1/js/vendor.js')}}"></script>
 <script src="{{mix('/site1/js/app.js')}}"></script>
