@@ -57,8 +57,8 @@ class AccountLimit extends Action
         ]);
     }
 
-    public static function charge() {
-
-        HuPiPay::accountPayment();
+    public static function charge()
+    {
+        return HuPiPay::accountPayment();
     }
 }

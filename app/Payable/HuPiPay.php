@@ -145,6 +145,8 @@ class HuPiPay
     {
         $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
         $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        if (!$appid || !$appsecret)
+            return "功能未开启";
         $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
         $request = request();
         $domain = $request->getSchemeAndHttpHost();
