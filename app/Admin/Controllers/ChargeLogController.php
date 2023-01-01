@@ -13,8 +13,9 @@ use Dcat\Admin\Http\Controllers\AdminController;
 class ChargeLogController extends AdminController
 {
 
-    public function charge() {
-        HuPiPay::accountPayment();
+    public function charge()
+    {
+        return HuPiPay::accountPayment();
     }
 
     /**
