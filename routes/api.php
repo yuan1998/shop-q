@@ -52,6 +52,12 @@ Route::group([
     'prefix' => 'pay'
 ], function () {
     Route::get('/', 'OrderController@orderPay');
+    Route::group([
+        'prefix' => 'notify'
+    ] , function () {
+        Route::any('charge', 'OrderController@orderNotify');
+
+    });
     Route::any('notify', 'OrderController@orderNotify');
     Route::any('notify/hupi', 'OrderController@orderNotifyHupi');
     Route::any('notify/yiPay', 'OrderController@orderNotifyYiPay');

@@ -254,6 +254,10 @@ class OrderController extends Controller
     {
         return HuPiPay::notify(null, $request);
     }
+    public function chargeNotify(Request $request): string
+    {
+        return HuPiPay::accountNotify();
+    }
 
     public function orderNotifyYiPay(Request $request): string
     {

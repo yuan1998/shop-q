@@ -2,11 +2,15 @@
 
 namespace App\Payable;
 
+use App\Admin\Actions\AccountLimit;
 use App\Helper;
+use App\Models\ChargeLog;
 use App\Models\Order;
 use App\Models\PayChannel;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use function Psy\debug;
 
 class HuPiPay
@@ -46,7 +50,7 @@ class HuPiPay
         return $response;
     }
 
-    public static function retry_http($url, $data, $count = 10)
+    public static function retry_http($url, $data, $count = 3)
     {
         $result = null;
         do {
@@ -137,6 +141,62 @@ class HuPiPay
         return Helper::site_1_config('xunhu_api') ?? 'https://api.diypc.com.cn/payment/do.html';
     }
 
+    public static function accountPayment()
+    {
+        $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
+        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+        $request = request();
+        $domain = $request->getSchemeAndHttpHost();
+        $price = abs(AccountLimit::getAccountLimit());
+        $id = Str::uuid()->toString();
+
+        $data = array(
+            'version' => '1.1',//固定值，api 版本，目前暂时是1.1
+            'lang' => 'zh-cn', //必须的，zh-cn或en-us 或其他，根据语言显示页面
+            'plugins' => $my_plugin_id,//必须的，根据自己需要自定义插件ID，唯一的，匹配[a-zA-Z\d\-_]+
+            'appid' => $appid, //必须的，APPID
+            'trade_order_id' => $id, //必须的，网站订单ID，唯一的，匹配[a-zA-Z\d\-_]+
+            'payment' => $request->get('payment', 'alipay'),//必须的，支付接口标识：wechat(微信接口)|alipay(支付宝接口)
+            'type' => 'WAP',//固定值"WAP" H5支付必填
+            'wap_url' => $domain,//网站域名，H5支付必填
+            'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
+            'total_fee' => $price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
+            'title' => "账户充值", //必须的，订单标题，长度32或以内
+            'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
+            'notify_url' => $domain . '/api/pay/notify/charge', //必须的，支付成功异步回调接口
+            'return_url' => $domain . '/charge/success',//必须的，支付成功后的跳转地址
+            'callback_url' => $domain . '/charge/checkout',//必须的，支付发起地址（未支付或支付失败，系统会会跳到这个地址让用户修改支付信息）
+            'modal' => null, //可空，支付模式 ，可选值( full:返回完整的支付网页; qrcode:返回二维码; 空值:返回支付跳转链接)
+            'nonce_str' => str_shuffle(time())//必须的，随机字符串，作用：1.避免服务器缓存，2.防止安全密钥被猜测出来
+        );
+        $hashkey = $appsecret;
+
+        $data['hash'] = HuPiPay::generate_xh_hash($data, $hashkey);
+        $url = static::networkUrl();
+        try {
+            Log::info('debug 请求支付:开始请求', ['url' => $url]);
+            $result = HuPiPay::http_post($url, $data);
+
+            Log::info('debug 请求支付:开始请求', ['url' => $result]);
+
+            if (!$result) {
+                throw new \Exception('Internal server error', 500);
+            }
+
+            $pay_url = data_get($result, 'url');
+            if (!$pay_url)
+                dd($result);
+
+            header("Location: $pay_url");
+            exit;
+        } catch (\Exception $e) {
+            dd($e);
+            //TODO:处理支付调用异常的情况
+            exit;
+        }
+    }
+
     public static function payment($order, $payMethod, $request)
     {
         $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
@@ -203,6 +263,58 @@ class HuPiPay
             //TODO:处理支付调用异常的情况
             exit;
         }
+    }
+
+    public static function accountNotify(): string
+    {
+        $request = request();
+        $data = $request->post();
+        Log::info('account notify 测试', $data);
+
+        foreach ($data as $k => $v) {
+            $data[$k] = stripslashes($v);
+        }
+
+        if (!isset($data['hash']) || !isset($data['trade_order_id'])) {
+            Log::info('参数不存在');
+            return 'failed';
+        }
+
+        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+
+        //自定义插件ID,请与支付请求时一致
+        if (isset($data['plugins']) && $data['plugins'] != $my_plugin_id) {
+            Log::info('自定义插件ID,请与支付请求时一致');
+            return 'failed';
+        }
+
+        //商户订单ID
+        $trade_order_id = $data['trade_order_id'];
+        if (Cache::get($trade_order_id))
+            return 'success';
+
+//        $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
+        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        $hash = HuPiPay::generate_xh_hash($data, $appsecret);
+        if ($data['hash'] != $hash) {
+            Log::info('签名验证失败');
+            //签名验证失败
+            return 'failed';
+        }
+
+
+        if ($data['status'] == 'OD') {
+            $price = data_get($data, 'total_fee');
+            ChargeLog::create([
+                'uuid' => $trade_order_id,
+                'price' => $price
+            ]);
+            AccountLimit::addLimit($price);
+            Cache::put($trade_order_id, 1);
+        }
+
+//以下是处理成功后输出，当支付平台接收到此消息后，将不再重复回调当前接口
+        return 'success';
     }
 
     public static function notify($payMethod = null, $request = null): string

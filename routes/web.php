@@ -35,6 +35,17 @@ Route::group([
 });
 
 
+
+Route::get('/charge/success',function () {
+    return '充值成功';
+});
+
+Route::get('/charge/checkout',function () {
+    return '未支付或支付失败';
+});
+
+
+
 Route::get('/whereismyip', function () {
     $ip = request()->ip();
     $ipAddress = BlackList::config('ip');

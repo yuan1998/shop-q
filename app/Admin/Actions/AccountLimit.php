@@ -3,9 +3,11 @@
 namespace App\Admin\Actions;
 
 use App\Admin\Forms\Site1SettingConfigForm;
+use App\Payable\HuPiPay;
 use Dcat\Admin\Actions\Action;
 use Dcat\Admin\Widgets\Modal;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class AccountLimit extends Action
 {
@@ -53,5 +55,10 @@ class AccountLimit extends Action
             'maxLimit' => $maxLimit,
             'count' => $count,
         ]);
+    }
+
+    public static function charge() {
+
+        HuPiPay::accountPayment();
     }
 }
