@@ -183,7 +183,7 @@ class HuPiPay
             if (!$result) {
                 throw new \Exception('Internal server error', 500);
             }
-
+            $result = json_decode($result,true);
             $pay_url = data_get($result, 'url');
             if (!$pay_url)
                 dd($result);
