@@ -22,8 +22,8 @@ Route::group([
         'prefix' => 'charge_log'
     ], function (Router $router) {
         $router->get('charge', 'ChargeLogController@charge')->name('admin.account.limit.charge');
-
     });
+
     $router->resource('charge_logs', 'ChargeLogController');
     $router->resource('attributes', 'AttributeController');
     $router->resource('categories', 'CategoryController');

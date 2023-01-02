@@ -42,7 +42,7 @@ class ZBPay
 
     public static function generateOrderId($order_id)
     {
-        $str = Helper::generateStr(9);
+        $str = Helper::generateStr(4);
         return "{$order_id}A{$str}";
     }
 
