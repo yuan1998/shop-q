@@ -13,6 +13,11 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+
+    Route::get('/charge', function () {
+        return view('pay.qrcode');
+    })->name('admin.account.charge.view');
+
     $router->group([
         'prefix' => 'charge_log'
     ], function (Router $router) {
