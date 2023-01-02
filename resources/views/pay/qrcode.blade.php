@@ -10,7 +10,7 @@
 <div style="display:flex;align-items: center;justify-content: center;width: 100vw;height: 100vh;">
     <div style="display: inline-block;text-align: center;">
         <img style="display: inline-block; width: 25vw; " src="{{asset("storage/qr_code_1.png")}}" alt="">
-        <p>支付成功请耐心等待系统到账...</p>
+        <p>支付成功后请耐心等待系统到账...</p>
     </div>
 </div>
 
