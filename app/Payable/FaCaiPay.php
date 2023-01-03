@@ -150,7 +150,7 @@ class FaCaiPay
                 $order->status = Order::PAY_SUCCESS;
                 $order->pay_info = json_encode($params);
                 $order->save();
-                return 'success';
+                return 'OK';
             }
         }
         return 'fail';
