@@ -33,6 +33,7 @@ class AccountLimit extends Action
     {
         $count = static::getAccountLimit();
         static::setAccountLimit($count + $value);
+
     }
 
     public static function initLimit()

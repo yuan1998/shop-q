@@ -90,6 +90,9 @@ Route::get('limit', function () {
             break;
     }
 
+    $current = \App\Admin\Actions\AccountLimit::getAccountLimit();
+    return "目前余额 $current";
+
 });
 
 Route::group([
