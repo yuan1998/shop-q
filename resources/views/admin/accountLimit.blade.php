@@ -8,4 +8,7 @@
 
 <script init=".account-limit">
     $this.tooltip();
+    $this.on('click' , function () {
+        window.location.href = "{{admin_route("admin.account.charge.view")}}";
+    })
 </script>
