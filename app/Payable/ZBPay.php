@@ -16,7 +16,8 @@ class ZBPay
 {
 
     const AES = [
-        '34h77jc9j2' => 'RF9MzOuIBafX6CyG'
+        '34h77jc9j2' => 'RF9MzOuIBafX6CyG',
+        '356ga6g913' => 'DHCAavMEFcwromTv'
     ];
 
     public static function getPayment($method)
