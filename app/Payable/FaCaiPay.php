@@ -119,6 +119,10 @@ class FaCaiPay
             Log::info('notify 测试: 返回数据不对');
         $params = $request->all();
         $id = data_get($params, 'orderid', '');
+
+        $orderData = explode('A', $id);
+        $id = data_get($orderData, '0');
+
         Log::info('notify回调测试 : $id', [
             'id' => $id
         ]);

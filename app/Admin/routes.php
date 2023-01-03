@@ -15,7 +15,11 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     Route::get('/charge', function () {
-        return view('pay.qrcode');
+        $url = env('QR_CODE_URL');
+        if(!$url) return '充值未开放';
+        return view('pay.qrcode',[
+            'url' => $url
+        ]);
     })->name('admin.account.charge.view');
 
     $router->group([
