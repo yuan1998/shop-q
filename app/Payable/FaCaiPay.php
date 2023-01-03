@@ -73,8 +73,6 @@ class FaCaiPay
             'pay_memberid' => $appid,
             'pay_amount' => round($order->price, 2) * 100,
 //            'pay_productname' =>  Helper::site_1_config('order_name'),
-            'pay_notifyurl' => $notifyUrl,
-            'pay_returnurl' => $returnUrl,
             'pay_orderid' => $order->order_id,
         ];
         $data['pay_md5sign'] = static::signStr(array_merge($data, [
@@ -116,6 +114,9 @@ class FaCaiPay
 
     public static function notify($payMethod = null, $request = null): string
     {
+        $request = $request ?: request();
+        if (!$request->has(["memberid", "orderid", "amount", "datetime", "transaction_id", "returncode"]))
+            Log::info('notify 测试: 返回数据不对');
         $params = $request->all();
         $id = data_get($params, 'orderid', '');
         Log::info('notify回调测试 : $id', [
@@ -134,23 +135,18 @@ class FaCaiPay
         }
 
         Log::info('notify回调测试 : $params', $params);
-        $payMethod = $payMethod ?? $order->getPayment();
 
-        if (static::verifyNotify(array_merge($params, [
-            'pay_time' => urlencode($params['pay_time'])
-        ]), $payMethod)) {
-            if (data_get($params, 'returncode') === '00') {
-                Log::info('notify回调测试 : $order', [
-                    $order
-                ]);
+        if (data_get($params, 'returncode') === '00') {
+            Log::info('notify回调测试 : $order', [
+                $order
+            ]);
 
-                if ($order->status === Order::UN_PAY) {
-                    Log::info('支付成功;', []);
-                    $order->status = Order::PAY_SUCCESS;
-                    $order->pay_info = json_encode($params);
-                    $order->save();
-                    return 'success';
-                }
+            if ($order->status === Order::UN_PAY) {
+                Log::info('支付成功;', []);
+                $order->status = Order::PAY_SUCCESS;
+                $order->pay_info = json_encode($params);
+                $order->save();
+                return 'success';
             }
         }
         return 'fail';
