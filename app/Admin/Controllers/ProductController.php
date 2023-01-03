@@ -130,6 +130,10 @@ class ProductController extends AdminController
                 $attribute = Attribute::find($model->attribute_id);
 
                 $form->hidden('skus');
+                $form->number('once_limit', '单次限购')
+                    ->default(0)
+                    ->help("0表示不限")
+                    ->rules('min:0');
                 $form->text('title')->required();
                 $form->currency('price')->symbol('¥')->required();
                 $form->currency('origin_price')->symbol('¥')->required();

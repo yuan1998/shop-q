@@ -45,9 +45,10 @@
                 </div>
                 <van-field name="stepper" label="购买数量" input-align="right">
                     <template #input>
-                        <van-stepper v-model="count"/>
+                        <van-stepper v-model="count" :max="product.once_limit ? product.once_limit : 999"/>
                     </template>
                 </van-field>
+                <p style="font-size: var(--van-cell-font-size);color: var(--van-field-label-color);" v-if="product.once_limit">商品每次限购{{ product.once_limit }}件</p>
             </div>
             <div class="action-content_footer">
                 <van-divider/>

@@ -28,6 +28,7 @@ class Product extends EloquentRepository
                 'attributes',
                 'skus',
                 'created_at',
+                'once_limit',
             ])
             ->with(['categories' => function ($query) {
                 $query->select([
