@@ -27,6 +27,7 @@ class Order extends EloquentRepository
                 'pay_method',
                 'pay_date',
                 'custom_info',
+                'pay_channel_id',
                 'created_at',
                 'logistic_number',
                 'comment',
