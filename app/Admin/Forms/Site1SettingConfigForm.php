@@ -61,12 +61,6 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         }
 
         $this->divider();
-        $this->embeds('亿美', function ($form) {
-
-            $form->text('api_domain', '域名网管')->required();
-            $form->text('wechat', '微信')->required();
-            $form->text('alipay', '支付宝')->required();
-        });
         $this->embeds('ZBPAY', 'ZB支付', function ($form) {
             $form->text('wechat', '微信')->required();
             $form->text('alipay', '支付宝')->required();
@@ -75,6 +69,11 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
             $form->text('wechat', '微信')->required();
             $form->text('alipay', '支付宝')->required();
         });
+        $this->embeds('KongLongPAY', '恐龙支付', function ($form) {
+            $form->text('wechat', '微信')->required();
+            $form->text('alipay', '支付宝')->required();
+        });
+
 
 
     }

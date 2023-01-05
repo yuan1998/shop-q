@@ -7,6 +7,7 @@ use App\Payable\HuPiPay;
 use Dcat\Admin\Actions\Action;
 use Dcat\Admin\Widgets\Modal;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class AccountLimit extends Action
@@ -20,6 +21,7 @@ class AccountLimit extends Action
 
     public static function setAccountLimit($value)
     {
+        Log::debug("设置余额" , [$value]);
         Cache::put(self::KEY, $value);
     }
 

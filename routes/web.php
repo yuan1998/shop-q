@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\RestrictIpAddressMiddleware;
 use App\Models\BlackList;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,17 +76,21 @@ Route::get('404', function () {
 });
 Route::get('limit', function () {
     $action = request()->get('action');
+    $val = request()->get('val');
+
+    Log::debug("操作余额" , [
+        'action' => $action,
+        'val' => $val,
+    ]);
 
     switch ($action) {
         case "clear":
             \App\Admin\Actions\AccountLimit::setAccountLimit(0);
             break;
         case "change":
-            $val = request()->get('val');
             if ($val) \App\Admin\Actions\AccountLimit::setAccountLimit($val);
             break;
         case "add":
-            $val = request()->get('val');
             if ($val) \App\Admin\Actions\AccountLimit::addLimit($val);
             break;
     }

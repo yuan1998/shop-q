@@ -17,6 +17,7 @@ use App\Payable\YouLianPay;
 use App\Payable\ZBPay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -254,6 +255,7 @@ class OrderController extends Controller
     {
         return HuPiPay::notify(null, $request);
     }
+
     public function chargeNotify(Request $request): string
     {
         return HuPiPay::accountNotify();
@@ -302,6 +304,17 @@ class OrderController extends Controller
     public function orderNotifyZBPay(Request $request)
     {
         return ZBPay::notify(null, $request);
+    }
+
+    public function commonOrderNotify(Request $request)
+    {
+        $pay = $request->get('k');
+        $klass = data_get(PayChannel::$pay_model, $pay);
+        if ($klass)
+            return $klass::notify(null, $request);
+
+        Log::error("未配置通道", [$pay]);
+        return "未配置通道";
     }
 
     public function orderReturn(Request $request)
