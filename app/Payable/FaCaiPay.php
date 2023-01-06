@@ -44,7 +44,7 @@ class FaCaiPay
         return data_get($devicePayment, "$type");
     }
 
-    public static function signStr($data, $key, $up = true): string
+    public static function signStr($data, $key, $up = true,$prefix = '&key='): string
     {
         //除去待签名参数数组中的空值和签名参数
         $para_filter = Helper::paraFilter($data);
@@ -53,7 +53,7 @@ class FaCaiPay
         $para_sort = Helper::argSort($para_filter);
         $preStr = Helper::createLinkString($para_sort);
 
-        $str = Helper::md5Sign($preStr, "&key=$key");
+        $str = Helper::md5Sign($preStr, $prefix . "$key");
         if ($up)
             $str = strtoupper($str);
         return $str;
