@@ -29,7 +29,7 @@ class PayChannelController extends AdminController
 
             $grid->column('id')->sortable();
             $grid->column('app_key');
-            $grid->column('app_secret');
+            $grid->column('app_secret')->limit(30);
             $grid->column('comment')->editable();
             $grid->column('type')->using(\App\Models\PayChannel::$pay_method);
             $grid->column('enable')->switch();
