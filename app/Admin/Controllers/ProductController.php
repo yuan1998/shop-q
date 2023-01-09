@@ -58,8 +58,7 @@ class ProductController extends AdminController
                 });
             $grid->column('images')->display(function ($pictures) {
                 return collect(json_decode($pictures, true))->pluck('value');
-
-            })->image('', 100, 100);
+            })->image('/storage/', 100, 100);
 
 
             $grid->column('attributes')->display(function ($value) {

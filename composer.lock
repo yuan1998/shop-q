@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a380bcb84baaec2157b78c7ee948c9d7",
+    "content-hash": "270caf9c754f3ceebc1054b1b0fcaadc",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1483,6 +1483,60 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "jyil/log-viewer",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jyiL/log-viewer.git",
+                "reference": "65b42935ca1affd6d2f1cdc84a7ce6854f5b4605"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jyiL/log-viewer/zipball/65b42935ca1affd6d2f1cdc84a7ce6854f5b4605",
+                "reference": "65b42935ca1affd6d2f1cdc84a7ce6854f5b4605",
+                "shasum": ""
+            },
+            "require": {
+                "dcat/laravel-admin": "~2.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "dcat-admin": "Dcat\\Admin\\LogViewer\\LogViewerServiceProvider",
+                "laravel": {
+                    "providers": [
+                        "Dcat\\Admin\\LogViewer\\LogViewerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dcat\\Admin\\LogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jyiL",
+                    "email": "sal597685816@live.cn"
+                }
+            ],
+            "description": "log viewer",
+            "homepage": "https://github.com/jyil/log-viewer",
+            "keywords": [
+                "dcat-admin",
+                "extension"
+            ],
+            "support": {
+                "issues": "https://github.com/jyiL/log-viewer/issues",
+                "source": "https://github.com/jyiL/log-viewer/tree/1.0.4"
+            },
+            "time": "2021-02-05T06:46:45+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8789,8 +8843,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.5|^8.0"
+        "php": "^7.2.5|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
