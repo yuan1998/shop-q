@@ -54,7 +54,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        'super_bed' => [
+            'driver' => 'super_bed',
+            'token' => env("SUPER_BED_TOKEN"),
+            'category' => env("SUPER_BED_CATEGORY"),
+            'url' => env("SUPER_BED_URL"),
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

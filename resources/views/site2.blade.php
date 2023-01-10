@@ -17,13 +17,14 @@
 </head>
 <body>
 <div id="app"></div>
-<script src="{{asset('/js/amap-jsapi-loader.min.js')}}"></script>
-<script src="{{asset('/js/vue.global.prod.js')}}"></script>
-<script src="{{asset('/js/vue-router.global.prod.js')}}"></script>
-<script src="{{asset('/js/vant.js')}}"></script>
-<script src="{{asset('/js/axios.min.js')}}"></script>
-<script src="{{asset('/js/localstoragedb.min.js')}}"></script>
-<script src="{{asset('/js/lodash.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@amap/amap-jsapi-loader@1.0.1/dist/index.js" data-asset="{{asset('/js/amap-jsapi-loader.min.js')}}" onerror="onCdnError(this)"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.prod.js" data-asset="{{asset('/js/vue.global.prod.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.prod.js" data-asset="{{asset('/js/vue-router.global.prod.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@4.0.7/lib/vant.min.js" data-asset="{{asset('/js/vant.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.2.2/dist/axios.min.js" data-asset="{{asset('/js/axios.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/localstoragedb@2.3.2/localstoragedb.min.js" data-asset="{{asset('/js/localstoragedb.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" data-asset="{{asset('/js/lodash.js')}}"></script>
+
 <script src="{{mix('/site2/js/manifest.js')}}"></script>
 <script src="{{mix('/site2/js/vendor.js')}}"></script>
 <script src="{{mix('/site2/js/app.js')}}"></script>
