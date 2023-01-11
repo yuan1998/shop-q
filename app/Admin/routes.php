@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Dcat\Admin\Admin;
 
@@ -11,6 +12,9 @@ Route::group([
     'namespace' => config('admin.route.namespace'),
     'middleware' => config('admin.route.middleware'),
 ], function (Router $router) {
+
+    $router->get('limit/view' , 'LimitController@index');
+    $router->post('limit/action' , 'LimitController@action')->name('admin.limit.action');
 
     $router->get('/', 'HomeController@index');
 

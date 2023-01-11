@@ -74,31 +74,7 @@ Route::post('test_pay', function () {
 Route::get('404', function () {
     return view('404');
 });
-Route::get('limit', function () {
-    $action = request()->get('action');
-    $val = request()->get('val');
 
-    Log::debug("操作余额" , [
-        'action' => $action,
-        'val' => $val,
-    ]);
-
-    switch ($action) {
-        case "clear":
-            \App\Admin\Actions\AccountLimit::setAccountLimit(0);
-            break;
-        case "change":
-            if ($val) \App\Admin\Actions\AccountLimit::setAccountLimit($val);
-            break;
-        case "add":
-            if ($val) \App\Admin\Actions\AccountLimit::addLimit($val);
-            break;
-    }
-
-    $current = \App\Admin\Actions\AccountLimit::getAccountLimit();
-    return "目前余额 $current";
-
-});
 
 Route::group([
     'prefix' => 'pay'
