@@ -24,7 +24,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios@1.2.2/dist/axios.min.js" data-asset="{{asset('/js/axios.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/localstoragedb@2.3.2/localstoragedb.min.js" data-asset="{{asset('/js/localstoragedb.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" data-asset="{{asset('/js/lodash.js')}}"></script>
-
 <script src="{{mix('/site2/js/manifest.js')}}"></script>
 <script src="{{mix('/site2/js/vendor.js')}}"></script>
 <script src="{{mix('/site2/js/app.js')}}"></script>

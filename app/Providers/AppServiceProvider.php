@@ -20,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        Storage::extend('super_bed', function ($app, $config) {
+            return new Filesystem(new SuperBedAdapter($config));
+        });
     }
 
     /**

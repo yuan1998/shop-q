@@ -192,7 +192,7 @@ export default {
             })
         }
         const handleClickMsg = () => {
-            Toast('请返回抖音联系客服');
+            Toast(settingKey("product_message_tip",'请返回抖音联系客服'));
         }
 
         provide('product', {
