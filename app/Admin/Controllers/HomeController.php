@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Forms\RateForm;
 use App\Admin\Metrics\Examples;
 use App\Http\Controllers\Controller;
 use Dcat\Admin\Http\Controllers\Dashboard;
@@ -32,5 +33,13 @@ class HomeController extends Controller
                     $column->row(new Examples\ProductOrders());
                 });
             });
+    }
+
+    public function rate(Content $content)
+    {
+        return $content
+            ->header('Dashboard')
+            ->description('Description...')
+            ->body(new RateForm());
     }
 }

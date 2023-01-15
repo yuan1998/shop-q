@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Admin\Actions\AccountLimit;
+use App\Helper;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +22,17 @@ class OrderObserver
 
             if (!$order->computed) {
                 $arr['computed'] = true;
-                $count = ceil((float)$order->price * (float)env('RATE'));
+
+                $rate = Helper::site_1_config("$order->pay_method.rate") ?: env('RATE');
+                $rate = (float)$rate;
+                if (!$rate)
+                    $rate = 0.05;
+                Log::debug('费率', [
+                    '支付方式' => $order->pay_menthod,
+                    '费率' => $rate,
+                ]);
+                $count = ceil((float)$order->price * $rate);
+
                 AccountLimit::lessLimit($count);
             }
 

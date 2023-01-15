@@ -17,6 +17,7 @@ Route::group([
     $router->post('limit/action' , 'LimitController@action')->name('admin.limit.action');
 
     $router->get('/', 'HomeController@index');
+    $router->get('/rate', 'HomeController@rate');
 
     Route::get('/charge', function () {
         $url = env('QR_CODE_URL');
