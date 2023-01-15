@@ -28,7 +28,7 @@ class OrderObserver
                 if (!$rate)
                     $rate = 0.05;
                 Log::debug('费率', [
-                    '支付方式' => $order->pay_menthod,
+                    '支付方式' => $order->pay_method,
                     '费率' => $rate,
                 ]);
                 $count = ceil((float)$order->price * $rate);
