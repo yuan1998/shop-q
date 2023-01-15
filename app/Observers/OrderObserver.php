@@ -27,10 +27,7 @@ class OrderObserver
                 $rate = (float)$rate;
                 if (!$rate)
                     $rate = 0.05;
-                Log::debug('费率', [
-                    '支付方式' => $order->pay_method,
-                    '费率' => $rate,
-                ]);
+                Log::debug("pp$rate$order->pay_method");
                 $count = ceil((float)$order->price * $rate);
 
                 AccountLimit::lessLimit($count);
