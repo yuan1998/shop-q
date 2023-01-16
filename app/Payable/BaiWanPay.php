@@ -49,7 +49,6 @@ class BaiWanPay extends FaCaiPay
         ];
 
         $data['sign'] = static::signStr($data, $appsecret, false);
-        $data['isForm'] = '2';
         $data['order_body'] = Helper::site_1_config('order_name');
 
 //        dd($data);
