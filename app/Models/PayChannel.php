@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Payable\BaiWanPay;
 use App\Payable\BSYiPay;
 use App\Payable\ChangLianPay;
 use App\Payable\FaCaiPay;
@@ -40,6 +41,7 @@ class PayChannel extends Model
     const KGPay = 'KG_Pay';
     const KongLongPay = 'KongLong_Pay';
     const WeiLaiXinPay = 'WeiLaiXin_Pay';
+    const BaiWanPay = 'BaiWan_Pay';
 
     public static $pay_method = [
         self::HiPi => '虎皮支付',
@@ -59,6 +61,7 @@ class PayChannel extends Model
         self::KGPay => 'KG支付',
         self::KongLongPay => '恐龙支付',
         self::WeiLaiXinPay => '未来星支付',
+        self::BaiWanPay => '百万支付',
     ];
 
     public static $pay_model = [
@@ -79,6 +82,7 @@ class PayChannel extends Model
         self::KGPay => KGPay::class,
         self::KongLongPay => KongLongPay::class,
         self::WeiLaiXinPay => WeiLaiXinPay::class,
+        self::BaiWanPay => BaiWanPay::class,
     ];
 
     protected $fillable = [
