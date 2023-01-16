@@ -78,7 +78,7 @@ class BaiWanPay extends FaCaiPay
                 header("Location: $url");
                 exit;
             }
-            dd($body,$a);
+            dd($body,$a,$data);
         } catch (GuzzleException $e) {
         }
     }

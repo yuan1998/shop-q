@@ -66,7 +66,7 @@ class KGPay extends FaCaiPay
                 header("Location: $url");
                 exit;
             }
-            dd($body);
+            dd($body,$a);
         } catch (GuzzleException $e) {
         }
     }
