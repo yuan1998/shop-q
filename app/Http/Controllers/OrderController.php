@@ -309,6 +309,8 @@ class OrderController extends Controller
     public function commonOrderNotify(Request $request)
     {
         $pay = $request->get('k');
+        $pay = explode('?', $pay);
+        $pay = data_get($pay, 0);
         $klass = data_get(PayChannel::$pay_model, $pay);
         if ($klass)
             return $klass::notify(null, $request);
