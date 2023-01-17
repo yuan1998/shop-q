@@ -112,7 +112,7 @@ class JInXunDaPay extends FaCaiPay
                 $order->status = Order::PAY_SUCCESS;
                 $order->pay_info = json_encode($params);
                 $order->save();
-                return 'ok';
+                return 'success';
             }
         }
         return 'fail';
