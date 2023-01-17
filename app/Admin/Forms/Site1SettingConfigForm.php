@@ -78,6 +78,11 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
             $form->text('wechat', '微信')->required();
             $form->text('alipay', '支付宝')->required();
         });
+        $this->embeds('JInXunDaPay', '金迅达支付', function ($form) {
+            $form->text('wechat', '微信')->required();
+            $form->text('alipay', '支付宝')->required();
+        });
+
 
 
 

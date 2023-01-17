@@ -74,6 +74,7 @@ class WanQiaoPay
         $str = str_shuffle(time());
 
         $orderId = "{$order->order_id}A{$str}";
+
         $data = [
             'order_sn' => $orderId,
             'money' => $order->price,
