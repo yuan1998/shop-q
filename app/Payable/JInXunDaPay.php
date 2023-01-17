@@ -80,7 +80,7 @@ class JInXunDaPay extends FaCaiPay
     {
         $request = $request ?: request();
         $params = $request->all();
-        $id = data_get($params, 'orderId', '');
+        $id = data_get($params, 'mchOrderNo', '');
 
         $orderData = explode('A', $id);
         $id = data_get($orderData, '0');
