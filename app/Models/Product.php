@@ -22,7 +22,6 @@ class Product extends Model
         'images',
         'attributes',
         'skus',
-
         'origin_price',
     ];
 

@@ -30,6 +30,7 @@ class OrderController extends Controller
             'count',
             'price',
             'payment',
+            'comment',
         ]);
 
         try {

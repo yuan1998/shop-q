@@ -159,6 +159,7 @@ class Order extends Model
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,
             'price' => data_get($data, 'price'),
+            'comment' => data_get($data, 'comment'),
             'pay_channel_id' => $payChannel->id,
             'ip' => request()->ip(),
         ];

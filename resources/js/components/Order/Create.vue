@@ -76,7 +76,7 @@
                     </div>
                 </template>
             </van-cell>
-            <van-field placeholder="选填, 建议先与商家协商一致">
+            <van-field placeholder="选填, 建议先与商家协商一致" v-model="comment">
                 <template #label>
                     <div class="card-product_info_title">
                         订单留言
@@ -170,6 +170,7 @@ export default {
                 phone: '',
                 address: ''
             },
+            comment: '',
             list: [],
         })
         const productData = ref([]);
@@ -212,6 +213,7 @@ export default {
                 let result = await storeProductsOrder({
                     product,
                     payment: data.payment,
+                    comment: data.comment,
                     custom_info: JSON.stringify({
                         '收货人': chosenLocation.name,
                         '收货人电话': chosenLocation.phone,
