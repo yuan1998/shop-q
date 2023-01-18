@@ -35,12 +35,17 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
     {
         $this->text('web_title', '网站名称')->required()->help('网站名称');
         $this->text('order_name', '订单标题')->required()->help('订单标题');
-        $this->text('customer_phone', '客服电话')->required()->help('客服电话');
-        $this->text('customer_wechat', '客服微信')->required()->help('客服微信');
+        $this->embeds('customer', '客服', function ($form) {
+            $form->switch('enable', '开启');
+            $form->text('propertyId', '属性ID');
+            $form->text('widgetId', '组件ID');
+        });
+
+
         $this->text('product_message_tip', '商品点击客服文字')->required()->help('商品页面点击客服文字');
 //        $this->text('logistic_url', '快递链接')->help('快递链接');
 //        $this->text('wan_qiao_pay_code', '环球支付通道')->help('环球支付通道');
-        $this->switch('hidden_wechat_icon', '隐藏首页微信图标')->help('隐藏首页微信图标');
+//        $this->switch('hidden_wechat_icon', '隐藏首页微信图标')->help('隐藏首页微信图标');
         $this->switch('disable_wechat', '隐藏微信支付')->help('隐藏微信支付');
         $this->switch('disable_alipay', '隐藏支付宝')->help('隐藏支付宝');
         $this->switch('payment_sort', '默认支付倒转')->help('默认支付倒转');

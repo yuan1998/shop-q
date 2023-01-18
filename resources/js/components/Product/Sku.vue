@@ -1,5 +1,5 @@
 <template>
-    <van-action-sheet v-model:show="show"
+    <van-action-sheet :show="show"
                       closeable
                       @close="hideSku"
     >

@@ -20,12 +20,13 @@
 </template>
 <script>
 import lodash from 'lodash'
-import {ref} from "vue";
+import {ref,inject} from "vue";
 import copy from 'copy-to-clipboard';
 
 export default {
     setup() {
         const show = ref(false);
+        // const toggle = inject('toggle');
         const hiddenWechat = lodash.get(window._setting_, 'hidden_wechat_icon')
         const wechatNum = lodash.get(window._setting_, 'customer_wechat')
         const copyWechat = () => {
