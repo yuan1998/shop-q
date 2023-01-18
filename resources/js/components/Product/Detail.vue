@@ -182,7 +182,8 @@ export default {
                 product_id: data.id,
                 image: data.data?.images[0]?.value,
                 title: data.data.title,
-                price: data.data.price
+                once_limit: data.data.once_limit,
+                price: data.data.price,
             };
             router.push({
                 path: '/order/create',

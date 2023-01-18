@@ -28,9 +28,13 @@
                         正品保障
                     </span>
             </div>
+            <div v-if="product.once_limit" class="card-product_text">
+                商品每次限购{{ product.once_limit }}件
+            </div>
         </template>
         <template #num>
-            <van-stepper v-model="product.count"/>
+            <van-stepper v-model="product.count" :max="product.once_limit ? product.once_limit : 999"/>
+
         </template>
     </van-card>
 </template>
