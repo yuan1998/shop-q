@@ -125,6 +125,7 @@ class Order extends Model
             'product_id' => $productId->join(','),
             'pay_method' => $payment,
             'custom_info' => data_get($data, 'custom_info'),
+            'comment' => data_get($data, 'comment'),
             'order_id' => static::generateOrderId(),
             'status' => static::UN_PAY,
             'price' => $totalPrice,

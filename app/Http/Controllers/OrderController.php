@@ -59,6 +59,7 @@ class OrderController extends Controller
             'product',
             'custom_info',
             'payment',
+            'comment',
         ]);
 
         try {
