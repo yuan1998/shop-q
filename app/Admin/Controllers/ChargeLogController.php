@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\Admin\Actions\AccountLimit;
 use App\Models\ChargeLog;
+use App\Models\Order;
 use App\Payable\HuPiPay;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
@@ -15,7 +16,22 @@ class ChargeLogController extends AdminController
 
     public function charge()
     {
-        return HuPiPay::accountPayment();
+//        $url = env('CHARGE_URL', 'https://pay.douyinpaypay.top/apy');
+        $url = env('CHARGE_URL', 'http://alipay.app.test/apy');
+        $price = request()->get('price');
+        $log = ChargeLog::create([
+            'uuid' => Order::generateOrderId(),
+            'price' => $price
+        ]);
+        $domain = request()->getSchemeAndHttpHost();
+        $notifyUrl = "{$domain}/api/pay/notify/charge";
+        $query = http_build_query([
+            'notify_url' => $notifyUrl,
+            'notify_id' => $log->uuid,
+            'price' => $price,
+        ]);
+
+        return redirect("{$url}?$query");
     }
 
     /**
@@ -28,6 +44,8 @@ class ChargeLogController extends AdminController
         return Grid::make(new ChargeLog(), function (Grid $grid) {
             $maxLimit = env('MAX_LIMIT');
             $count = AccountLimit::getAccountLimit();
+            $grid->model()
+                ->orderBy('id', 'desc');
             $grid->header(admin_view("admin.chargeLogHeader", [
                 'maxLimit' => $maxLimit,
                 'count' => $count,
@@ -42,8 +60,8 @@ class ChargeLogController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('uuid');
             $grid->column('price');
+            $grid->column('status','支付状态')->using(ChargeLog::STATUS_LIST);
             $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');

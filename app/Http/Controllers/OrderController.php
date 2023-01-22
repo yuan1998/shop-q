@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChargeLog;
 use App\Models\Order;
 use App\Models\OrderReturn;
 use App\Models\PayChannel;
@@ -260,7 +261,30 @@ class OrderController extends Controller
 
     public function chargeNotify(Request $request): string
     {
-        return HuPiPay::accountNotify();
+        $id = $request->get('id');
+        $log = ChargeLog::query()
+            ->where('uuid' , $id)
+            ->first();
+
+        if (!$log)
+            return '没有对应';
+
+        $price= $request->get('price');
+        $status = $request->get('status');
+        if ($price && $status === 'TRADE_SUCCESS') {
+            if ($log->status === ChargeLog::STATUS_UNPAY) {
+                $log->notify_date = now();
+                $log->status = ChargeLog::STATUS_PAYMENT;
+                $log->save();
+                \App\Admin\Actions\AccountLimit::addLimit($price);
+
+                return 'success';
+            }
+
+        }
+
+        return 'fail';
+
     }
 
     public function orderNotifyYiPay(Request $request): string
