@@ -16,8 +16,8 @@ class ChargeLogController extends AdminController
 
     public function charge()
     {
-//        $url = env('CHARGE_URL', 'https://pay.douyinpaypay.top/apy');
-        $url = env('CHARGE_URL', 'http://alipay.app.test/apy');
+        $url = env('CHARGE_URL', 'https://pay.douyinpaypay.top/apy');
+//        $url = env('CHARGE_URL', 'http://alipay.app.test/apy');
         $price = request()->get('price');
         $log = ChargeLog::create([
             'uuid' => Order::generateOrderId(),
