@@ -261,7 +261,7 @@ return [
     'upload' => [
 
         // Disk in `config/filesystem.php`.
-        'disk' => 'public',
+        'disk' => 'super_bed',
 
         // Image and file upload path under the disk above.
         'directory' => [

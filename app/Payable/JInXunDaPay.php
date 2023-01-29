@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class JInXunDaPay extends FaCaiPay
 {
+    public static $baseApi = "http://pay.jxda.xyz/";
 
     public static function getPayment($method)
     {
@@ -54,8 +55,8 @@ class JInXunDaPay extends FaCaiPay
 //        dd($data);
         try {
             $client = new Client();
-            // http://pay.jxda.xyz/api/pay/create_order
-            $api_url = $payMethod->api_url ?: "http://pay.jxda.xyz/";
+            // http://pay.guangsu.one/api/pay/create_order
+            $api_url = $payMethod->api_url ?: static::$baseApi;
 
             if (!$api_url)
                 throw new \Exception('没有配置支付网关!!');
@@ -70,7 +71,7 @@ class JInXunDaPay extends FaCaiPay
                 header("Location: $url");
                 exit;
             }
-            dd($body, $a,$data);
+            dd($body, $a, $data);
         } catch (GuzzleException $e) {
         }
     }

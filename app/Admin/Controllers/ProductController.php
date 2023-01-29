@@ -173,6 +173,8 @@ class ProductController extends AdminController
 
                 $form->table('images', '轮播图', function ($form) {
                     $form->image('value', '轮播图')
+                        ->disk('super_bed')
+                        ->uniqueName()
                         ->autoUpload()
                         ->removable(false)
                         ->required();
