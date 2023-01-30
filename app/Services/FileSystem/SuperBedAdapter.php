@@ -13,7 +13,8 @@ class SuperBedAdapter extends AbstractAdapter
 
     public $config;
     public $client;
-    public $unknown =[];
+    public $unknown = [];
+    public $lastReturn = null;
 
     public function __construct($config)
     {
@@ -21,34 +22,42 @@ class SuperBedAdapter extends AbstractAdapter
         $this->client = new SuperBedClient($config);
     }
 
-    public function upload($path ,$content , $is_stream=false) {
-        $originPath = $path;
-        $ext = pathinfo($path, PATHINFO_EXTENSION);
-        $ext = $ext ? ".$ext" : "";
-        $name = Str::uuid().time().$ext;
-        $path = "images/$name";
+    public function upload($path, $content, $is_stream = false)
+    {
+//        $originPath = $path;
+//        $ext = pathinfo($path, PATHINFO_EXTENSION);
+//        $ext = $ext ? ".$ext" : "";
+//        $name = Str::uuid() . time() . $ext;
+//        $path = "images/$name";
 
-        if (Storage::disk('public')->put($path,$content)) {
+        if (Storage::disk('public')->put($path, $content)) {
             $path = Storage::disk('public')->path($path);
             $result = $this->client->upload($path);
-            $url = data_get($result ,'url');
-            if ($url) {
-                $this->unknown[$originPath] = $url;
-                return $url;
+            $err = data_get($result, 'err');
+            if ($err !== 0) {
+                $msg = data_get($result, 'msg', '上传图片失败,请检查接口');
+                throw new \Exception($msg);
             }
 
-            $msg = data_get($result , 'msg' ,'上传图片失败,请检查接口');
-            throw new \Exception($msg);
+            $this->lastReturn = $result;
+            return $result;
+        } else {
+            throw new \Exception("保存文件错误");
         }
-        throw new \Exception("保存文件错误");
     }
 
-    public function getUrl($path) {
-        dd($path);
-        return data_get($this->unknown,$path,null);
-        $numargs = func_get_args();
-        dd($numargs);
+    public function getUrl($path)
+    {
+        $res = $this->getLastReturn();
+        return data_get($res,'url');
     }
+
+
+    public function getLastReturn()
+    {
+        return $this->lastReturn;
+    }
+
     /**
      * Write a new file.
      *

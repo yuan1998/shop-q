@@ -48,7 +48,8 @@
                         <van-stepper v-model="count" :max="product.once_limit ? product.once_limit : 999"/>
                     </template>
                 </van-field>
-                <p style="font-size: var(--van-cell-font-size);color: var(--van-field-label-color);" v-if="product.once_limit">商品每次限购{{ product.once_limit }}件</p>
+                <p style="font-size: var(--van-cell-font-size);color: var(--van-field-label-color);" v-if="product.once_limit">
+                    商品每次限购{{ product.once_limit }}件</p>
             </div>
             <div class="action-content_footer">
                 <van-divider/>
@@ -62,6 +63,7 @@
 
 import {onMounted, reactive, toRefs, computed, inject} from "vue";
 import {ImagePreview, Toast} from "vant";
+import {validURL} from "../../utily/string";
 
 export default {
     name: 'sku',
@@ -96,7 +98,7 @@ export default {
             data.select[key] = item.title;
 
             if (item.value) {
-                data.selectPhoto = `/storage/${item.value}`;
+                data.selectPhoto = validURL(item.value) ? item.value : `/storage/${item.value}`;
             }
 
         }
@@ -125,7 +127,7 @@ export default {
             }
             let value = product.images[0].value;
 
-            return `/storage/${value}`;
+            return validURL(value) ? value : `/storage/${value}`;
         })
 
         const imagePreview = (url) => {
@@ -146,7 +148,6 @@ export default {
             buyProduct(data);
             // emit('buy', data);
         }
-
 
 
         return {

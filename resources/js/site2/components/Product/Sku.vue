@@ -82,6 +82,7 @@
 
 import {onMounted, reactive, toRefs, computed, inject} from "vue";
 import {ImagePreview, Toast} from "vant";
+import {validURL} from "../../../utily/string";
 
 export default {
     name: 'sku',
@@ -117,7 +118,7 @@ export default {
             data.select[key] = item.title;
 
             if (item.value) {
-                data.selectPhoto = `/storage/${item.value}`;
+                data.selectPhoto = validURL(item.value) ? item.value : `/storage/${item.value}`;
             }
 
         }
@@ -145,7 +146,7 @@ export default {
             }
             let value = product.images[0].value;
 
-            return `/storage/${value}`;
+            return validURL(value) ? value : `/storage/${value}`;
         })
 
         const imagePreview = (url) => {

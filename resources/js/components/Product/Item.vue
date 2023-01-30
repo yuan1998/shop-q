@@ -5,7 +5,7 @@
                 <van-image
                     style="height:40vw;max-height: 400px;width: 100%;"
                     fit="cover"
-                    :src="`/storage/${image}`"
+                    :src="image"
                 />
             </div>
             <div class="product_meta">
@@ -34,15 +34,18 @@
 
 <script>
 
+import {validURL} from "../../utily/string";
+
 export default {
     name: 'product_item',
     props: ['data'],
     setup(props) {
-
         let {data} = props;
+        let image = validURL(data.image) ? data.image : `/storage/${data.image}`;
 
         return {
-            ...data
+            ...data,
+            image
         }
     }
 }
@@ -90,7 +93,7 @@ export default {
             margin-left: 10px;
             font-size: 16px;
             color: #b3b3b3;
-            text-decoration:line-through;
+            text-decoration: line-through;
         }
     }
 

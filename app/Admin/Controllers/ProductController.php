@@ -158,8 +158,12 @@ class ProductController extends AdminController
 //                dd($sku);
                         $form->table($sku['name'], function ($form) {
                             $form->image('value', '图片')
+                                ->disk('super_bed')
+                                ->saveFullUrl()
+                                ->uniqueName()
                                 ->autoUpload()
                                 ->width(50)
+                                ->resize(50, 50)
                                 ->removable(false);
                             $form->text('title', '名称')->required();
 //                    $form->number('stock' , '库存')->default(0)->width(50);
@@ -174,14 +178,14 @@ class ProductController extends AdminController
                 $form->table('images', '轮播图', function ($form) {
                     $form->image('value', '轮播图')
                         ->disk('super_bed')
+                        ->saveFullUrl()
                         ->uniqueName()
                         ->autoUpload()
                         ->removable(false)
                         ->required();
                 })->saveAsJson()->required();
 
-                $form->editor('description')->required();
-
+                $form->editor('description')->disk('super_bed')->required();
 
                 $form->tree('categories', '分配分类')
                     ->expand(false)

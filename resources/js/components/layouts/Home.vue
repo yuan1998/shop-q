@@ -17,7 +17,7 @@
                             height="100%"
                             width="100%"
                             fit="cover"
-                            :src="`/storage/${banner.image}`"
+                            :src="banner.image"
                             @click="handleClickSwiper(banner)"
                         />
                     </van-swipe-item>
@@ -46,6 +46,7 @@ import {Toast} from 'vant'
 import lodash from 'lodash'
 import ProductItem from '../Product/Item'
 import {settingKey} from "../../api/common";
+import {validURL} from "../../utily/string";
 
 const listMethod = async (page) => {
     let result = await getProductList(page);
@@ -81,7 +82,11 @@ export default {
 
         const getBanner = async () => {
             let result = await getBannerList();
-            data.banners = result.data;
+            let data = result.data || [];
+            data.banners = data.map((item) => {
+                item.image = validURL(item.image) ? item.image : `/storage/${item.image}`;
+                return item;
+            })
         }
 
         const onLoad = async () => {

@@ -9,7 +9,7 @@
             <div class="product_images">
                 <van-swipe :autoplay="3000" lazy-render class="product-image_swiper">
                     <van-swipe-item v-for="(image , index) in data.images" :key="index">
-                        <img class="product-image" :src="'/storage/' + image.value"/>
+                        <img class="product-image" :src="image.value"/>
                     </van-swipe-item>
                 </van-swipe>
             </div>
@@ -66,7 +66,7 @@
                         :reply="reply"
                     />
                     <template v-else>
-                        <div  class="empty">
+                        <div class="empty">
                             暂无评论
                         </div>
                     </template>
@@ -124,6 +124,7 @@ import {getProductDetail} from "../../api/api";
 import Sku from './Sku';
 import ReplyItem from './Reply/Item'
 import {settingKey} from "../../api/common";
+import {validURL} from "../../utily/string";
 
 export default {
     name: 'product_detail',
@@ -141,7 +142,7 @@ export default {
             id: '',
             like: false,
             data: {},
-            productInfoImage: settingKey('product_info_image','https://pic.imgdb.cn/item/61eabefc2ab3f51d91f5154c.png')
+            productInfoImage: settingKey('product_info_image', 'https://pic.imgdb.cn/item/61eabefc2ab3f51d91f5154c.png')
         });
 
         const productDetail = async (id) => {
@@ -149,9 +150,14 @@ export default {
             if (result.status === 0) {
                 let resultData = result.data;
                 let skus = JSON.parse(resultData.skus);
+                let images = JSON.parse(resultData.images) || [];
+                images = images.map((item) => {
+                    item.value = validURL(item.value) ? item.value : `/storage/${item.value}`;
+                    return item;
+                })
                 data.data = {
                     ...resultData,
-                    images: JSON.parse(resultData.images),
+                    images,
                     attributes: JSON.parse(resultData.attributes),
                     skus: skus,
                 }
@@ -193,7 +199,7 @@ export default {
             })
         }
         const handleClickMsg = () => {
-            Toast(settingKey("product_message_tip",'请返回抖音联系客服'));
+            Toast(settingKey("product_message_tip", '请返回抖音联系客服'));
         }
 
         provide('product', {
@@ -203,7 +209,7 @@ export default {
 
         return {
             ...toRefs(data),
-            img : settingKey('product_image','https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png'),
+            img: settingKey('product_image', 'https://pic.imgdb.cn/item/619aee2c2ab3f51d9156d104.png'),
             showSku,
             buyProduct,
             routerToOrder,

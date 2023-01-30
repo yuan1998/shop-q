@@ -9,7 +9,7 @@
             <div class="product_images">
                 <van-swipe :autoplay="3000" lazy-render class="product-image_swiper">
                     <van-swipe-item v-for="(image , index) in data.images" :key="index">
-                        <img class="product-image" :src="'/storage/' + image.value"/>
+                        <img class="product-image" :src="image.value"/>
                     </van-swipe-item>
                 </van-swipe>
             </div>
@@ -116,6 +116,7 @@ import Sku from './Sku';
 import ReplyItem from '../../../components/Product/Reply/Item'
 import {settingKey} from "../../../api/common";
 import {addProduct} from "../../../api/cart";
+import {validURL} from "../../../utily/string";
 
 export default {
     name: 'product_detail',
@@ -141,9 +142,14 @@ export default {
             if (result.status === 0) {
                 let resultData = result.data;
                 let skus = JSON.parse(resultData.skus);
+                let images = JSON.parse(resultData.images) || [];
+                images = images.map((item) => {
+                    item.value = validURL(item.value) ? item.value : `/storage/${item.value}`;
+                    return item;
+                })
                 data.data = {
                     ...resultData,
-                    images: JSON.parse(resultData.images),
+                    images,
                     attributes: JSON.parse(resultData.attributes),
                     skus: skus,
                 }

@@ -18,7 +18,7 @@
                             height="100%"
                             width="100%"
                             fit="cover"
-                            :src="`/storage/${banner.image}`"
+                            :src="banner.image"
                             @click="handleClickSwiper(banner)"
                         />
                     </van-swipe-item>
@@ -65,6 +65,7 @@ import ProductItem from '../../../components/Product/Item.vue'
 import Tabbar from './Tabbar.vue'
 import CopyRight from './CopyRight.vue'
 import {settingKey} from "../../../api/common.js";
+import {validURL} from "../../../utily/string";
 
 const listMethod = async (page) => {
     let result = await getProductList(page);
@@ -102,7 +103,11 @@ export default {
 
         const getBanner = async () => {
             let result = await getBannerList();
-            data.banners = result.data;
+            let data = result.data || [];
+            data.banners = data.map((item) => {
+                item.image = validURL(item.image) ? item.image : `/storage/${item.image}`;
+                return item;
+            })
         }
 
         const onLoad = async () => {
