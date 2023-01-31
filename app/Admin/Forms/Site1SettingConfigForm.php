@@ -67,19 +67,11 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
         }
 
         $this->divider();
-        $this->embeds('ZBPAY', 'ZB支付', function ($form) {
+        $this->embeds('GuangSuPay', '光速支付', function ($form) {
             $form->text('wechat', '微信')->required();
             $form->text('alipay', '支付宝')->required();
         });
         $this->embeds('KGPAY', 'KG支付', function ($form) {
-            $form->text('wechat', '微信')->required();
-            $form->text('alipay', '支付宝')->required();
-        });
-        $this->embeds('BaiWanPay', '百万支付', function ($form) {
-            $form->text('wechat', '微信')->required();
-            $form->text('alipay', '支付宝')->required();
-        });
-        $this->embeds('WeiLaiXinPay', '未来星支付', function ($form) {
             $form->text('wechat', '微信')->required();
             $form->text('alipay', '支付宝')->required();
         });

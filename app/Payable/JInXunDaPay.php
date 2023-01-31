@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Log;
 
 class JInXunDaPay extends FaCaiPay
 {
-    public static $baseApi = "http://pay.jxda.xyz/";
+    //http://pay.jxda.one/api/pay/create_order
+    public static $baseApi = "http://pay.jxda.one/";
 
     public static function getPayment($method)
     {
