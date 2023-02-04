@@ -4,7 +4,7 @@ return [
     'MAX_LIMIT' => env('MAX_LIMIT',0),
     'INIT_LIMIT' => env('INIT_LIMIT',0),
     'RATE' => env('RATE',0.05),
-    'SITE_NAME' => env('SITE_NAME'),
+    'SITE_NAME' => env('SITE_NAME','site1'),
     'PROXY_HOST' => env('PROXY_HOST'),
     'PROXY_PROT' => env('PROXY_PROT'),
     'HU_PI_PAY_APP_KEY' => env('HU_PI_PAY_APP_KEY'),
