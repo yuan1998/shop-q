@@ -23,7 +23,7 @@ class OrderObserver
             if (!$order->computed) {
                 $arr['computed'] = true;
 
-                $rate = Helper::site_1_config("$order->pay_method.rate") ?: env('RATE');
+                $rate = Helper::site_1_config("$order->pay_method.rate") ?: config('accountlimit.RATE');
                 $rate = (float)$rate;
                 if (!$rate)
                     $rate = 0.05;

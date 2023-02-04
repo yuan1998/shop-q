@@ -23,8 +23,8 @@ class HuPiPay
 
         $protocol = (!empty ($_SERVER ['HTTPS']) && $_SERVER ['HTTPS'] !== 'off' || $_SERVER ['SERVER_PORT'] == 443) ? "https://" : "http://";
         $siteurl = $protocol . $_SERVER['HTTP_HOST'];
-        $proxy = env('PROXY_HOST', '');
-        $proxyPort = env('PROXY_PROT', '');
+        $proxy = config('accountlimit.PROXY_HOST', '');
+        $proxyPort = config('accountlimit.PROXY_PROT', '');
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_TIMEOUT, 60);
@@ -143,11 +143,11 @@ class HuPiPay
 
     public static function accountPayment()
     {
-        $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
-        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+        $appid = config('accountlimit.HU_PI_PAY_APP_KEY');//测试账户，
+        $appsecret = config('accountlimit.HU_PI_PAY_APP_SECRET');//测试账户，
         if (!$appid || !$appsecret)
             return "功能未开启";
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+        $my_plugin_id = config('accountlimit.HU_PI_PAY_APP_PLUGIN');
         $request = request();
         $domain = $request->getSchemeAndHttpHost();
         $price = abs(AccountLimit::getAccountLimit());
@@ -162,7 +162,7 @@ class HuPiPay
             'payment' => $request->get('payment', 'alipay'),//必须的，支付接口标识：wechat(微信接口)|alipay(支付宝接口)
             'type' => 'WAP',//固定值"WAP" H5支付必填
             'wap_url' => $domain,//网站域名，H5支付必填
-            'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
+            'wap_name' => config('accountlimit.HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
             'total_fee' => $price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
             'title' => "账户充值", //必须的，订单标题，长度32或以内
             'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
@@ -201,10 +201,10 @@ class HuPiPay
 
     public static function payment($order, $payMethod, $request)
     {
-        $appid = data_get($payMethod, 'app_key', env('HU_PI_PAY_APP_KEY'));//测试账户，
-        $appsecret = data_get($payMethod, 'app_secret', env('HU_PI_PAY_APP_SECRET'));//测试账户，
-//        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+        $appid = data_get($payMethod, 'app_key', config('accountlimit.HU_PI_PAY_APP_KEY'));//测试账户，
+        $appsecret = data_get($payMethod, 'app_secret', config('accountlimit.HU_PI_PAY_APP_SECRET'));//测试账户，
+//        $appsecret = config('Haccountlimit.U_PI_PAY_APP_SECRET');//测试账户，
+        $my_plugin_id = config('accountlimit.HU_PI_PAY_APP_PLUGIN');
 //        $appid              = '201906120002';//测试账户，
 //        $appsecret          = '7a0967a8f830c9319c87e01e691b8f09';//测试账户，
         $domain = $request->getSchemeAndHttpHost();
@@ -218,7 +218,7 @@ class HuPiPay
             'payment' => $request->get('payment', 'wechat'),//必须的，支付接口标识：wechat(微信接口)|alipay(支付宝接口)
             'type' => 'WAP',//固定值"WAP" H5支付必填
             'wap_url' => $domain,//网站域名，H5支付必填
-            'wap_name' => env('HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
+            'wap_name' => config('accountlimit.HU_PI_PAY_HOME_NAME'),//网站域名，或者名字，必填，长度32或以内 H5支付必填
             'total_fee' => $order->price, //人民币，单位精确到分(测试账户只支持0.1元内付款)
             'title' => Helper::site_1_config('order_name'), //必须的，订单标题，长度32或以内
             'time' => time(),//必须的，当前时间戳，根据此字段判断订单请求是否已超时，防止第三方攻击服务器
@@ -282,7 +282,7 @@ class HuPiPay
             return 'failed';
         }
 
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+        $my_plugin_id = config('accountlimit.HU_PI_PAY_APP_PLUGIN');
 
         //自定义插件ID,请与支付请求时一致
         if (isset($data['plugins']) && $data['plugins'] != $my_plugin_id) {
@@ -295,8 +295,8 @@ class HuPiPay
         if (Cache::get($trade_order_id))
             return 'success';
 
-//        $appid = env('HU_PI_PAY_APP_KEY');//测试账户，
-        $appsecret = env('HU_PI_PAY_APP_SECRET');//测试账户，
+//        $appid = config('Haccountlimit.U_PI_PAY_APP_KEY');//测试账户，
+        $appsecret = config('accountlimit.HU_PI_PAY_APP_SECRET');//测试账户，
         $hash = HuPiPay::generate_xh_hash($data, $appsecret);
         if ($data['hash'] != $hash) {
             Log::info('签名验证失败');
@@ -334,7 +334,7 @@ class HuPiPay
             return 'failed';
         }
 
-        $my_plugin_id = env('HU_PI_PAY_APP_PLUGIN');
+        $my_plugin_id = config('accountlimit.HU_PI_PAY_APP_PLUGIN');
 
 
         //自定义插件ID,请与支付请求时一致

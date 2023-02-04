@@ -16,7 +16,7 @@ class AccountLimit extends Action
 
     public static function getAccountLimit(): int
     {
-        return (int)Cache::get(self::KEY, env('INIT_LIMIT'));
+        return (int)Cache::get(self::KEY, config('accountlimit.INIT_LIMIT'));
     }
 
     public static function setAccountLimit($value)
@@ -40,19 +40,19 @@ class AccountLimit extends Action
 
     public static function initLimit()
     {
-        static::setAccountLimit(env('INIT_LIMIT'));
+        static::setAccountLimit(config('accountlimit.INIT_LIMIT'));
     }
 
     public static function isBlock(): bool
     {
         $count = static::getAccountLimit();
-        $max = (int)env('MAX_LIMIT');
+        $max = (int)config('accountlimit.MAX_LIMIT');
         return $count <= $max;
     }
 
     public function render()
     {
-        $maxLimit = env('MAX_LIMIT');
+        $maxLimit = config('accountlimit.MAX_LIMIT');
         $count = static::getAccountLimit();
         return admin_view('admin.accountLimit', [
             'maxLimit' => $maxLimit,

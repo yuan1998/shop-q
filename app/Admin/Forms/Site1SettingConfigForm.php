@@ -53,7 +53,7 @@ class Site1SettingConfigForm extends Form implements LazyRenderable
 //        $this->text('xunhu_api', '迅虎网关')->help('迅虎网关');
 
 
-        switch (env('SITE_NAME', 'site1')) {
+        switch (config('accountlimit.SITE_NAME', 'site1')) {
             case 'site1' :
                 $this->text('index_header_image', '首页头图')->required()->help('首页头图');
                 $this->text('product_info_image', '商品信息')->required()->help('商品信息(7天无理由部位)');

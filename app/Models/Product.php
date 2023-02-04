@@ -40,18 +40,4 @@ class Product extends Model
         return $this->hasOne(Attribute::class, 'id', 'attribute_id');
     }
 
-    public static function fixProductImageToSuperBed() {
-        $arr = static::all();
-        foreach ($arr as $item) {
-            $description = $item->description;
-            dd($description);
-
-        }
-
-
-
-        dd($item);
-    }
-
-
 }

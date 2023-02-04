@@ -68,7 +68,7 @@ class Helper
 
     public static function site_1_config($key = null, $value = null, $name = null)
     {
-        $name = $name ?: env('SITE_NAME', 'site1');
+        $name = $name ?: config('accountlimit.SITE_NAME', 'site1');
 
         if (!$config = Cache::get("admin.{$name}.config")) {
             $config = config($name);

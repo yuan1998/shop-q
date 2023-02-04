@@ -16,7 +16,7 @@ class ChargeLogController extends AdminController
 
     public function charge()
     {
-        $url = env('CHARGE_URL', 'https://pay.douyinpaypay.top/apy');
+        $url = config('accountlimit.CHARGE_URL', 'https://pay.douyinpaypay.top/apy');
 //        $url = env('CHARGE_URL', 'http://alipay.app.test/apy');
         $price = request()->get('price');
         $log = ChargeLog::create([
@@ -42,7 +42,7 @@ class ChargeLogController extends AdminController
     protected function grid()
     {
         return Grid::make(new ChargeLog(), function (Grid $grid) {
-            $maxLimit = env('MAX_LIMIT');
+            $maxLimit = config('accountlimit.MAX_LIMIT');
             $count = AccountLimit::getAccountLimit();
             $grid->model()
                 ->orderBy('id', 'desc');
