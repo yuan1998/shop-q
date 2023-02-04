@@ -23,68 +23,19 @@ Route::group([
         RestrictIpAddressMiddleware::class,
     ]
 ], function () {
-    Route::get('/', function () {
-        if (\App\Admin\Actions\AccountLimit::isBlock())
-            return '欠费';
-
-        $setting = \App\Helper::site_1_config();
-        $siteName = env('SITE_NAME', 'site1');
-        return view($siteName, [
-            'setting' => $setting,
-        ]);
-    });
+    Route::get('/', 'WebController@index');
 });
 
 
-Route::get('/charge/success', function () {
-    return '充值成功';
-});
+Route::get('/charge/success', 'WebController@chargeSuccess');
 
-Route::get('/charge/checkout', function () {
-    return '未支付或支付失败';
-});
+Route::get('/charge/checkout','WebController@chargeError');
 
 
-Route::get('/whereismyip', function () {
-    $ip = request()->ip();
-    $ipAddress = BlackList::config('ip');
-    $block = $ipAddress->search($ip) === false ? '不在禁止名单' : '在禁止名单中';
-    return "$ip : $block";
-});
+Route::get('/whereismyip', 'WebController@whatIsMyIp');
 
-Route::get('/clearmyblock', function () {
-    RestrictIpAddressMiddleware::clearBlock();
-    return '清除成功';
-});
+Route::get('/clearmyblock', 'WebController@clearMyBlock');
 
 
-Route::get('test_pay', function () {
-    return view('pay.test');
-});
 
-Route::get('test_pay/return', function () {
-    return 'pay success';
-});
-
-Route::post('test_pay', function () {
-    \App\Payable\YiMeiPay::payment(request());
-});
-
-Route::get('404', function () {
-    return view('404');
-});
-
-
-Route::group([
-    'prefix' => 'pay'
-], function () {
-    Route::get('success', function () {
-        $data = request()->all();
-        dd('success', $data);
-    });
-    Route::get('checkout', function () {
-        $data = request()->all();
-        dd('checkout', $data);
-    });
-});
-
+Route::get('404','WebController@e404');

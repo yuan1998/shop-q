@@ -19,14 +19,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
     $router->get('/rate', 'HomeController@rate');
 
-    Route::get('/charge', function () {
-        $url = env('QR_CODE_URL');
-        if(!$url) return '充值未开放';
-        return view('pay.qrcode',[
-            'url' => $url
-        ]);
-    })->name('admin.account.charge.view');
-
     $router->group([
         'prefix' => 'charge_log'
     ], function (Router $router) {

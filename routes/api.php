@@ -73,16 +73,7 @@ Route::group([
 Route::group([
     'prefix' => 'setting'
 ], function () {
-    Route::get('/', function () {
-        return response()
-            ->json(\App\Helper::site_1_config());
-    });
+    Route::get('/', 'ApiController@setting');
 });
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('test', function () {
-    \App\Models\Product::fixProductImageToSuperBed();
-});
+Route::get('test', 'ApiController@test');
