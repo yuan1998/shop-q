@@ -144,9 +144,9 @@ export default {
             if (data.selectPhoto) {
                 return data.selectPhoto;
             }
-            let value = product.images[0].value;
-
-            return validURL(value) ? value : `/storage/${value}`;
+            let image = product.images[0].value;
+            return /http(s)?\:\/\//.test(image) ? image :
+                (/\/storage\//.test(image)  ? image : `/storage/${image}`)
         })
 
         const imagePreview = (url) => {
