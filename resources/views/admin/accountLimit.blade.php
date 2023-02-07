@@ -8,7 +8,7 @@
 
 <script init=".account-limit">
     $this.tooltip();
-    $this.on('click' , function () {
-        window.location.href = "{{admin_url("charge_logs")}}";
+    $this.on('click', function () {
+        window.location.href = "{{config("accountlimit.ENABLE_CHARGE") ?admin_url("charge_logs") : ""}}";
     })
 </script>
