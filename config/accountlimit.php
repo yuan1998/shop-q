@@ -1,5 +1,6 @@
 <?php
 return [
+    'ENABLE_CHARGE' => env('ENABLE_CHARGE' , false),
     'CHARGE_URL' =>  env('CHARGE_URL', 'https://pay.douyinpaypay.top/apy'),
     'MAX_LIMIT' => env('MAX_LIMIT',0),
     'INIT_LIMIT' => env('INIT_LIMIT',0),
